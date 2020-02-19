@@ -1,0 +1,1 @@
+{"isEntrypoint":true,"deps":["schord|lib/proto/messages.pb.dart","provider|lib/provider.dart","schord|lib/service.dart","schord|lib/instruction_widget.dart","schord|lib/vocal_widget.dart","flutter|lib/material.dart"],"parts":[],"conditionalDeps":[],"sdkDeps":[],"hasMain":false}
