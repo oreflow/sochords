@@ -21,6 +21,7 @@ class StringCombination extends $pb.GeneratedMessage {
     ..a<$core.int>(4, 'd', $pb.PbFieldType.O3)
     ..a<$core.int>(5, 'a', $pb.PbFieldType.O3)
     ..a<$core.int>(6, 'e2', $pb.PbFieldType.O3)
+    ..aOS(7, 'name')
     ..hasRequiredFields = false
   ;
 
@@ -92,6 +93,15 @@ class StringCombination extends $pb.GeneratedMessage {
   $core.bool hasE2() => $_has(5);
   @$pb.TagNumber(6)
   void clearE2() => clearField(6);
+
+  @$pb.TagNumber(7)
+  $core.String get name => $_getSZ(6);
+  @$pb.TagNumber(7)
+  set name($core.String v) { $_setString(6, v); }
+  @$pb.TagNumber(7)
+  $core.bool hasName() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearName() => clearField(7);
 }
 
 class PickInstruction extends $pb.GeneratedMessage {
@@ -197,41 +207,41 @@ class ChordInstruction extends $pb.GeneratedMessage {
   $core.List<Chord> get chords => $_getList(0);
 }
 
-enum Instruction_Instruction {
+enum InstructionSection_Instruction {
   pickInstruction, 
   chordInstruction, 
   notSet
 }
 
-class Instruction extends $pb.GeneratedMessage {
-  static const $core.Map<$core.int, Instruction_Instruction> _Instruction_InstructionByTag = {
-    1 : Instruction_Instruction.pickInstruction,
-    2 : Instruction_Instruction.chordInstruction,
-    0 : Instruction_Instruction.notSet
+class InstructionSection extends $pb.GeneratedMessage {
+  static const $core.Map<$core.int, InstructionSection_Instruction> _InstructionSection_InstructionByTag = {
+    1 : InstructionSection_Instruction.pickInstruction,
+    2 : InstructionSection_Instruction.chordInstruction,
+    0 : InstructionSection_Instruction.notSet
   };
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('Instruction', package: const $pb.PackageName('com.oreflow.schord'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('InstructionSection', package: const $pb.PackageName('com.oreflow.schord'), createEmptyInstance: create)
     ..oo(0, [1, 2])
     ..aOM<PickInstruction>(1, 'pickInstruction', subBuilder: PickInstruction.create)
     ..aOM<ChordInstruction>(2, 'chordInstruction', subBuilder: ChordInstruction.create)
     ..hasRequiredFields = false
   ;
 
-  Instruction._() : super();
-  factory Instruction() => create();
-  factory Instruction.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory Instruction.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  Instruction clone() => Instruction()..mergeFromMessage(this);
-  Instruction copyWith(void Function(Instruction) updates) => super.copyWith((message) => updates(message as Instruction));
+  InstructionSection._() : super();
+  factory InstructionSection() => create();
+  factory InstructionSection.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory InstructionSection.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  InstructionSection clone() => InstructionSection()..mergeFromMessage(this);
+  InstructionSection copyWith(void Function(InstructionSection) updates) => super.copyWith((message) => updates(message as InstructionSection));
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
-  static Instruction create() => Instruction._();
-  Instruction createEmptyInstance() => create();
-  static $pb.PbList<Instruction> createRepeated() => $pb.PbList<Instruction>();
+  static InstructionSection create() => InstructionSection._();
+  InstructionSection createEmptyInstance() => create();
+  static $pb.PbList<InstructionSection> createRepeated() => $pb.PbList<InstructionSection>();
   @$core.pragma('dart2js:noInline')
-  static Instruction getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Instruction>(create);
-  static Instruction _defaultInstance;
+  static InstructionSection getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<InstructionSection>(create);
+  static InstructionSection _defaultInstance;
 
-  Instruction_Instruction whichInstruction() => _Instruction_InstructionByTag[$_whichOneof(0)];
+  InstructionSection_Instruction whichInstruction() => _InstructionSection_InstructionByTag[$_whichOneof(0)];
   void clearInstruction() => clearField($_whichOneof(0));
 
   @$pb.TagNumber(1)
@@ -255,6 +265,31 @@ class Instruction extends $pb.GeneratedMessage {
   void clearChordInstruction() => clearField(2);
   @$pb.TagNumber(2)
   ChordInstruction ensureChordInstruction() => $_ensure(1);
+}
+
+class Instruction extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('Instruction', package: const $pb.PackageName('com.oreflow.schord'), createEmptyInstance: create)
+    ..pc<InstructionSection>(1, 'sections', $pb.PbFieldType.PM, subBuilder: InstructionSection.create)
+    ..hasRequiredFields = false
+  ;
+
+  Instruction._() : super();
+  factory Instruction() => create();
+  factory Instruction.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory Instruction.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  Instruction clone() => Instruction()..mergeFromMessage(this);
+  Instruction copyWith(void Function(Instruction) updates) => super.copyWith((message) => updates(message as Instruction));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static Instruction create() => Instruction._();
+  Instruction createEmptyInstance() => create();
+  static $pb.PbList<Instruction> createRepeated() => $pb.PbList<Instruction>();
+  @$core.pragma('dart2js:noInline')
+  static Instruction getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Instruction>(create);
+  static Instruction _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.List<InstructionSection> get sections => $_getList(0);
 }
 
 class Vocal extends $pb.GeneratedMessage {
