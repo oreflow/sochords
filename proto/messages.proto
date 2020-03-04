@@ -9,6 +9,7 @@ message StringCombination {
   int32 d = 4;
   int32 a = 5;
   int32 e2 = 6;
+  string name = 7;
 }
 
 message PickInstruction {
@@ -29,11 +30,14 @@ message ChordInstruction {
   repeated Chord chords = 1;
 }
 
-message Instruction {
+message InstructionSection {
   oneof instruction {
     PickInstruction pick_instruction = 1;
     ChordInstruction chord_instruction = 2;
   }
+}
+message Instruction {
+  repeated InstructionSection sections = 1;
 }
 
 message Vocal {

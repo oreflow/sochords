@@ -6,9 +6,12 @@ define(['dart_sdk', 'packages/schord/pick_instruction_widget', 'packages/flutter
   const pick_instruction_widget = packages__schord__pick_instruction_widget.pick_instruction_widget;
   const widget_inspector = packages__flutter__src__widgets__actions.src__widgets__widget_inspector;
   const text = packages__flutter__src__widgets__actions.src__widgets__text;
+  const basic = packages__flutter__src__widgets__actions.src__widgets__basic;
   const framework = packages__flutter__src__widgets__actions.src__widgets__framework;
   const messages$46pb = packages__schord__proto__messages$46pb.proto__messages$46pb;
   const instruction_widget = Object.create(dart.library);
+  const $map = dartx.map;
+  const $toList = dartx.toList;
   const CT = Object.create(null);
   dart.defineLazy(CT, {
     get C2() {
@@ -17,7 +20,7 @@ define(['dart_sdk', 'packages/schord/pick_instruction_widget', 'packages/flutter
         [_Location_parameterLocations]: null,
         [_Location_name]: "pickInstruction",
         [_Location_column]: 13,
-        [_Location_line]: 16,
+        [_Location_line]: 14,
         [_Location_file]: null
       });
     },
@@ -30,14 +33,14 @@ define(['dart_sdk', 'packages/schord/pick_instruction_widget', 'packages/flutter
         [_Location_parameterLocations]: C1 || CT.C1,
         [_Location_name]: null,
         [_Location_column]: 16,
-        [_Location_line]: 15,
+        [_Location_line]: 13,
         [_Location_file]: "org-dartlang-app:///packages/schord/instruction_widget.dart"
       });
     },
     get C3() {
       return C3 = dart.const({
-        __proto__: messages$46pb.Instruction_Instruction.prototype,
-        [_name]: "Instruction_Instruction.pickInstruction",
+        __proto__: messages$46pb.InstructionSection_Instruction.prototype,
+        [_name]: "InstructionSection_Instruction.pickInstruction",
         index: 0
       });
     },
@@ -47,7 +50,7 @@ define(['dart_sdk', 'packages/schord/pick_instruction_widget', 'packages/flutter
         [_Location_parameterLocations]: null,
         [_Location_name]: "data",
         [_Location_column]: 21,
-        [_Location_line]: 19,
+        [_Location_line]: 17,
         [_Location_file]: null
       });
     },
@@ -60,15 +63,58 @@ define(['dart_sdk', 'packages/schord/pick_instruction_widget', 'packages/flutter
         [_Location_parameterLocations]: C5 || CT.C5,
         [_Location_name]: null,
         [_Location_column]: 16,
-        [_Location_line]: 19,
+        [_Location_line]: 17,
         [_Location_file]: "org-dartlang-app:///packages/schord/instruction_widget.dart"
       });
     },
     get C7() {
       return C7 = dart.const({
-        __proto__: messages$46pb.Instruction_Instruction.prototype,
-        [_name]: "Instruction_Instruction.chordInstruction",
+        __proto__: messages$46pb.InstructionSection_Instruction.prototype,
+        [_name]: "InstructionSection_Instruction.chordInstruction",
         index: 1
+      });
+    },
+    get C10() {
+      return C10 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "spacing",
+        [_Location_column]: 17,
+        [_Location_line]: 23,
+        [_Location_file]: null
+      });
+    },
+    get C11() {
+      return C11 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "runSpacing",
+        [_Location_column]: 32,
+        [_Location_line]: 23,
+        [_Location_file]: null
+      });
+    },
+    get C12() {
+      return C12 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "children",
+        [_Location_column]: 49,
+        [_Location_line]: 23,
+        [_Location_file]: null
+      });
+    },
+    get C9() {
+      return C9 = dart.constList([C10 || CT.C10, C11 || CT.C11, C12 || CT.C12], widget_inspector._Location);
+    },
+    get C8() {
+      return C8 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C9 || CT.C9,
+        [_Location_name]: null,
+        [_Location_column]: 12,
+        [_Location_line]: 23,
+        [_Location_file]: "org-dartlang-app:///packages/schord/instruction_widget.dart"
       });
     }
   });
@@ -86,6 +132,12 @@ define(['dart_sdk', 'packages/schord/pick_instruction_widget', 'packages/flutter
   let C5;
   let C4;
   let C7;
+  const _getWidgetForSection = dart.privateName(instruction_widget, "_getWidgetForSection");
+  let C10;
+  let C11;
+  let C12;
+  let C9;
+  let C8;
   const instruction$ = dart.privateName(instruction_widget, "InstructionWidget.instruction");
   instruction_widget.InstructionWidget = class InstructionWidget extends framework.StatelessWidget {
     get instruction() {
@@ -94,11 +146,11 @@ define(['dart_sdk', 'packages/schord/pick_instruction_widget', 'packages/flutter
     set instruction(value) {
       super.instruction = value;
     }
-    build(context) {
-      switch (this.instruction.whichInstruction()) {
+    [_getWidgetForSection](section) {
+      switch (section.whichInstruction()) {
         case C3 || CT.C3:
         {
-          return new pick_instruction_widget.PickInstructionWidget.new({pickInstruction: this.instruction.pickInstruction, $creationLocationd_0dea112b090073317d4: C0 || CT.C0});
+          return new pick_instruction_widget.PickInstructionWidget.new({pickInstruction: section.pickInstruction, $creationLocationd_0dea112b090073317d4: C0 || CT.C0});
         }
         case C7 || CT.C7:
         default:
@@ -106,6 +158,9 @@ define(['dart_sdk', 'packages/schord/pick_instruction_widget', 'packages/flutter
           return new text.Text.new("Not supported", {$creationLocationd_0dea112b090073317d4: C4 || CT.C4});
         }
       }
+    }
+    build(context) {
+      return new basic.Wrap.new({spacing: 10.0, runSpacing: 0.0, children: this.instruction.sections[$map](framework.Widget, dart.bind(this, _getWidgetForSection))[$toList](), $creationLocationd_0dea112b090073317d4: C8 || CT.C8});
     }
   };
   (instruction_widget.InstructionWidget.new = function(opts) {
@@ -118,6 +173,7 @@ define(['dart_sdk', 'packages/schord/pick_instruction_widget', 'packages/flutter
   dart.addTypeTests(instruction_widget.InstructionWidget);
   dart.setMethodSignature(instruction_widget.InstructionWidget, () => ({
     __proto__: dart.getMethods(instruction_widget.InstructionWidget.__proto__),
+    [_getWidgetForSection]: dart.fnType(framework.Widget, [messages$46pb.InstructionSection]),
     build: dart.fnType(framework.Widget, [framework.BuildContext])
   }));
   dart.setLibraryUri(instruction_widget.InstructionWidget, "package:schord/instruction_widget.dart");
@@ -128,7 +184,7 @@ define(['dart_sdk', 'packages/schord/pick_instruction_widget', 'packages/flutter
   dart.trackLibraries("packages/schord/instruction_widget", {
     "package:schord/instruction_widget.dart": instruction_widget
   }, {
-  }, '{"version":3,"sourceRoot":"","sources":["instruction_widget.dart"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;IAKoB;;;;;;UAKQ;AAExB,cAAQ,AAAY;;;AAEhB,gBAAO,yEACc,AAAY;;;;;AAGjC,gBAAO,mBAAK;;;IAElB;;;QAbwB;;;AAAxB;;EAAqC","file":"instruction_widget.ddc.js"}');
+  }, '{"version":3,"sourceRoot":"","sources":["instruction_widget.dart"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;IAKoB;;;;;;2BAI6B;AAC7C,cAAQ,AAAQ,OAAD;;;AAEX,gBAAO,yEACc,AAAQ,OAAD;;;;;AAG5B,gBAAO,mBAAK;;;IAElB;UAG0B;AACxB,YAAO,8BAAc,kBAAkB,eAAe,AAAY,AAAS,AAA0B,4DAAtB;IACjF;;;QAhBwB;;;AAAxB;;EAAqC","file":"instruction_widget.ddc.js"}');
   // Exports:
   return {
     instruction_widget: instruction_widget
