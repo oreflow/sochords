@@ -7,6 +7,7 @@ define(['dart_sdk', 'packages/flutter/material', 'packages/flutter/src/rendering
   const dartx = dart_sdk.dartx;
   const colors = packages__flutter__material.src__material__colors;
   const custom_paint = packages__flutter__src__rendering__animated_size.src__rendering__custom_paint;
+  const flex = packages__flutter__src__rendering__animated_size.src__rendering__flex;
   const messages$46pb = packages__schord__proto__messages$46pb.proto__messages$46pb;
   const messages$46pbenum = packages__schord__proto__messages$46pbenum.proto__messages$46pbenum;
   const basic = packages__flutter__src__widgets__actions.src__widgets__basic;
@@ -33,7 +34,7 @@ define(['dart_sdk', 'packages/flutter/material', 'packages/flutter/src/rendering
         [_Location_parameterLocations]: null,
         [_Location_name]: "size",
         [_Location_column]: 21,
-        [_Location_line]: 98,
+        [_Location_line]: 99,
         [_Location_file]: null
       });
     },
@@ -43,7 +44,7 @@ define(['dart_sdk', 'packages/flutter/material', 'packages/flutter/src/rendering
         [_Location_parameterLocations]: null,
         [_Location_name]: "painter",
         [_Location_column]: 21,
-        [_Location_line]: 99,
+        [_Location_line]: 100,
         [_Location_file]: null
       });
     },
@@ -56,7 +57,7 @@ define(['dart_sdk', 'packages/flutter/material', 'packages/flutter/src/rendering
         [_Location_parameterLocations]: C1 || CT.C1,
         [_Location_name]: null,
         [_Location_column]: 19,
-        [_Location_line]: 97,
+        [_Location_line]: 98,
         [_Location_file]: "org-dartlang-app:///packages/schord/pick_instruction_widget.dart"
       });
     },
@@ -66,7 +67,7 @@ define(['dart_sdk', 'packages/flutter/material', 'packages/flutter/src/rendering
         [_Location_parameterLocations]: null,
         [_Location_name]: "data",
         [_Location_column]: 24,
-        [_Location_line]: 101,
+        [_Location_line]: 102,
         [_Location_file]: null
       });
     },
@@ -79,7 +80,7 @@ define(['dart_sdk', 'packages/flutter/material', 'packages/flutter/src/rendering
         [_Location_parameterLocations]: C5 || CT.C5,
         [_Location_name]: null,
         [_Location_column]: 19,
-        [_Location_line]: 101,
+        [_Location_line]: 102,
         [_Location_file]: "org-dartlang-app:///packages/schord/pick_instruction_widget.dart"
       });
     },
@@ -89,7 +90,7 @@ define(['dart_sdk', 'packages/flutter/material', 'packages/flutter/src/rendering
         [_Location_parameterLocations]: null,
         [_Location_name]: "children",
         [_Location_column]: 17,
-        [_Location_line]: 96,
+        [_Location_line]: 97,
         [_Location_file]: null
       });
     },
@@ -102,7 +103,7 @@ define(['dart_sdk', 'packages/flutter/material', 'packages/flutter/src/rendering
         [_Location_parameterLocations]: C8 || CT.C8,
         [_Location_name]: null,
         [_Location_column]: 27,
-        [_Location_line]: 95,
+        [_Location_line]: 96,
         [_Location_file]: "org-dartlang-app:///packages/schord/pick_instruction_widget.dart"
       });
     },
@@ -110,14 +111,24 @@ define(['dart_sdk', 'packages/flutter/material', 'packages/flutter/src/rendering
       return C12 = dart.const({
         __proto__: widget_inspector._Location.prototype,
         [_Location_parameterLocations]: null,
-        [_Location_name]: "children",
-        [_Location_column]: 7,
+        [_Location_name]: "mainAxisSize",
+        [_Location_column]: 9,
         [_Location_line]: 93,
         [_Location_file]: null
       });
     },
+    get C13() {
+      return C13 = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "children",
+        [_Location_column]: 7,
+        [_Location_line]: 94,
+        [_Location_file]: null
+      });
+    },
     get C11() {
-      return C11 = dart.constList([C12 || CT.C12], widget_inspector._Location);
+      return C11 = dart.constList([C12 || CT.C12, C13 || CT.C13], widget_inspector._Location);
     },
     get C10() {
       return C10 = dart.const({
@@ -170,7 +181,7 @@ define(['dart_sdk', 'packages/flutter/material', 'packages/flutter/src/rendering
       paint.strokeWidth = 1;
       let margin = (dart.notNull(size.height) - 6 * 1) / 7.0;
       for (let i = 1; i <= 6; i = i + 1) {
-        canvas.drawLine(new ui.Offset.new(0.0, i * margin), new ui.Offset.new(size.width, i * margin), paint);
+        canvas.drawLine(new ui.Offset.new(5.0, i * margin), new ui.Offset.new(dart.notNull(size.width) - 5, i * margin), paint);
         let fret = this.getFret(i);
         if (fret != null) {
           canvas.drawCircle(new ui.Offset.new(dart.notNull(size.width) / 2, i * margin), dart.notNull(size.width) / 3, paint);
@@ -229,6 +240,7 @@ define(['dart_sdk', 'packages/flutter/material', 'packages/flutter/src/rendering
   let C8;
   let C7;
   let C12;
+  let C13;
   let C11;
   let C10;
   const eightLabels = dart.privateName(pick_instruction_widget, "PickInstructionWidget.eightLabels");
@@ -253,7 +265,7 @@ define(['dart_sdk', 'packages/flutter/material', 'packages/flutter/src/rendering
       return "";
     }
     build(context) {
-      return new basic.Row.new({children: this.pickInstruction.picks[$asMap]()[$entries][$map](basic.Column, dart.fn(entry => new basic.Column.new({children: JSArrayOfWidget().of([new basic.CustomPaint.new({size: new ui.Size.new(40.0, 200.0), painter: new pick_instruction_widget._PickInstructionPainter.new(entry.value), $creationLocationd_0dea112b090073317d4: C0 || CT.C0}), new text.Text.new(this[_getLabelForIndex](entry.key), {$creationLocationd_0dea112b090073317d4: C4 || CT.C4})]), $creationLocationd_0dea112b090073317d4: C7 || CT.C7}), MapEntryOfint$StringCombinationToColumn()))[$toList](), $creationLocationd_0dea112b090073317d4: C10 || CT.C10});
+      return new basic.Row.new({mainAxisSize: flex.MainAxisSize.min, children: this.pickInstruction.picks[$asMap]()[$entries][$map](basic.Column, dart.fn(entry => new basic.Column.new({children: JSArrayOfWidget().of([new basic.CustomPaint.new({size: new ui.Size.new(40.0, 200.0), painter: new pick_instruction_widget._PickInstructionPainter.new(entry.value), $creationLocationd_0dea112b090073317d4: C0 || CT.C0}), new text.Text.new(this[_getLabelForIndex](entry.key), {$creationLocationd_0dea112b090073317d4: C4 || CT.C4})]), $creationLocationd_0dea112b090073317d4: C7 || CT.C7}), MapEntryOfint$StringCombinationToColumn()))[$toList](), $creationLocationd_0dea112b090073317d4: C10 || CT.C10});
     }
   };
   (pick_instruction_widget.PickInstructionWidget.new = function(opts) {
@@ -279,7 +291,7 @@ define(['dart_sdk', 'packages/flutter/material', 'packages/flutter/src/rendering
   dart.trackLibraries("packages/schord/pick_instruction_widget", {
     "package:schord/pick_instruction_widget.dart": pick_instruction_widget
   }, {
-  }, '{"version":3,"sourceRoot":"","sources":["pick_instruction_widget.dart"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;YAUkB;AACd,cAAQ,MAAM;;;AAEV,2BAAO,AAAkB,kCAAU,AAAkB,4BAAK;;;;AAE1D,2BAAO,AAAkB,iCAAS,AAAkB,2BAAI;;;;AAExD,2BAAO,AAAkB,iCAAS,AAAkB,2BAAI;;;;AAExD,2BAAO,AAAkB,iCAAS,AAAkB,2BAAI;;;;AAExD,2BAAO,AAAkB,iCAAS,AAAkB,2BAAI;;;;AAExD,2BAAO,AAAkB,kCAAU,AAAkB,4BAAK;;;;AAE1D,gBAAO;;;IAEb;UAGkB,QAAa;;AACzB,kBAAQ;AACmB,MAA/B,AAAM,KAAD,SAAgB;AACa,MAAlC,AAAM,KAAD;AAED,mBAA4C,CAAtB,aAAZ,AAAK,IAAD,WAAU,AAAE,SAAoB;AAElD,eAAS,IAAI,GAAG,AAAE,CAAD,IAAI,GAAG,IAAA,AAAC,CAAA;AAKtB,QAJD,AAAO,MAAD,UACJ,kBAAO,KAAG,AAAE,CAAD,GAAG,MAAM,GACpB,kBAAO,AAAK,IAAD,QAAQ,AAAE,CAAD,GAAG,MAAM,GAC7B,KAAK;AAEH,mBAAO,aAAQ,CAAC;AACpB,YAAI,IAAI,IAAI;AAKT,UAJD,AAAO,MAAD,YACJ,kBAAkB,aAAX,AAAK,IAAD,UAAS,GAAG,AAAE,CAAD,GAAG,MAAM,GACtB,aAAX,AAAK,IAAD,UAAS,GACb,KAAK;AAGD,0BAAe,yBACL,+BACJ;AAEN,+BAAoB,sCACK;AAEzB,uCAAsB,wBAAiB,cAAc,GACvD,aAAU,SAAS,GACnB,WAAa,cAAL,IAAI;AACV,4BAAiB,wCAA4B;AAC7C,0BAAY,AAAiB,gBAAD;AACL,UAA7B,AAAU,SAAD,QAAQ,WAAW;AACtB,uBAAS,kBAAkB,AAAI,aAAf,AAAK,IAAD,UAAS,IAAI,GAAG,AAAE,AAAS,CAAV,GAAG,MAAM,GAAG;AAChB,UAAvC,AAAO,MAAD,eAAe,SAAS,EAAE,MAAM;;;IAG5C;;wCAGiC;AAC/B,YAAO;IACT;;;IAjE6B;AAA7B;;EAA+C;;;;;;;;;;;;;;MAHlC,8DAAc;;;;;;;;;;;;;;;;;;;;;;;;;;IAwErB;;;;;;IAEgB;;;;;;wBAIO;AAC3B,UAA0B,YAAtB,AAAgB,4BAA+B;AACjD,cAAO,AAAW,yBAAC,AAAM,KAAD,UAAG;;AAE7B,YAAO;IACT;UAE0B;AACxB,YAAO,8BACK,AAAgB,AACzB,AAAQ,AACJ,AASA,mEATI,QAAC,SAAU,gCACA,sBACR,iCACQ,gBAAK,MAAI,iBACN,wDAAwB,AAAM,KAAD,gEAExC,kBAAK,wBAAkB,AAAM,KAAD;IAK5C;;;QAxB4B;;IAJtB,oBAAc,sBAAC,KAAK,KAAK,KAAK,KAAK,KAAK,KAAK,KAAK;IAI5B;AAA5B;;EAA6C","file":"pick_instruction_widget.ddc.js"}');
+  }, '{"version":3,"sourceRoot":"","sources":["pick_instruction_widget.dart"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;YAUkB;AACd,cAAQ,MAAM;;;AAEV,2BAAO,AAAkB,kCAAU,AAAkB,4BAAK;;;;AAE1D,2BAAO,AAAkB,iCAAS,AAAkB,2BAAI;;;;AAExD,2BAAO,AAAkB,iCAAS,AAAkB,2BAAI;;;;AAExD,2BAAO,AAAkB,iCAAS,AAAkB,2BAAI;;;;AAExD,2BAAO,AAAkB,iCAAS,AAAkB,2BAAI;;;;AAExD,2BAAO,AAAkB,kCAAU,AAAkB,4BAAK;;;;AAE1D,gBAAO;;;IAEb;UAGkB,QAAa;;AACzB,kBAAQ;AACmB,MAA/B,AAAM,KAAD,SAAgB;AACa,MAAlC,AAAM,KAAD;AAED,mBAA4C,CAAtB,aAAZ,AAAK,IAAD,WAAU,AAAE,SAAoB;AAElD,eAAS,IAAI,GAAG,AAAE,CAAD,IAAI,GAAG,IAAA,AAAC,CAAA;AAKtB,QAJD,AAAO,MAAD,UACJ,kBAAO,KAAG,AAAE,CAAD,GAAG,MAAM,GACpB,kBAAkB,aAAX,AAAK,IAAD,UAAS,GAAG,AAAE,CAAD,GAAG,MAAM,GACjC,KAAK;AAEH,mBAAO,aAAQ,CAAC;AACpB,YAAI,IAAI,IAAI;AAKT,UAJD,AAAO,MAAD,YACJ,kBAAkB,aAAX,AAAK,IAAD,UAAS,GAAG,AAAE,CAAD,GAAG,MAAM,GACtB,aAAX,AAAK,IAAD,UAAS,GACb,KAAK;AAGD,0BAAe,yBACL,+BACJ;AAEN,+BAAoB,sCACK;AAEzB,uCAAsB,wBAAiB,cAAc,GACvD,aAAU,SAAS,GACnB,WAAa,cAAL,IAAI;AACV,4BAAiB,wCAA4B;AAC7C,0BAAY,AAAiB,gBAAD;AACL,UAA7B,AAAU,SAAD,QAAQ,WAAW;AACtB,uBAAS,kBAAkB,AAAI,aAAf,AAAK,IAAD,UAAS,IAAI,GAAG,AAAE,AAAS,CAAV,GAAG,MAAM,GAAG;AAChB,UAAvC,AAAO,MAAD,eAAe,SAAS,EAAE,MAAM;;;IAG5C;;wCAGiC;AAC/B,YAAO;IACT;;;IAjE6B;AAA7B;;EAA+C;;;;;;;;;;;;;;MAHlC,8DAAc;;;;;;;;;;;;;;;;;;;;;;;;;;;IAwErB;;;;;;IAEgB;;;;;;wBAIO;AAC3B,UAA0B,YAAtB,AAAgB,4BAA+B;AACjD,cAAO,AAAW,yBAAC,AAAM,KAAD,UAAG;;AAE7B,YAAO;IACT;UAE0B;AACxB,YAAO,kCACwB,iCACnB,AAAgB,AACzB,AAAQ,AACJ,AASA,mEATI,QAAC,SAAU,gCACA,sBACR,iCACQ,gBAAK,MAAI,iBACN,wDAAwB,AAAM,KAAD,gEAExC,kBAAK,wBAAkB,AAAM,KAAD;IAK5C;;;QAzB4B;;IAJtB,oBAAc,sBAAC,KAAK,KAAK,KAAK,KAAK,KAAK,KAAK,KAAK;IAI5B;AAA5B;;EAA6C","file":"pick_instruction_widget.ddc.js"}');
   // Exports:
   return {
     pick_instruction_widget: pick_instruction_widget

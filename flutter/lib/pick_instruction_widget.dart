@@ -37,8 +37,8 @@ class _PickInstructionPainter extends CustomPainter {
 
     for (int i = 1; i <= 6; i++) {
       canvas.drawLine(
-        Offset(0, i * margin),
-        Offset(size.width, i * margin),
+        Offset(5, i * margin),
+        Offset(size.width - 5, i * margin),
         paint,
       );
       int fret = getFret(i);
@@ -90,6 +90,7 @@ class PickInstructionWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+        mainAxisSize: MainAxisSize.min,
       children: pickInstruction.picks
       .asMap().entries
           .map((entry) => Column(

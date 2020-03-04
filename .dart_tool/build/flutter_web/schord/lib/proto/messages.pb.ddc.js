@@ -18,9 +18,11 @@ define(['dart_sdk', 'packages/protobuf/protobuf', 'packages/schord/proto/message
   let VoidToChord = () => (VoidToChord = dart.constFn(dart.fnType(messages$46pb.Chord, [])))();
   let PbListOfChordInstruction = () => (PbListOfChordInstruction = dart.constFn(protobuf.PbList$(messages$46pb.ChordInstruction)))();
   let VoidToChordInstruction = () => (VoidToChordInstruction = dart.constFn(dart.fnType(messages$46pb.ChordInstruction, [])))();
+  let PbListOfInstructionSection = () => (PbListOfInstructionSection = dart.constFn(protobuf.PbList$(messages$46pb.InstructionSection)))();
+  let VoidToInstructionSection = () => (VoidToInstructionSection = dart.constFn(dart.fnType(messages$46pb.InstructionSection, [])))();
+  let JSArrayOfint = () => (JSArrayOfint = dart.constFn(_interceptors.JSArray$(core.int)))();
   let PbListOfInstruction = () => (PbListOfInstruction = dart.constFn(protobuf.PbList$(messages$46pb.Instruction)))();
   let VoidToInstruction = () => (VoidToInstruction = dart.constFn(dart.fnType(messages$46pb.Instruction, [])))();
-  let JSArrayOfint = () => (JSArrayOfint = dart.constFn(_interceptors.JSArray$(core.int)))();
   let PbListOfVocal = () => (PbListOfVocal = dart.constFn(protobuf.PbList$(messages$46pb.Vocal)))();
   let VoidToVocal = () => (VoidToVocal = dart.constFn(dart.fnType(messages$46pb.Vocal, [])))();
   let PbListOfSongSection = () => (PbListOfSongSection = dart.constFn(protobuf.PbList$(messages$46pb.SongSection)))();
@@ -58,45 +60,48 @@ define(['dart_sdk', 'packages/protobuf/protobuf', 'packages/schord/proto/message
     },
     get C7() {
       return C7 = dart.const({
-        __proto__: messages$46pb.Instruction_Instruction.prototype,
-        [_name$]: "Instruction_Instruction.pickInstruction",
+        __proto__: messages$46pb.InstructionSection_Instruction.prototype,
+        [_name$]: "InstructionSection_Instruction.pickInstruction",
         index: 0
       });
     },
     get C8() {
       return C8 = dart.const({
-        __proto__: messages$46pb.Instruction_Instruction.prototype,
-        [_name$]: "Instruction_Instruction.chordInstruction",
+        __proto__: messages$46pb.InstructionSection_Instruction.prototype,
+        [_name$]: "InstructionSection_Instruction.chordInstruction",
         index: 1
       });
     },
     get C9() {
       return C9 = dart.const({
-        __proto__: messages$46pb.Instruction_Instruction.prototype,
-        [_name$]: "Instruction_Instruction.notSet",
+        __proto__: messages$46pb.InstructionSection_Instruction.prototype,
+        [_name$]: "InstructionSection_Instruction.notSet",
         index: 2
       });
     },
     get C10() {
-      return C10 = dart.constList([C7 || CT.C7, C8 || CT.C8, C9 || CT.C9], messages$46pb.Instruction_Instruction);
+      return C10 = dart.constList([C7 || CT.C7, C8 || CT.C8, C9 || CT.C9], messages$46pb.InstructionSection_Instruction);
     },
     get C11() {
-      return C11 = dart.fn(messages$46pb.Instruction.create, VoidToInstruction());
+      return C11 = dart.fn(messages$46pb.InstructionSection.create, VoidToInstructionSection());
     },
     get C12() {
-      return C12 = dart.constMap(core.int, messages$46pb.Instruction_Instruction, [1, C7 || CT.C7, 2, C8 || CT.C8, 0, C9 || CT.C9]);
+      return C12 = dart.constMap(core.int, messages$46pb.InstructionSection_Instruction, [1, C7 || CT.C7, 2, C8 || CT.C8, 0, C9 || CT.C9]);
     },
     get C13() {
-      return C13 = dart.fn(messages$46pb.Vocal.create, VoidToVocal());
+      return C13 = dart.fn(messages$46pb.Instruction.create, VoidToInstruction());
     },
     get C14() {
-      return C14 = dart.fn(messages$46pb.SongSection.create, VoidToSongSection());
+      return C14 = dart.fn(messages$46pb.Vocal.create, VoidToVocal());
     },
     get C15() {
-      return C15 = dart.fn(messages$46pbenum.SongSection_Section.valueOf, intToSongSection_Section());
+      return C15 = dart.fn(messages$46pb.SongSection.create, VoidToSongSection());
     },
     get C16() {
-      return C16 = dart.fn(messages$46pb.Song.create, VoidToSong());
+      return C16 = dart.fn(messages$46pbenum.SongSection_Section.valueOf, intToSongSection_Section());
+    },
+    get C17() {
+      return C17 = dart.fn(messages$46pb.Song.create, VoidToSong());
     }
   });
   let C0;
@@ -217,6 +222,18 @@ define(['dart_sdk', 'packages/protobuf/protobuf', 'packages/schord/proto/message
     clearE2() {
       return this.clearField(6);
     }
+    get name() {
+      return this.$_getSZ(6);
+    }
+    set name(v) {
+      this.$_setString(6, v);
+    }
+    hasName() {
+      return this.$_has(6);
+    }
+    clearName() {
+      return this.clearField(7);
+    }
   };
   (messages$46pb.StringCombination.__ = function() {
     messages$46pb.StringCombination.__proto__.new.call(this);
@@ -239,7 +256,9 @@ define(['dart_sdk', 'packages/protobuf/protobuf', 'packages/schord/proto/message
     hasA: dart.fnType(core.bool, []),
     clearA: dart.fnType(dart.void, []),
     hasE2: dart.fnType(core.bool, []),
-    clearE2: dart.fnType(dart.void, [])
+    clearE2: dart.fnType(dart.void, []),
+    hasName: dart.fnType(core.bool, []),
+    clearName: dart.fnType(dart.void, [])
   }));
   dart.setGetterSignature(messages$46pb.StringCombination, () => ({
     __proto__: dart.getGetters(messages$46pb.StringCombination.__proto__),
@@ -249,7 +268,8 @@ define(['dart_sdk', 'packages/protobuf/protobuf', 'packages/schord/proto/message
     g: core.int,
     d: core.int,
     a: core.int,
-    e2: core.int
+    e2: core.int,
+    name: core.String
   }));
   dart.setSetterSignature(messages$46pb.StringCombination, () => ({
     __proto__: dart.getSetters(messages$46pb.StringCombination.__proto__),
@@ -258,13 +278,14 @@ define(['dart_sdk', 'packages/protobuf/protobuf', 'packages/schord/proto/message
     g: core.int,
     d: core.int,
     a: core.int,
-    e2: core.int
+    e2: core.int,
+    name: core.String
   }));
   dart.setLibraryUri(messages$46pb.StringCombination, "package:schord/proto/messages.pb.dart");
   dart.defineLazy(messages$46pb.StringCombination, {
     /*messages$46pb.StringCombination._i*/get _i() {
       let t0;
-      return t0 = new protobuf.BuilderInfo.new("StringCombination", {package: C2 || CT.C2, createEmptyInstance: C1 || CT.C1}), t0.a(core.int, 1, "e4", 2048), t0.a(core.int, 2, "b", 2048), t0.a(core.int, 3, "g", 2048), t0.a(core.int, 4, "d", 2048), t0.a(core.int, 5, "a", 2048), t0.a(core.int, 6, "e2", 2048), t0.hasRequiredFields = false, t0;
+      return t0 = new protobuf.BuilderInfo.new("StringCombination", {package: C2 || CT.C2, createEmptyInstance: C1 || CT.C1}), t0.a(core.int, 1, "e4", 2048), t0.a(core.int, 2, "b", 2048), t0.a(core.int, 3, "g", 2048), t0.a(core.int, 4, "d", 2048), t0.a(core.int, 5, "a", 2048), t0.a(core.int, 6, "e2", 2048), t0.aOS(7, "name"), t0.hasRequiredFields = false, t0;
     },
     /*messages$46pb.StringCombination._defaultInstance*/get _defaultInstance() {
       return null;
@@ -553,30 +574,154 @@ define(['dart_sdk', 'packages/protobuf/protobuf', 'packages/schord/proto/message
   let C8;
   let C9;
   let C10;
-  messages$46pb.Instruction_Instruction = class Instruction_Instruction extends core.Object {
+  messages$46pb.InstructionSection_Instruction = class InstructionSection_Instruction extends core.Object {
     toString() {
       return this[_name$];
     }
   };
-  (messages$46pb.Instruction_Instruction.new = function(index, _name) {
+  (messages$46pb.InstructionSection_Instruction.new = function(index, _name) {
     this.index = index;
     this[_name$] = _name;
     ;
-  }).prototype = messages$46pb.Instruction_Instruction.prototype;
-  dart.addTypeTests(messages$46pb.Instruction_Instruction);
-  dart.setLibraryUri(messages$46pb.Instruction_Instruction, "package:schord/proto/messages.pb.dart");
-  dart.setFieldSignature(messages$46pb.Instruction_Instruction, () => ({
-    __proto__: dart.getFields(messages$46pb.Instruction_Instruction.__proto__),
+  }).prototype = messages$46pb.InstructionSection_Instruction.prototype;
+  dart.addTypeTests(messages$46pb.InstructionSection_Instruction);
+  dart.setLibraryUri(messages$46pb.InstructionSection_Instruction, "package:schord/proto/messages.pb.dart");
+  dart.setFieldSignature(messages$46pb.InstructionSection_Instruction, () => ({
+    __proto__: dart.getFields(messages$46pb.InstructionSection_Instruction.__proto__),
     index: dart.finalFieldType(core.int),
     [_name$]: dart.finalFieldType(core.String)
   }));
-  dart.defineExtensionMethods(messages$46pb.Instruction_Instruction, ['toString']);
-  messages$46pb.Instruction_Instruction.pickInstruction = C7 || CT.C7;
-  messages$46pb.Instruction_Instruction.chordInstruction = C8 || CT.C8;
-  messages$46pb.Instruction_Instruction.notSet = C9 || CT.C9;
-  messages$46pb.Instruction_Instruction.values = C10 || CT.C10;
+  dart.defineExtensionMethods(messages$46pb.InstructionSection_Instruction, ['toString']);
+  messages$46pb.InstructionSection_Instruction.pickInstruction = C7 || CT.C7;
+  messages$46pb.InstructionSection_Instruction.chordInstruction = C8 || CT.C8;
+  messages$46pb.InstructionSection_Instruction.notSet = C9 || CT.C9;
+  messages$46pb.InstructionSection_Instruction.values = C10 || CT.C10;
   let C11;
   let C12;
+  messages$46pb.InstructionSection = class InstructionSection extends protobuf.GeneratedMessage {
+    static new() {
+      return messages$46pb.InstructionSection.create();
+    }
+    static fromBuffer(i, r = C0 || CT.C0) {
+      let t0;
+      t0 = messages$46pb.InstructionSection.create();
+      t0.mergeFromBuffer(i, r);
+      return t0;
+    }
+    static fromJson(i, r = C0 || CT.C0) {
+      let t0;
+      t0 = messages$46pb.InstructionSection.create();
+      t0.mergeFromJson(i, r);
+      return t0;
+    }
+    clone() {
+      let t0;
+      t0 = messages$46pb.InstructionSection.new();
+      t0.mergeFromMessage(this);
+      return t0;
+    }
+    copyWith(updates) {
+      return messages$46pb.InstructionSection._check(super.copyWith(dart.fn(message => updates(messages$46pb.InstructionSection.as(message)), GeneratedMessageTovoid())));
+    }
+    get info_() {
+      return messages$46pb.InstructionSection._i;
+    }
+    static create() {
+      return new messages$46pb.InstructionSection.__();
+    }
+    createEmptyInstance() {
+      return messages$46pb.InstructionSection.create();
+    }
+    static createRepeated() {
+      return new (PbListOfInstructionSection()).new();
+    }
+    static getDefault() {
+      let t0;
+      t0 = messages$46pb.InstructionSection._defaultInstance;
+      return t0 == null ? messages$46pb.InstructionSection._defaultInstance = protobuf.GeneratedMessage.$_defaultFor(messages$46pb.InstructionSection, C11 || CT.C11) : t0;
+    }
+    whichInstruction() {
+      return messages$46pb.InstructionSection._InstructionSection_InstructionByTag[$_get](this.$_whichOneof(0));
+    }
+    clearInstruction() {
+      return this.clearField(this.$_whichOneof(0));
+    }
+    get pickInstruction() {
+      return this.$_getN(messages$46pb.PickInstruction, 0);
+    }
+    set pickInstruction(v) {
+      this.setField(1, v);
+    }
+    hasPickInstruction() {
+      return this.$_has(0);
+    }
+    clearPickInstruction() {
+      return this.clearField(1);
+    }
+    ensurePickInstruction() {
+      return this.$_ensure(messages$46pb.PickInstruction, 0);
+    }
+    get chordInstruction() {
+      return this.$_getN(messages$46pb.ChordInstruction, 1);
+    }
+    set chordInstruction(v) {
+      this.setField(2, v);
+    }
+    hasChordInstruction() {
+      return this.$_has(1);
+    }
+    clearChordInstruction() {
+      return this.clearField(2);
+    }
+    ensureChordInstruction() {
+      return this.$_ensure(messages$46pb.ChordInstruction, 1);
+    }
+  };
+  (messages$46pb.InstructionSection.__ = function() {
+    messages$46pb.InstructionSection.__proto__.new.call(this);
+    ;
+  }).prototype = messages$46pb.InstructionSection.prototype;
+  dart.addTypeTests(messages$46pb.InstructionSection);
+  dart.setMethodSignature(messages$46pb.InstructionSection, () => ({
+    __proto__: dart.getMethods(messages$46pb.InstructionSection.__proto__),
+    clone: dart.fnType(messages$46pb.InstructionSection, []),
+    copyWith: dart.fnType(messages$46pb.InstructionSection, [dart.fnType(dart.void, [messages$46pb.InstructionSection])]),
+    createEmptyInstance: dart.fnType(messages$46pb.InstructionSection, []),
+    whichInstruction: dart.fnType(messages$46pb.InstructionSection_Instruction, []),
+    clearInstruction: dart.fnType(dart.void, []),
+    hasPickInstruction: dart.fnType(core.bool, []),
+    clearPickInstruction: dart.fnType(dart.void, []),
+    ensurePickInstruction: dart.fnType(messages$46pb.PickInstruction, []),
+    hasChordInstruction: dart.fnType(core.bool, []),
+    clearChordInstruction: dart.fnType(dart.void, []),
+    ensureChordInstruction: dart.fnType(messages$46pb.ChordInstruction, [])
+  }));
+  dart.setGetterSignature(messages$46pb.InstructionSection, () => ({
+    __proto__: dart.getGetters(messages$46pb.InstructionSection.__proto__),
+    info_: protobuf.BuilderInfo,
+    pickInstruction: messages$46pb.PickInstruction,
+    chordInstruction: messages$46pb.ChordInstruction
+  }));
+  dart.setSetterSignature(messages$46pb.InstructionSection, () => ({
+    __proto__: dart.getSetters(messages$46pb.InstructionSection.__proto__),
+    pickInstruction: messages$46pb.PickInstruction,
+    chordInstruction: messages$46pb.ChordInstruction
+  }));
+  dart.setLibraryUri(messages$46pb.InstructionSection, "package:schord/proto/messages.pb.dart");
+  dart.defineLazy(messages$46pb.InstructionSection, {
+    /*messages$46pb.InstructionSection._InstructionSection_InstructionByTag*/get _InstructionSection_InstructionByTag() {
+      return C12 || CT.C12;
+    },
+    /*messages$46pb.InstructionSection._i*/get _i() {
+      let t0;
+      return t0 = new protobuf.BuilderInfo.new("InstructionSection", {package: C2 || CT.C2, createEmptyInstance: C11 || CT.C11}), t0.oo(0, JSArrayOfint().of([1, 2])), t0.aOM(messages$46pb.PickInstruction, 1, "pickInstruction", {subBuilder: C3 || CT.C3}), t0.aOM(messages$46pb.ChordInstruction, 2, "chordInstruction", {subBuilder: C6 || CT.C6}), t0.hasRequiredFields = false, t0;
+    },
+    /*messages$46pb.InstructionSection._defaultInstance*/get _defaultInstance() {
+      return null;
+    },
+    set _defaultInstance(_) {}
+  });
+  let C13;
   messages$46pb.Instruction = class Instruction extends protobuf.GeneratedMessage {
     static new() {
       return messages$46pb.Instruction.create();
@@ -617,43 +762,10 @@ define(['dart_sdk', 'packages/protobuf/protobuf', 'packages/schord/proto/message
     static getDefault() {
       let t0;
       t0 = messages$46pb.Instruction._defaultInstance;
-      return t0 == null ? messages$46pb.Instruction._defaultInstance = protobuf.GeneratedMessage.$_defaultFor(messages$46pb.Instruction, C11 || CT.C11) : t0;
+      return t0 == null ? messages$46pb.Instruction._defaultInstance = protobuf.GeneratedMessage.$_defaultFor(messages$46pb.Instruction, C13 || CT.C13) : t0;
     }
-    whichInstruction() {
-      return messages$46pb.Instruction._Instruction_InstructionByTag[$_get](this.$_whichOneof(0));
-    }
-    clearInstruction() {
-      return this.clearField(this.$_whichOneof(0));
-    }
-    get pickInstruction() {
-      return this.$_getN(messages$46pb.PickInstruction, 0);
-    }
-    set pickInstruction(v) {
-      this.setField(1, v);
-    }
-    hasPickInstruction() {
-      return this.$_has(0);
-    }
-    clearPickInstruction() {
-      return this.clearField(1);
-    }
-    ensurePickInstruction() {
-      return this.$_ensure(messages$46pb.PickInstruction, 0);
-    }
-    get chordInstruction() {
-      return this.$_getN(messages$46pb.ChordInstruction, 1);
-    }
-    set chordInstruction(v) {
-      this.setField(2, v);
-    }
-    hasChordInstruction() {
-      return this.$_has(1);
-    }
-    clearChordInstruction() {
-      return this.clearField(2);
-    }
-    ensureChordInstruction() {
-      return this.$_ensure(messages$46pb.ChordInstruction, 1);
+    get sections() {
+      return this.$_getList(messages$46pb.InstructionSection, 0);
     }
   };
   (messages$46pb.Instruction.__ = function() {
@@ -665,42 +777,25 @@ define(['dart_sdk', 'packages/protobuf/protobuf', 'packages/schord/proto/message
     __proto__: dart.getMethods(messages$46pb.Instruction.__proto__),
     clone: dart.fnType(messages$46pb.Instruction, []),
     copyWith: dart.fnType(messages$46pb.Instruction, [dart.fnType(dart.void, [messages$46pb.Instruction])]),
-    createEmptyInstance: dart.fnType(messages$46pb.Instruction, []),
-    whichInstruction: dart.fnType(messages$46pb.Instruction_Instruction, []),
-    clearInstruction: dart.fnType(dart.void, []),
-    hasPickInstruction: dart.fnType(core.bool, []),
-    clearPickInstruction: dart.fnType(dart.void, []),
-    ensurePickInstruction: dart.fnType(messages$46pb.PickInstruction, []),
-    hasChordInstruction: dart.fnType(core.bool, []),
-    clearChordInstruction: dart.fnType(dart.void, []),
-    ensureChordInstruction: dart.fnType(messages$46pb.ChordInstruction, [])
+    createEmptyInstance: dart.fnType(messages$46pb.Instruction, [])
   }));
   dart.setGetterSignature(messages$46pb.Instruction, () => ({
     __proto__: dart.getGetters(messages$46pb.Instruction.__proto__),
     info_: protobuf.BuilderInfo,
-    pickInstruction: messages$46pb.PickInstruction,
-    chordInstruction: messages$46pb.ChordInstruction
-  }));
-  dart.setSetterSignature(messages$46pb.Instruction, () => ({
-    __proto__: dart.getSetters(messages$46pb.Instruction.__proto__),
-    pickInstruction: messages$46pb.PickInstruction,
-    chordInstruction: messages$46pb.ChordInstruction
+    sections: core.List$(messages$46pb.InstructionSection)
   }));
   dart.setLibraryUri(messages$46pb.Instruction, "package:schord/proto/messages.pb.dart");
   dart.defineLazy(messages$46pb.Instruction, {
-    /*messages$46pb.Instruction._Instruction_InstructionByTag*/get _Instruction_InstructionByTag() {
-      return C12 || CT.C12;
-    },
     /*messages$46pb.Instruction._i*/get _i() {
       let t0;
-      return t0 = new protobuf.BuilderInfo.new("Instruction", {package: C2 || CT.C2, createEmptyInstance: C11 || CT.C11}), t0.oo(0, JSArrayOfint().of([1, 2])), t0.aOM(messages$46pb.PickInstruction, 1, "pickInstruction", {subBuilder: C3 || CT.C3}), t0.aOM(messages$46pb.ChordInstruction, 2, "chordInstruction", {subBuilder: C6 || CT.C6}), t0.hasRequiredFields = false, t0;
+      return t0 = new protobuf.BuilderInfo.new("Instruction", {package: C2 || CT.C2, createEmptyInstance: C13 || CT.C13}), t0.pc(messages$46pb.InstructionSection, 1, "sections", 2097154, {subBuilder: C11 || CT.C11}), t0.hasRequiredFields = false, t0;
     },
     /*messages$46pb.Instruction._defaultInstance*/get _defaultInstance() {
       return null;
     },
     set _defaultInstance(_) {}
   });
-  let C13;
+  let C14;
   messages$46pb.Vocal = class Vocal extends protobuf.GeneratedMessage {
     static new() {
       return messages$46pb.Vocal.create();
@@ -741,7 +836,7 @@ define(['dart_sdk', 'packages/protobuf/protobuf', 'packages/schord/proto/message
     static getDefault() {
       let t0;
       t0 = messages$46pb.Vocal._defaultInstance;
-      return t0 == null ? messages$46pb.Vocal._defaultInstance = protobuf.GeneratedMessage.$_defaultFor(messages$46pb.Vocal, C13 || CT.C13) : t0;
+      return t0 == null ? messages$46pb.Vocal._defaultInstance = protobuf.GeneratedMessage.$_defaultFor(messages$46pb.Vocal, C14 || CT.C14) : t0;
     }
     get lines() {
       return this.$_getList(core.String, 0);
@@ -767,15 +862,15 @@ define(['dart_sdk', 'packages/protobuf/protobuf', 'packages/schord/proto/message
   dart.defineLazy(messages$46pb.Vocal, {
     /*messages$46pb.Vocal._i*/get _i() {
       let t0;
-      return t0 = new protobuf.BuilderInfo.new("Vocal", {package: C2 || CT.C2, createEmptyInstance: C13 || CT.C13}), t0.pPS(1, "lines"), t0.hasRequiredFields = false, t0;
+      return t0 = new protobuf.BuilderInfo.new("Vocal", {package: C2 || CT.C2, createEmptyInstance: C14 || CT.C14}), t0.pPS(1, "lines"), t0.hasRequiredFields = false, t0;
     },
     /*messages$46pb.Vocal._defaultInstance*/get _defaultInstance() {
       return null;
     },
     set _defaultInstance(_) {}
   });
-  let C14;
   let C15;
+  let C16;
   messages$46pb.SongSection = class SongSection extends protobuf.GeneratedMessage {
     static new() {
       return messages$46pb.SongSection.create();
@@ -816,7 +911,7 @@ define(['dart_sdk', 'packages/protobuf/protobuf', 'packages/schord/proto/message
     static getDefault() {
       let t0;
       t0 = messages$46pb.SongSection._defaultInstance;
-      return t0 == null ? messages$46pb.SongSection._defaultInstance = protobuf.GeneratedMessage.$_defaultFor(messages$46pb.SongSection, C14 || CT.C14) : t0;
+      return t0 == null ? messages$46pb.SongSection._defaultInstance = protobuf.GeneratedMessage.$_defaultFor(messages$46pb.SongSection, C15 || CT.C15) : t0;
     }
     get section() {
       return this.$_getN(messages$46pbenum.SongSection_Section, 0);
@@ -873,14 +968,14 @@ define(['dart_sdk', 'packages/protobuf/protobuf', 'packages/schord/proto/message
   dart.defineLazy(messages$46pb.SongSection, {
     /*messages$46pb.SongSection._i*/get _i() {
       let t0;
-      return t0 = new protobuf.BuilderInfo.new("SongSection", {package: C2 || CT.C2, createEmptyInstance: C14 || CT.C14}), t0.e(messages$46pbenum.SongSection_Section, 1, "section", 512, {defaultOrMaker: messages$46pbenum.SongSection_Section.UNKNOWN_SECTION, valueOf: C15 || CT.C15, enumValues: messages$46pbenum.SongSection_Section.values}), t0.a(core.int, 2, "number", 2048), t0.hasRequiredFields = false, t0;
+      return t0 = new protobuf.BuilderInfo.new("SongSection", {package: C2 || CT.C2, createEmptyInstance: C15 || CT.C15}), t0.e(messages$46pbenum.SongSection_Section, 1, "section", 512, {defaultOrMaker: messages$46pbenum.SongSection_Section.UNKNOWN_SECTION, valueOf: C16 || CT.C16, enumValues: messages$46pbenum.SongSection_Section.values}), t0.a(core.int, 2, "number", 2048), t0.hasRequiredFields = false, t0;
     },
     /*messages$46pb.SongSection._defaultInstance*/get _defaultInstance() {
       return null;
     },
     set _defaultInstance(_) {}
   });
-  let C16;
+  let C17;
   messages$46pb.Song = class Song extends protobuf.GeneratedMessage {
     static new() {
       return messages$46pb.Song.create();
@@ -921,7 +1016,7 @@ define(['dart_sdk', 'packages/protobuf/protobuf', 'packages/schord/proto/message
     static getDefault() {
       let t0;
       t0 = messages$46pb.Song._defaultInstance;
-      return t0 == null ? messages$46pb.Song._defaultInstance = protobuf.GeneratedMessage.$_defaultFor(messages$46pb.Song, C16 || CT.C16) : t0;
+      return t0 == null ? messages$46pb.Song._defaultInstance = protobuf.GeneratedMessage.$_defaultFor(messages$46pb.Song, C17 || CT.C17) : t0;
     }
     get sections() {
       return this.$_getList(messages$46pb.SongSection, 0);
@@ -955,7 +1050,7 @@ define(['dart_sdk', 'packages/protobuf/protobuf', 'packages/schord/proto/message
   dart.defineLazy(messages$46pb.Song, {
     /*messages$46pb.Song._i*/get _i() {
       let t0;
-      return t0 = new protobuf.BuilderInfo.new("Song", {package: C2 || CT.C2, createEmptyInstance: C16 || CT.C16}), t0.pc(messages$46pb.SongSection, 1, "sections", 2097154, {subBuilder: C14 || CT.C14}), t0.m(core.String, messages$46pb.Instruction, 2, "instructions", {entryClassName: "Song.InstructionsEntry", keyFieldType: 64, valueFieldType: 2097152, valueCreator: C11 || CT.C11, packageName: C2 || CT.C2}), t0.m(core.String, messages$46pb.Vocal, 3, "vocals", {entryClassName: "Song.VocalsEntry", keyFieldType: 64, valueFieldType: 2097152, valueCreator: C13 || CT.C13, packageName: C2 || CT.C2}), t0.hasRequiredFields = false, t0;
+      return t0 = new protobuf.BuilderInfo.new("Song", {package: C2 || CT.C2, createEmptyInstance: C17 || CT.C17}), t0.pc(messages$46pb.SongSection, 1, "sections", 2097154, {subBuilder: C15 || CT.C15}), t0.m(core.String, messages$46pb.Instruction, 2, "instructions", {entryClassName: "Song.InstructionsEntry", keyFieldType: 64, valueFieldType: 2097152, valueCreator: C13 || CT.C13, packageName: C2 || CT.C2}), t0.m(core.String, messages$46pb.Vocal, 3, "vocals", {entryClassName: "Song.VocalsEntry", keyFieldType: 64, valueFieldType: 2097152, valueCreator: C14 || CT.C14, packageName: C2 || CT.C2}), t0.hasRequiredFields = false, t0;
     },
     /*messages$46pb.Song._defaultInstance*/get _defaultInstance() {
       return null;
@@ -965,7 +1060,7 @@ define(['dart_sdk', 'packages/protobuf/protobuf', 'packages/schord/proto/message
   dart.trackLibraries("packages/schord/proto/messages.pb", {
     "package:schord/proto/messages.pb.dart": messages$46pb
   }, {
-  }, '{"version":3,"sourceRoot":"","sources":["messages.pb.dart"],"names":[],"mappings":"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","file":"messages.pb.ddc.js"}');
+  }, '{"version":3,"sourceRoot":"","sources":["messages.pb.dart"],"names":[],"mappings":"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","file":"messages.pb.ddc.js"}');
   // Exports:
   return {
     proto__messages$46pb: messages$46pb
