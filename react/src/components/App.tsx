@@ -1,13 +1,32 @@
 import * as React from 'react';
 
-import PageInterface from '../PageInterface';
+import AppBar from '@material-ui/core/AppBar';
+import Box from '@material-ui/core/Box';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
 
-class App extends React.Component<PageInterface, {}> {
+import {Instruction} from '../../gen/proto/messages_pb';
+
+import InstructionComponent from './InstructionComponent';
+
+
+class App extends React.Component<{}, {}> {
+
   render() {
-    return (<div>
-      <h1>Welcome to React with Typescript</h1>
-      <p>The color of this page is: {this.props.color}</p>
-    </div>
+    return (
+      <React.Fragment>
+        <AppBar position="static">
+          <Toolbar>
+            <Typography variant="h6">
+              Schord
+            </Typography>
+          </Toolbar>
+        </AppBar>
+
+        <Box display="flex" justifyContent="center">
+          <InstructionComponent instruction={new Instruction()}/>
+        </Box>
+      </React.Fragment>
     );
   }
 }
