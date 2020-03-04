@@ -6,20 +6,22 @@ import 'package:schord/vocal_widget.dart';
 import 'package:flutter/material.dart';
 
 class Schord extends StatelessWidget {
-  List<Widget> _getSongRows(Song song) {
+  List<Widget> _getSongRows(BuildContext context, Song song) {
     return song.sections
         .map(
           (section) => Card(
             child: Row(
-              mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Padding(
-                  padding: EdgeInsets.all(20.0),
-                  child: InstructionWidget(
-                      instruction: song.instructions[section.toString()]),
+                Container(
+                  width: MediaQuery.of(context).size.width * 3 / 4,
+                  child: Padding(
+                    padding: EdgeInsets.all(20.0),
+                    child: InstructionWidget(
+                        instruction: song.instructions[section.toString()]),
+                  ),
                 ),
-                VerticalDivider(),
+                Divider(),
                 Padding(
                   padding: EdgeInsets.all(20.0),
                   child: VocalWidget(vocal: song.vocals[section.toString()]),
@@ -40,13 +42,14 @@ class Schord extends StatelessWidget {
         title: Text('Schord'),
       ),
       body: SingleChildScrollView(
-          child: Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: _getSongRows(song),
+        child: Center(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: _getSongRows(context, song),
+          ),
         ),
-      ),),
+      ),
     );
   }
 }

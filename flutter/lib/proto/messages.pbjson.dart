@@ -14,6 +14,7 @@ const StringCombination$json = const {
     const {'1': 'd', '3': 4, '4': 1, '5': 5, '10': 'd'},
     const {'1': 'a', '3': 5, '4': 1, '5': 5, '10': 'a'},
     const {'1': 'e2', '3': 6, '4': 1, '5': 5, '10': 'e2'},
+    const {'1': 'name', '3': 7, '4': 1, '5': 9, '10': 'name'},
   ],
 };
 
@@ -49,14 +50,21 @@ const ChordInstruction$json = const {
   ],
 };
 
-const Instruction$json = const {
-  '1': 'Instruction',
+const InstructionSection$json = const {
+  '1': 'InstructionSection',
   '2': const [
     const {'1': 'pick_instruction', '3': 1, '4': 1, '5': 11, '6': '.com.oreflow.schord.PickInstruction', '9': 0, '10': 'pickInstruction'},
     const {'1': 'chord_instruction', '3': 2, '4': 1, '5': 11, '6': '.com.oreflow.schord.ChordInstruction', '9': 0, '10': 'chordInstruction'},
   ],
   '8': const [
     const {'1': 'instruction'},
+  ],
+};
+
+const Instruction$json = const {
+  '1': 'Instruction',
+  '2': const [
+    const {'1': 'sections', '3': 1, '4': 3, '5': 11, '6': '.com.oreflow.schord.InstructionSection', '10': 'sections'},
   ],
 };
 
