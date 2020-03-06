@@ -7,8 +7,7 @@ import Typography from '@material-ui/core/Typography';
 
 import {Instruction} from '../../gen/proto/messages_pb';
 
-import InstructionComponent from './InstructionComponent';
-
+import SchordSongComponent from './schordsong/schordsongcomponent';
 
 class App extends React.Component<{}, {}> {
 
@@ -24,7 +23,7 @@ class App extends React.Component<{}, {}> {
         </AppBar>
 
         <Box display="flex" justifyContent="center">
-          <InstructionComponent instruction={new Instruction()}/>
+          <SchordSongComponent />
         </Box>
       </React.Fragment>
     );
