@@ -6,11 +6,16 @@ import { ThemeProvider } from '@material-ui/core/styles';
 
 import App from './components/App';
 import theme from './theme';
+import {SchordContext, state} from './schord_context';
+console.log(SchordContext);
+console.log(state);
 
 ReactDOM.render (
-  <ThemeProvider theme={theme}>
-    <CssBaseline />
-    <App />
-  </ThemeProvider>,
+  <SchordContext.Provider value={state}>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <App />
+    </ThemeProvider>
+  </SchordContext.Provider>,
   document.getElementById("root")
 );

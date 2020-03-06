@@ -4,22 +4,94 @@ import AppBar from '@material-ui/core/AppBar';
 import Box from '@material-ui/core/Box';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import {Subscription} from 'rxjs';
 
+import {InstructionSection, SongSection, Song, Instruction, Vocal, PickInstruction} from '../../gen/proto/messages_pb';
+
+import PickInstructionComponent from './PickInstructionComponent';
+import VocalComponent from './VocalComponent';
 import InstructionProps from './InstructionProps';
+import {SchordContext} from '../schord_context';
+import {SchordService} from '../schord_service';
+import {songSectionToString} from '../common';
 
-class InstructionComponent extends React.Component<InstructionProps, {}> {
 
-  render() {
-    return (
-      <React.Fragment>
-        <Box display="flex" justifyContent="center">
+class InstructionComponent extends React.Component<InstructionProps, 
+  {
+    song: Song;
+  }> {
+    static contextType = SchordContext;
+
+    readonly subscriptions: Subscription[]  = [];
+
+    componentDidMount() {
+      const service = this.context.schordService;
+
+      const sub = 
+        service.song().subscribe((newSong: Song) => {
+          console.log('new song is', newSong.toObject());
+          this.setState({
+            song: newSong,
+          });
+        });
+      this.subscriptions.push(sub);
+    }
+
+    componentWillUnmount() {
+      this.subscriptions.forEach((sub) => sub.unsubscribe());
+    }
+
+    renderSection(instruction: Instruction, vocal: Vocal) {
+      return (
+        <Box display="flex" flexDirection="row" alignItems="center" border="4px dashed gray" padding="10px" margin="5px">
+          <Typography>{}</Typography>
+
+          <Box display="flex" flexDirection="row" alignItems="center">
+            <Box display="flex" flexDirection="row" alignItems="center" flexWrap="wrap">
+              {
+                instruction.getSectionsList().map((instructionSection, index) => {
+                  switch (instructionSection.getInstructionCase()) {
+                    case InstructionSection.InstructionCase.CHORD_INSTRUCTION:
+                    return <div key={index}> Chord Instruction </div>;
+                    case InstructionSection.InstructionCase.PICK_INSTRUCTION:
+                    return (<PickInstructionComponent 
+                      pickInstruction={instructionSection.getPickInstruction()!} 
+                      key={index}>
+                      Pick Instruction
+                    </PickInstructionComponent>);
+                    default: 
+                      return <div key={index}> Unsupported Instruction Type </div>
+                  }
+                })
+              }
+            </Box>
+            <VocalComponent vocal={vocal}></VocalComponent>
+          </Box>
+        </Box>
+        );
+    }
+
+    render() {
+      if (!this.state?.song) return <div>Loading...</div>;
+
+      return (
+        <Box display="flex" justifyContent="center" flexDirection="column">
+          {
+            this.state.song.getSectionsList().map(section => {
+              const sectionString = songSectionToString(section);
+              const instruction = this.state.song.getInstructionsMap().get(sectionString) ?? new Instruction();
+              const vocal = this.state.song.getVocalsMap().get(sectionString) ?? new Vocal();
+              return (<Box key={sectionString}>
+                {this.renderSection(instruction, vocal)}
+              </Box>);
+            })
+          }
           <span>
             Instructions
           </span>
         </Box>
-      </React.Fragment>
-    );
+      );
+    }
   }
-}
 
 export default InstructionComponent;
