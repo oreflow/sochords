@@ -1,13 +1,10 @@
 import * as React from 'react';
-
 import AppBar from '@material-ui/core/AppBar';
 import Box from '@material-ui/core/Box';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 
-import {Instruction} from '../../gen/proto/messages_pb';
-
-import SchordSongComponent from './schordsong/schordsongcomponent';
+import SchordSongComponent from 'src/components/schordsong/schord_song_component';
 
 class App extends React.Component<{}, {}> {
 
@@ -23,7 +20,7 @@ class App extends React.Component<{}, {}> {
         </AppBar>
 
         <Box display="flex" justifyContent="center">
-          <SchordSongComponent />
+          <SchordSongComponent test="what"/>
         </Box>
       </React.Fragment>
     );

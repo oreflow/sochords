@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "esModuleInterop": true,
     "sourceMap": true,
     "noImplicitAny": true,
     "noImplicitThis": true,
@@ -18,10 +19,5 @@
     "jsx": "react",
     "allowJs": true,
     "baseUrl": "./",
-    "paths": {
-      "components/*": [
-        "src/components/*"
-      ],
-    }
   }
 }
