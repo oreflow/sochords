@@ -8,9 +8,9 @@ import {
   SongSection,
   StringCombination,
   Vocal,
-} from '../../gen/proto/messages_pb';
+} from 'gen/proto/messages_pb';
 
-import {songSectionToString} from '../common/common';
+import {songSectionToString} from 'src/common/common';
 
 export class SchordService {
 
