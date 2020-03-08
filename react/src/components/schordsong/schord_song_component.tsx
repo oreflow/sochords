@@ -3,6 +3,7 @@ import * as React from 'react';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import {Subscription} from 'rxjs';
+import {v4 as uuidv4} from 'uuid';
 
 import {InstructionSection, Song, Instruction, Vocal} from 'gen/proto/messages_pb';
 
@@ -28,9 +29,9 @@ class SchordSongComponent extends React.Component<SchordSongProps, SchordSongSta
     const service = this.context.schordService;
 
     this.subscriptions.push(
-      service.song().subscribe((newSong: Song) => {
+      service.song().subscribe({next: (newSong: Song) => {
         this.setState({ song: newSong, });
-      }));
+      }}));
   }
 
   componentWillUnmount() {
@@ -45,22 +46,22 @@ class SchordSongComponent extends React.Component<SchordSongProps, SchordSongSta
         <Box display="flex" flexDirection="row" alignItems="center">
           <Box display="flex" flexDirection="row" alignItems="center" flexWrap="wrap">
             {
-              instruction.getSectionsList().map((instructionSection, index) => {
+              instruction.getSectionsList().map((instructionSection) => {
                 switch (instructionSection.getInstructionCase()) {
                   case InstructionSection.InstructionCase.CHORD_INSTRUCTION:
                   return (<ChordInstructionComponent 
                     chordInstruction={instructionSection.getChordInstruction()!} 
-                    key={index}>
+                    key={uuidv4()}>
                     Chord Instruction
                   </ChordInstructionComponent>);
                   case InstructionSection.InstructionCase.PICK_INSTRUCTION:
                   return (<PickInstructionComponent 
                     pickInstruction={instructionSection.getPickInstruction()!} 
-                    key={index}>
+                    key={uuidv4()}>
                     Pick Instruction
                   </PickInstructionComponent>);
                   default: 
-                    return <div key={index}> Unsupported Instruction Type </div>
+                    return <div key={uuidv4()}> Unsupported Instruction Type </div>
                 }
               })
             }
@@ -85,7 +86,7 @@ class SchordSongComponent extends React.Component<SchordSongProps, SchordSongSta
             const instruction = instructionMap.get(sectionString) ?? new Instruction();
             const vocal = this.state.song.getVocalsMap().get(sectionString) ?? new Vocal();
 
-            return (<Box key={sectionString}>
+            return (<Box key={uuidv4()}>
               {this.renderSection(instruction, vocal)}
             </Box>);
           })

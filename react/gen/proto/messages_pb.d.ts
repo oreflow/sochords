@@ -77,9 +77,6 @@ export class Chord extends jspb.Message {
   getName(): string;
   setName(value: string): void;
 
-  getTempo(): TempoMap[keyof TempoMap];
-  setTempo(value: TempoMap[keyof TempoMap]): void;
-
   clearStrummingPatternList(): void;
   getStrummingPatternList(): Array<StrumMap[keyof StrumMap]>;
   setStrummingPatternList(value: Array<StrumMap[keyof StrumMap]>): void;
@@ -98,7 +95,6 @@ export class Chord extends jspb.Message {
 export namespace Chord {
   export type AsObject = {
     name: string,
-    tempo: TempoMap[keyof TempoMap],
     strummingPatternList: Array<StrumMap[keyof StrumMap]>,
   }
 }
@@ -270,6 +266,14 @@ export namespace Song {
     vocalsMap: Array<[string, Vocal.AsObject]>,
   }
 }
+
+export interface SoChordSongMap {
+  UNKNOWN: 0;
+  SHALLOW: 1;
+  GOOD_RIDDANCE: 2;
+}
+
+export const SoChordSong: SoChordSongMap;
 
 export interface TempoMap {
   UNKNOWN_TEMPO: 0;

@@ -4,7 +4,6 @@ declare namespace PickInstructionScssModule {
     beforeStringCombination: string;
     fretCell: string;
     fretInstruction: string;
-    fretRow: string;
   }
 }
 
