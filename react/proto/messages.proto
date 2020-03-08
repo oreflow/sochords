@@ -30,8 +30,7 @@ enum Strum {
 
 message Chord {
   string name = 1;
-  Tempo tempo = 2;
-  repeated Strum strumming_pattern = 3;
+  repeated Strum strumming_pattern = 2;
 }
 
 message ChordInstruction {
