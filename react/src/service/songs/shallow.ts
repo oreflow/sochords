@@ -1,4 +1,7 @@
 import {
+  Strum,
+  Chord,
+  ChordInstruction,
   Instruction,
   InstructionSection,
   PickInstruction,
@@ -129,6 +132,84 @@ export default class Shallow {
     return instruction;
   }
 
+  _createChorusInstruction() {
+    const defaultStrum = [Strum.DOWN, Strum.NONE, Strum.DOWN, Strum.UP, Strum.NONE, Strum.UP, Strum.DOWN, Strum.UP];
+    const shortStrum = [Strum.DOWN, Strum.NONE, Strum.DOWN, Strum.UP];
+    const chord1 = new Chord();
+    chord1.setName('Am');
+    chord1.setStrummingPatternList(defaultStrum);
+    const chord2 = new Chord();
+    chord2.setName('D');
+    chord2.setStrummingPatternList(defaultStrum);
+    const chord3 = new Chord();
+    chord3.setName('G');
+    chord3.setStrummingPatternList(shortStrum);
+    const chord4 = new Chord();
+    chord4.setName('D');
+    chord4.setStrummingPatternList(shortStrum);
+    const chord5 = new Chord();
+    chord5.setName('Em');
+    chord5.setStrummingPatternList(defaultStrum);
+
+    const chordInstruction = new ChordInstruction();
+    chordInstruction.setChordsList([chord1, chord2, chord3, chord4, chord5]);
+    const instructionSection = new InstructionSection();
+    instructionSection.setChordInstruction(chordInstruction);
+    const instruction = new Instruction();
+    instruction.addSections(instructionSection);
+    return instruction;
+  }
+
+  _createBridgeInstruction() {
+    const D = Strum.DOWN;
+    const strum = [D, D, D, D, D, D, D, D];
+    const bm = new Chord();
+    bm.setName('Bm');
+    bm.setStrummingPatternList(strum);
+    const d = new Chord();
+    d.setName('D');
+    d.setStrummingPatternList(strum);
+    const a = new Chord();
+    a.setName('A');
+    a.setStrummingPatternList(strum);
+    const em = new Chord();
+    em.setName('Em');
+    em.setStrummingPatternList(strum);
+
+    const chordInstruction = new ChordInstruction();
+    chordInstruction.setChordsList([bm, d, a, em, bm, d, a]);
+    const instructionSection = new InstructionSection();
+    instructionSection.setChordInstruction(chordInstruction);
+    const instruction = new Instruction();
+    instruction.addSections(instructionSection);
+    return instruction;
+  }
+
+  _createChorus2Instruction() {
+    const D = Strum.DOWN, U = Strum.UP, N = Strum.NONE;
+    const strum = [D, N, D, N, D, N, D, U];
+    const am = new Chord();
+    am.setName('Am');
+    am.setStrummingPatternList(strum);
+    const d = new Chord();
+    d.setName('D');
+    d.setStrummingPatternList(strum);
+    const g = new Chord();
+    g.setName('G');
+    g.setStrummingPatternList(strum);
+    const em = new Chord();
+    em.setName('Em');
+    em.setStrummingPatternList(strum);
+
+    const chordInstruction = new ChordInstruction();
+    chordInstruction.setChordsList([am, am, d, d, g, d, em, em]);
+    const instructionSection = new InstructionSection();
+    instructionSection.setChordInstruction(chordInstruction);
+    const instruction = new Instruction();
+    instruction.addSections(instructionSection);
+    return instruction;
+  }
+
   getSong(): Song  {
     const song = new Song();
 
@@ -177,26 +258,50 @@ export default class Shallow {
     verse2Vocal.addLines(`And in the bad times I fear myself`);
     song.getVocalsMap().set(songSectionToString(verse2Section), verse2Vocal);
 
+    const chorus1Section = new SongSection();
+    chorus1Section.setSection(SongSection.Section.CHORUS);
+    chorus1Section.setNumber(1);
+    song.addSections(chorus1Section);
+    song.getInstructionsMap().set(songSectionToString(chorus1Section), this._createChorusInstruction());
+
+    const chorus1Vocal = new Vocal();
+    chorus1Vocal.addLines(`I'm off the deep end, watch as I dive in`);
+    chorus1Vocal.addLines(`I'll never meet the ground`);
+    chorus1Vocal.addLines(`Crash through the surface, where they can't hurt us`);
+    chorus1Vocal.addLines(`We're far from the shallow now`);
+    chorus1Vocal.addLines(`In the shallow, shallow`);
+    chorus1Vocal.addLines(`In the shallow, shallow`);
+    chorus1Vocal.addLines(`In the shallow, shallow`);
+    chorus1Vocal.addLines(`We're far from the shallow now`);
+    song.getVocalsMap().set(songSectionToString(chorus1Section), chorus1Vocal);
+
+    const bridgeSection = new SongSection();
+    bridgeSection.setSection(SongSection.Section.BRIDGE);
+    song.addSections(bridgeSection);
+    song.getInstructionsMap().set(songSectionToString(bridgeSection), this._createBridgeInstruction());
+
+    const bridgeVocal = new Vocal();
+    bridgeVocal.addLines(`Oh, oh, oh, oh`);
+    bridgeVocal.addLines(`Whoah!`);
+    song.getVocalsMap().set(songSectionToString(bridgeSection), bridgeVocal);
+
+    const chorus2Section = new SongSection();
+    chorus2Section.setSection(SongSection.Section.CHORUS);
+    chorus2Section.setNumber(2);
+    song.addSections(chorus2Section);
+    song.getInstructionsMap().set(songSectionToString(chorus2Section), this._createChorus2Instruction());
+
+    const chorus2Vocal = new Vocal();
+    chorus2Vocal.addLines(`I'm off the deep end, watch as I dive in`);
+    chorus2Vocal.addLines(`I'll never meet the ground`);
+    chorus2Vocal.addLines(`Crash through the surface, where they can't hurt us`);
+    chorus2Vocal.addLines(`We're far from the shallow now`);
+    chorus2Vocal.addLines(`In the shallow, shallow`);
+    chorus2Vocal.addLines(`In the shallow, shallow`);
+    chorus2Vocal.addLines(`In the shallow, shallow`);
+    chorus2Vocal.addLines(`We're far from the shallow now`);
+    song.getVocalsMap().set(songSectionToString(chorus2Section), chorus2Vocal);
+
     return song;
   }
 }
-/*
-  I'm off the deep end, watch as I dive in
-  I'll never meet the ground
-  Crash through the surface, where they can't hurt us
-  We're far from the shallow now
-  In the shallow, shallow
-  In the shallow, shallow
-  In the shallow, shallow
-  We're far from the shallow now
-  Oh, oh, oh, oh
-  Whoah!
-  I'm off the deep end, watch as I dive in
-  I'll never meet the ground
-  Crash through the surface, where they can't hurt us
-  We're far from the shallow now
-  In the shallow, shallow
-  In the shallow, shallow
-  In the shallow, shallow
-  We're far from the shallow now
-*/

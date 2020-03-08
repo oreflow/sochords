@@ -6,6 +6,7 @@ import {Subscription} from 'rxjs';
 
 import {InstructionSection, Song, Instruction, Vocal} from 'gen/proto/messages_pb';
 
+import ChordInstructionComponent from 'src/components/chordinstruction/chord_instruction_component';
 import PickInstructionComponent from 'src/components/pickinstruction/pick_instruction_component';
 import VocalComponent from 'src/components/vocal/vocal_component';
 import {SchordContext} from 'src/context';
@@ -47,7 +48,11 @@ class SchordSongComponent extends React.Component<SchordSongProps, SchordSongSta
               instruction.getSectionsList().map((instructionSection, index) => {
                 switch (instructionSection.getInstructionCase()) {
                   case InstructionSection.InstructionCase.CHORD_INSTRUCTION:
-                  return <div key={index}> Chord Instruction </div>;
+                  return (<ChordInstructionComponent 
+                    chordInstruction={instructionSection.getChordInstruction()!} 
+                    key={index}>
+                    Chord Instruction
+                  </ChordInstructionComponent>);
                   case InstructionSection.InstructionCase.PICK_INSTRUCTION:
                   return (<PickInstructionComponent 
                     pickInstruction={instructionSection.getPickInstruction()!} 
