@@ -44,7 +44,7 @@ class PickInstructionComponent extends React.Component<PickInstructionProps, {}>
         {
           fretNumber >= 0 ? 
           <Box className={`${styles.fretCell} ${styles.fretInstruction}`}>{fretNumber}</Box> : 
-          <RemoveIcon className={styles.fretCell}>-</RemoveIcon>
+          <RemoveIcon fontSize="inherit" className={styles.fretCell}>-</RemoveIcon>
         }
       </td>);
   }
@@ -69,28 +69,28 @@ class PickInstructionComponent extends React.Component<PickInstructionProps, {}>
         <Box className={styles.beforeStringCombination}></Box>
         <table>
           <tbody>
-            <tr className={styles.fretRow}>
+            <tr>
               {this._getChordTiles(picks)}
             </tr>
-            <tr className={styles.fretRow}>
+            <tr>
               {picks.map((pick) => this._renderFretAvatar(pick.getE4()))}
             </tr>
-            <tr className={styles.fretRow}>
+            <tr>
               {picks.map((pick) => this._renderFretAvatar(pick.getB()))}
             </tr>
-            <tr className={styles.fretRow}>
+            <tr>
               {picks.map((pick) => this._renderFretAvatar(pick.getG()))}
             </tr>
-            <tr className={styles.fretRow}>
+            <tr>
               {picks.map((pick) => this._renderFretAvatar(pick.getD()))}
             </tr>
-            <tr className={styles.fretRow}>
+            <tr>
               {picks.map((pick) => this._renderFretAvatar(pick.getA()))}
             </tr>
-            <tr className={styles.fretRow}>
+            <tr>
               {picks.map((pick) => this._renderFretAvatar(pick.getE2()))}
             </tr>
-            <tr className={styles.fretRow}>
+            <tr>
               {this._renderTempoTiles(this.props.pickInstruction.getTempo())}
             </tr>
           </tbody>

@@ -8,6 +8,7 @@ import {
 
 import Shallow from 'src/service/songs/shallow';
 import GoodRiddance from 'src/service/songs/good_riddance';
+import ThePartingGlass from 'src/service/songs/the_parting_glass';
 
 export class SchordService {
   _currentSong: Subject<Song> = new Subject();
@@ -23,6 +24,9 @@ export class SchordService {
         break;
       case SoChordSong.GOOD_RIDDANCE:
         this._currentSong.next(new GoodRiddance().getSong());
+        break;
+      case SoChordSong.THE_PARTING_GLASS:
+        this._currentSong.next(new ThePartingGlass().getSong());
         break;
     }
   }

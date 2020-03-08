@@ -271,6 +271,7 @@ export interface SoChordSongMap {
   UNKNOWN: 0;
   SHALLOW: 1;
   GOOD_RIDDANCE: 2;
+  THE_PARTING_GLASS: 3;
 }
 
 export const SoChordSong: SoChordSongMap;

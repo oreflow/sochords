@@ -37,6 +37,12 @@ class App extends React.Component<{}, {}> {
               className={styles.songButton}>
               Good Riddance
             </Button>
+            <Button 
+              onClick={() => this._selectSong(SoChordSong.THE_PARTING_GLASS)} 
+              color="inherit" 
+              className={styles.songButton}>
+              The Parting Glass
+            </Button>
           </Toolbar>
         </AppBar>
 

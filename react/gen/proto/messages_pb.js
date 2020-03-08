@@ -1858,7 +1858,8 @@ proto.com.oreflow.schord.Song.prototype.clearVocalsMap = function() {
 proto.com.oreflow.schord.SoChordSong = {
   UNKNOWN: 0,
   SHALLOW: 1,
-  GOOD_RIDDANCE: 2
+  GOOD_RIDDANCE: 2,
+  THE_PARTING_GLASS: 3
 };
 
 /**
