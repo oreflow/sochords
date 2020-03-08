@@ -16,11 +16,12 @@ goog.exportSymbol('proto.com.oreflow.schord.ChordInstruction', null, global);
 goog.exportSymbol('proto.com.oreflow.schord.Instruction', null, global);
 goog.exportSymbol('proto.com.oreflow.schord.InstructionSection', null, global);
 goog.exportSymbol('proto.com.oreflow.schord.PickInstruction', null, global);
-goog.exportSymbol('proto.com.oreflow.schord.PickInstruction.Tempo', null, global);
 goog.exportSymbol('proto.com.oreflow.schord.Song', null, global);
 goog.exportSymbol('proto.com.oreflow.schord.SongSection', null, global);
 goog.exportSymbol('proto.com.oreflow.schord.SongSection.Section', null, global);
 goog.exportSymbol('proto.com.oreflow.schord.StringCombination', null, global);
+goog.exportSymbol('proto.com.oreflow.schord.Strum', null, global);
+goog.exportSymbol('proto.com.oreflow.schord.Tempo', null, global);
 goog.exportSymbol('proto.com.oreflow.schord.Vocal', null, global);
 
 /**
@@ -420,7 +421,7 @@ proto.com.oreflow.schord.PickInstruction.deserializeBinaryFromReader = function(
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {!proto.com.oreflow.schord.PickInstruction.Tempo} */ (reader.readEnum());
+      var value = /** @type {!proto.com.oreflow.schord.Tempo} */ (reader.readEnum());
       msg.setTempo(value);
       break;
     case 2:
@@ -476,23 +477,15 @@ proto.com.oreflow.schord.PickInstruction.serializeBinaryToWriter = function(mess
 
 
 /**
- * @enum {number}
- */
-proto.com.oreflow.schord.PickInstruction.Tempo = {
-  UNKNOWN_TEMPO: 0,
-  EIGHT: 1
-};
-
-/**
  * optional Tempo tempo = 1;
- * @return {!proto.com.oreflow.schord.PickInstruction.Tempo}
+ * @return {!proto.com.oreflow.schord.Tempo}
  */
 proto.com.oreflow.schord.PickInstruction.prototype.getTempo = function() {
-  return /** @type {!proto.com.oreflow.schord.PickInstruction.Tempo} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+  return /** @type {!proto.com.oreflow.schord.Tempo} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
 };
 
 
-/** @param {!proto.com.oreflow.schord.PickInstruction.Tempo} value */
+/** @param {!proto.com.oreflow.schord.Tempo} value */
 proto.com.oreflow.schord.PickInstruction.prototype.setTempo = function(value) {
   jspb.Message.setProto3EnumField(this, 1, value);
 };
@@ -541,12 +534,19 @@ proto.com.oreflow.schord.PickInstruction.prototype.clearPicksList = function() {
  * @constructor
  */
 proto.com.oreflow.schord.Chord = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.com.oreflow.schord.Chord.repeatedFields_, null);
 };
 goog.inherits(proto.com.oreflow.schord.Chord, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   proto.com.oreflow.schord.Chord.displayName = 'proto.com.oreflow.schord.Chord';
 }
+/**
+ * List of repeated fields within this message type.
+ * @private {!Array<number>}
+ * @const
+ */
+proto.com.oreflow.schord.Chord.repeatedFields_ = [3];
+
 
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
@@ -576,8 +576,9 @@ proto.com.oreflow.schord.Chord.prototype.toObject = function(opt_includeInstance
  */
 proto.com.oreflow.schord.Chord.toObject = function(includeInstance, msg) {
   var f, obj = {
-    chordName: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    stringCombination: (f = msg.getStringCombination()) && proto.com.oreflow.schord.StringCombination.toObject(includeInstance, f)
+    name: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    tempo: jspb.Message.getFieldWithDefault(msg, 2, 0),
+    strummingPatternList: jspb.Message.getRepeatedField(msg, 3)
   };
 
   if (includeInstance) {
@@ -616,12 +617,15 @@ proto.com.oreflow.schord.Chord.deserializeBinaryFromReader = function(msg, reade
     switch (field) {
     case 1:
       var value = /** @type {string} */ (reader.readString());
-      msg.setChordName(value);
+      msg.setName(value);
       break;
     case 2:
-      var value = new proto.com.oreflow.schord.StringCombination;
-      reader.readMessage(value,proto.com.oreflow.schord.StringCombination.deserializeBinaryFromReader);
-      msg.setStringCombination(value);
+      var value = /** @type {!proto.com.oreflow.schord.Tempo} */ (reader.readEnum());
+      msg.setTempo(value);
+      break;
+    case 3:
+      var value = /** @type {!Array<!proto.com.oreflow.schord.Strum>} */ (reader.readPackedEnum());
+      msg.setStrummingPatternList(value);
       break;
     default:
       reader.skipField();
@@ -652,66 +656,86 @@ proto.com.oreflow.schord.Chord.prototype.serializeBinary = function() {
  */
 proto.com.oreflow.schord.Chord.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getChordName();
+  f = message.getName();
   if (f.length > 0) {
     writer.writeString(
       1,
       f
     );
   }
-  f = message.getStringCombination();
-  if (f != null) {
-    writer.writeMessage(
+  f = message.getTempo();
+  if (f !== 0.0) {
+    writer.writeEnum(
       2,
-      f,
-      proto.com.oreflow.schord.StringCombination.serializeBinaryToWriter
+      f
+    );
+  }
+  f = message.getStrummingPatternList();
+  if (f.length > 0) {
+    writer.writePackedEnum(
+      3,
+      f
     );
   }
 };
 
 
 /**
- * optional string chord_name = 1;
+ * optional string name = 1;
  * @return {string}
  */
-proto.com.oreflow.schord.Chord.prototype.getChordName = function() {
+proto.com.oreflow.schord.Chord.prototype.getName = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
 
 /** @param {string} value */
-proto.com.oreflow.schord.Chord.prototype.setChordName = function(value) {
+proto.com.oreflow.schord.Chord.prototype.setName = function(value) {
   jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
 /**
- * optional StringCombination string_combination = 2;
- * @return {?proto.com.oreflow.schord.StringCombination}
+ * optional Tempo tempo = 2;
+ * @return {!proto.com.oreflow.schord.Tempo}
  */
-proto.com.oreflow.schord.Chord.prototype.getStringCombination = function() {
-  return /** @type{?proto.com.oreflow.schord.StringCombination} */ (
-    jspb.Message.getWrapperField(this, proto.com.oreflow.schord.StringCombination, 2));
+proto.com.oreflow.schord.Chord.prototype.getTempo = function() {
+  return /** @type {!proto.com.oreflow.schord.Tempo} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
 };
 
 
-/** @param {?proto.com.oreflow.schord.StringCombination|undefined} value */
-proto.com.oreflow.schord.Chord.prototype.setStringCombination = function(value) {
-  jspb.Message.setWrapperField(this, 2, value);
-};
-
-
-proto.com.oreflow.schord.Chord.prototype.clearStringCombination = function() {
-  this.setStringCombination(undefined);
+/** @param {!proto.com.oreflow.schord.Tempo} value */
+proto.com.oreflow.schord.Chord.prototype.setTempo = function(value) {
+  jspb.Message.setProto3EnumField(this, 2, value);
 };
 
 
 /**
- * Returns whether this field is set.
- * @return {!boolean}
+ * repeated Strum strumming_pattern = 3;
+ * @return {!Array<!proto.com.oreflow.schord.Strum>}
  */
-proto.com.oreflow.schord.Chord.prototype.hasStringCombination = function() {
-  return jspb.Message.getField(this, 2) != null;
+proto.com.oreflow.schord.Chord.prototype.getStrummingPatternList = function() {
+  return /** @type {!Array<!proto.com.oreflow.schord.Strum>} */ (jspb.Message.getRepeatedField(this, 3));
+};
+
+
+/** @param {!Array<!proto.com.oreflow.schord.Strum>} value */
+proto.com.oreflow.schord.Chord.prototype.setStrummingPatternList = function(value) {
+  jspb.Message.setField(this, 3, value || []);
+};
+
+
+/**
+ * @param {!proto.com.oreflow.schord.Strum} value
+ * @param {number=} opt_index
+ */
+proto.com.oreflow.schord.Chord.prototype.addStrummingPattern = function(value, opt_index) {
+  jspb.Message.addToRepeatedField(this, 3, value, opt_index);
+};
+
+
+proto.com.oreflow.schord.Chord.prototype.clearStrummingPatternList = function() {
+  this.setStrummingPatternList([]);
 };
 
 
@@ -1594,7 +1618,8 @@ proto.com.oreflow.schord.SongSection.Section = {
   BRIDGE: 5,
   OUTRO: 6,
   POST_CHORUS: 7,
-  SOLO: 8
+  SOLO: 8,
+  BREAK: 9
 };
 
 /**
@@ -1852,5 +1877,22 @@ proto.com.oreflow.schord.Song.prototype.clearVocalsMap = function() {
   this.getVocalsMap().clear();
 };
 
+
+/**
+ * @enum {number}
+ */
+proto.com.oreflow.schord.Tempo = {
+  UNKNOWN_TEMPO: 0,
+  EIGHT: 1
+};
+
+/**
+ * @enum {number}
+ */
+proto.com.oreflow.schord.Strum = {
+  NONE: 0,
+  UP: 1,
+  DOWN: 2
+};
 
 goog.object.extend(exports, proto.com.oreflow.schord);

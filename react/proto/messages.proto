@@ -12,18 +12,26 @@ message StringCombination {
   string name = 7;
 }
 
+enum Tempo {
+  UNKNOWN_TEMPO = 0;
+  EIGHT = 1;
+}
+
 message PickInstruction {
-  enum Tempo {
-    UNKNOWN_TEMPO = 0;
-    EIGHT = 1;
-  }
   Tempo tempo = 1;
   repeated StringCombination picks = 2;
 }
 
+enum Strum {
+  NONE = 0;
+  UP = 1;
+  DOWN = 2;
+}
+
 message Chord {
-  string chord_name = 1;
-  StringCombination string_combination = 2;
+  string name = 1;
+  Tempo tempo = 2;
+  repeated Strum strumming_pattern = 3;
 }
 
 message ChordInstruction {
@@ -48,13 +56,14 @@ message SongSection {
   enum Section {
     UNKNOWN_SECTION = 0;
     INTRO = 1;
-    VERSE= 2;
-    PRE_CHORUS= 3;
-    CHORUS= 4;
-    BRIDGE= 5;
-    OUTRO= 6;
-    POST_CHORUS= 7;
-    SOLO= 8;
+    VERSE = 2;
+    PRE_CHORUS = 3;
+    CHORUS = 4;
+    BRIDGE = 5;
+    OUTRO = 6;
+    POST_CHORUS = 7;
+    SOLO = 8;
+    BREAK = 9;
   }
 
   Section section = 1;

@@ -48,8 +48,8 @@ export namespace StringCombination {
 }
 
 export class PickInstruction extends jspb.Message {
-  getTempo(): PickInstruction.TempoMap[keyof PickInstruction.TempoMap];
-  setTempo(value: PickInstruction.TempoMap[keyof PickInstruction.TempoMap]): void;
+  getTempo(): TempoMap[keyof TempoMap];
+  setTempo(value: TempoMap[keyof TempoMap]): void;
 
   clearPicksList(): void;
   getPicksList(): Array<StringCombination>;
@@ -68,26 +68,22 @@ export class PickInstruction extends jspb.Message {
 
 export namespace PickInstruction {
   export type AsObject = {
-    tempo: PickInstruction.TempoMap[keyof PickInstruction.TempoMap],
+    tempo: TempoMap[keyof TempoMap],
     picksList: Array<StringCombination.AsObject>,
   }
-
-  export interface TempoMap {
-    UNKNOWN_TEMPO: 0;
-    EIGHT: 1;
-  }
-
-  export const Tempo: TempoMap;
 }
 
 export class Chord extends jspb.Message {
-  getChordName(): string;
-  setChordName(value: string): void;
+  getName(): string;
+  setName(value: string): void;
 
-  hasStringCombination(): boolean;
-  clearStringCombination(): void;
-  getStringCombination(): StringCombination | undefined;
-  setStringCombination(value?: StringCombination): void;
+  getTempo(): TempoMap[keyof TempoMap];
+  setTempo(value: TempoMap[keyof TempoMap]): void;
+
+  clearStrummingPatternList(): void;
+  getStrummingPatternList(): Array<StrumMap[keyof StrumMap]>;
+  setStrummingPatternList(value: Array<StrumMap[keyof StrumMap]>): void;
+  addStrummingPattern(value: StrumMap[keyof StrumMap], index?: number): StrumMap[keyof StrumMap];
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Chord.AsObject;
@@ -101,8 +97,9 @@ export class Chord extends jspb.Message {
 
 export namespace Chord {
   export type AsObject = {
-    chordName: string,
-    stringCombination?: StringCombination.AsObject,
+    name: string,
+    tempo: TempoMap[keyof TempoMap],
+    strummingPatternList: Array<StrumMap[keyof StrumMap]>,
   }
 }
 
@@ -240,6 +237,7 @@ export namespace SongSection {
     OUTRO: 6;
     POST_CHORUS: 7;
     SOLO: 8;
+    BREAK: 9;
   }
 
   export const Section: SectionMap;
@@ -272,4 +270,19 @@ export namespace Song {
     vocalsMap: Array<[string, Vocal.AsObject]>,
   }
 }
+
+export interface TempoMap {
+  UNKNOWN_TEMPO: 0;
+  EIGHT: 1;
+}
+
+export const Tempo: TempoMap;
+
+export interface StrumMap {
+  NONE: 0;
+  UP: 1;
+  DOWN: 2;
+}
+
+export const Strum: StrumMap;
 

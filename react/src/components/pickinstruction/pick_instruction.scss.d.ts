@@ -2,6 +2,9 @@ declare namespace PickInstructionScssModule {
   export interface IPickInstructionScss {
     afterStringCombination: string;
     beforeStringCombination: string;
+    fretCell: string;
+    fretInstruction: string;
+    fretRow: string;
   }
 }
 
