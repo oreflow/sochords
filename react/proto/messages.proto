@@ -2,6 +2,12 @@ syntax = "proto3";
 
 package com.oreflow.schord;
 
+enum SoChordSong {
+  UNKNOWN = 0;
+  SHALLOW = 1;
+  GOOD_RIDDANCE = 2;
+}
+
 message StringCombination {
   int32 e4 = 1;
   int32 b = 2;

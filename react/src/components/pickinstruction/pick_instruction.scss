@@ -1,10 +1,6 @@
 
 $cell-size: 20px;
 
-.fretRow {
-  height: $cell-size;
-}
-
 .fretCell {
   user-select: none;
   height: $cell-size;

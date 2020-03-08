@@ -32,7 +32,7 @@ class ChordInstructionComponent extends React.Component<ChordInstructionProps, {
     return (
       <td key={uuidv4()} colSpan={cols}>
         <Box className={styles.strummingPattern}>
-          {strums.map((strum) => this._renderStrumAsIcon(strum))}
+          {strums.map((strum) => <Box key={uuidv4()}>{this._renderStrumAsIcon(strum)}</Box>)}
         </Box>
       </td>
     );

@@ -1,22 +1,29 @@
-import {Observable, Observer} from 'rxjs';
+import {Subject} from 'rxjs';
 
 import {
   Song,
+  SoChordSong, 
+  SoChordSongMap,
 } from 'gen/proto/messages_pb';
 
 import Shallow from 'src/service/songs/shallow';
+import GoodRiddance from 'src/service/songs/good_riddance';
 
 export class SchordService {
+  _currentSong: Subject<Song> = new Subject();
 
-  _currentSong: Observable<Song>;
-
-  constructor() {
-    this._currentSong = Observable.create((observer: Observer<Song>) => {
-      observer.next(new Shallow().getSong());
-    });
+  song(): Subject<Song> {
+    return this._currentSong;
   }
 
-  song(): Observable<Song> {
-    return this._currentSong;
+  selectSong(song: SoChordSongMap[keyof SoChordSongMap]) {
+    switch(song) {
+      case SoChordSong.SHALLOW:
+        this._currentSong.next(new Shallow().getSong());
+        break;
+      case SoChordSong.GOOD_RIDDANCE:
+        this._currentSong.next(new GoodRiddance().getSong());
+        break;
+    }
   }
 }
