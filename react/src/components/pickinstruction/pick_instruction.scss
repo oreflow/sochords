@@ -1,4 +1,24 @@
 
+$cell-size: 20px;
+
+.fretRow {
+  height: $cell-size;
+}
+
+.fretCell {
+  user-select: none;
+  height: $cell-size;
+  min-width: $cell-size;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: calc(#{$cell-size} * 0.7);
+}
+
+.fretInstruction {
+  background-color: lightblue;
+  border-radius: 50%;
+}
 
 .beforeStringCombination {
   display: flex;

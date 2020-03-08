@@ -60,7 +60,9 @@ class SchordSongComponent extends React.Component<SchordSongProps, SchordSongSta
               })
             }
           </Box>
-          <VocalComponent vocal={vocal}></VocalComponent>
+          <Box className={styles.vocalColumn}>
+            <VocalComponent vocal={vocal}></VocalComponent>
+          </Box>
         </Box>
       </Box>
     );
