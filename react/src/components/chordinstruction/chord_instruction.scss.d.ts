@@ -3,6 +3,7 @@ declare namespace ChordInstructionScssModule {
     afterStringCombination: string;
     beforeStringCombination: string;
     chord: string;
+    chordInstructionWrapper: string;
     strummingPattern: string;
   }
 }

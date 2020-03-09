@@ -4,10 +4,10 @@ import * as ReactDOM from 'react-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/core/styles';
 
-import App from './components/app_component';
-import theme from './theme';
-import {SchordContext, state} from './context';
-import './styles.scss';
+import App from 'src/components/app_component';
+import theme from 'src/theme';
+import {SchordContext, state} from 'src/context';
+import 'src/styles.scss';
 
 ReactDOM.render (
   <SchordContext.Provider value={state}>

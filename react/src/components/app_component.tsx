@@ -46,8 +46,8 @@ class App extends React.Component<{}, {}> {
           </Toolbar>
         </AppBar>
 
-        <Box display="flex" justifyContent="center">
-          <SchordSongComponent test="what"/>
+        <Box className={styles.schordSongWrapper}>
+          <SchordSongComponent/>
         </Box>
       </React.Fragment>
     );

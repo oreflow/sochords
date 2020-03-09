@@ -1,13 +1,11 @@
 import * as React from 'react';
 import Box from '@material-ui/core/Box';
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
 import RemoveIcon from '@material-ui/icons/Remove';
-import Avatar from '@material-ui/core/Avatar';
 import {v4 as uuidv4} from 'uuid';
 
+import { TempoMap, Tempo, StringCombination } from 'gen/proto/messages_pb';
+
 import PickInstructionProps from 'src/components/pickinstruction/pick_instruction_props';
-import { PickInstruction, TempoMap, Tempo, StringCombination } from 'gen/proto/messages_pb';
 import * as styles from 'src/components/pickinstruction/pick_instruction.scss';
 
 interface _ChordTileAggregate {

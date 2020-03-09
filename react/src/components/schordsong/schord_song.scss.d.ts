@@ -1,5 +1,7 @@
 declare namespace SchordSongScssModule {
   export interface ISchordSongScss {
+    flexColumn: string;
+    flexRow: string;
     sectionWrapper: string;
     vocalColumn: string;
   }

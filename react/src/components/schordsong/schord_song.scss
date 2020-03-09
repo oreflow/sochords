@@ -9,11 +9,19 @@
   margin: 5px 5px 0 5px;
 }
 
-.instructionColumn {
-
-}
-
 .vocalColumn {
   margin-left: 20px;
+}
 
+.flexRow {
+  display: flex;
+  justify-content: center;
+  align-items:center;
+  flex-direction: row;
+}
+
+.flexColumn {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }

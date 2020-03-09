@@ -10,7 +10,7 @@ import Shallow from 'src/service/songs/shallow';
 import GoodRiddance from 'src/service/songs/good_riddance';
 import ThePartingGlass from 'src/service/songs/the_parting_glass';
 
-export class SchordService {
+export default class SchordService {
   _currentSong: Subject<Song> = new Subject();
 
   song(): Subject<Song> {
