@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import {SchordService} from './service/schord_service';
-import theme from './theme';
+import SchordService from 'src/service/schord_service';
+import theme from 'src/theme';
 
 const schordService = new SchordService();
 

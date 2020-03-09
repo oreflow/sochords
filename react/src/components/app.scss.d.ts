@@ -1,5 +1,6 @@
 declare namespace AppScssModule {
   export interface IAppScss {
+    schordSongWrapper: string;
     songButton: string;
   }
 }

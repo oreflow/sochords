@@ -7,8 +7,6 @@ import {
   PickInstruction,
   Song,
   SongSection,
-  StringCombination,
-  Tempo,
   Vocal,
 } from 'gen/proto/messages_pb';
 

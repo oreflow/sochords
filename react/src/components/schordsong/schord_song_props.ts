@@ -1,4 +1,4 @@
 
 export default interface SchordSongProps {
-    test: string
+    test: string;
 }

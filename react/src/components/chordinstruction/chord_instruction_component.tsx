@@ -3,11 +3,11 @@ import Box from '@material-ui/core/Box';
 import RemoveIcon from '@material-ui/icons/Remove';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
-import Avatar from '@material-ui/core/Avatar';
 import {v4 as uuidv4} from 'uuid';
 
+import { Chord, Strum, StrumMap} from 'gen/proto/messages_pb';
+
 import ChordInstructionProps from 'src/components/chordinstruction/chord_instruction_props';
-import { Chord, ChordInstruction, Strum, StrumMap} from 'gen/proto/messages_pb';
 import * as styles from 'src/components/chordinstruction/chord_instruction.scss';
 
 interface _StrummingTileAggregate {
@@ -20,11 +20,11 @@ class ChordInstructionComponent extends React.Component<ChordInstructionProps, {
   _renderStrumAsIcon(strum: StrumMap[keyof StrumMap]) {
     switch(strum) {
       case Strum.NONE:
-        return <RemoveIcon></RemoveIcon>
+      return <RemoveIcon></RemoveIcon>
       case Strum.DOWN:
-        return <ArrowDownwardIcon></ArrowDownwardIcon>
+      return <ArrowDownwardIcon></ArrowDownwardIcon>
       case Strum.UP:
-        return <ArrowUpwardIcon></ArrowUpwardIcon>
+      return <ArrowUpwardIcon></ArrowUpwardIcon>
     }
   }
 
@@ -34,8 +34,7 @@ class ChordInstructionComponent extends React.Component<ChordInstructionProps, {
         <Box className={styles.strummingPattern}>
           {strums.map((strum) => <Box key={uuidv4()}>{this._renderStrumAsIcon(strum)}</Box>)}
         </Box>
-      </td>
-    );
+      </td>);
   }
 
   _getStrummingTiles(chords: Chord[]): JSX.Element[] {
@@ -55,18 +54,17 @@ class ChordInstructionComponent extends React.Component<ChordInstructionProps, {
 
   _renderChordRow(chords: Chord[]): JSX.Element[] {
     return chords.map((chord) => 
-    <td key={uuidv4()}>
-      <Box className={styles.chord}>
-        {chord.getName()}
-      </Box>
-    </td>
-    );
+      <td key={uuidv4()}>
+        <Box className={styles.chord}>
+          {chord.getName()}
+        </Box>
+      </td>);
   }
 
   render() {
     const chords = this.props.chordInstruction.getChordsList();
     return (
-      <Box display="flex" justifyContent="center">
+      <Box className={styles.chordInstructionWrapper}>
         <table>
           <tbody>
             <tr>{this._renderChordRow(chords)}</tr>
