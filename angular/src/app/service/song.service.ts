@@ -1,9 +1,25 @@
 import { Injectable } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
+
 import { songs }  from 'gen/proto/songs';
 
 @Injectable({providedIn: 'root'})
 export default class SongService {
-  constructor() {}
+
+  constructor(private firestore: AngularFirestore) {}
+
+  createSong(songInfo: songs.SongInfo): Promise<songs.Song> {
+    const song = songs.Song.create({ 
+      state: songs.Song.State.DRAFT,
+      songInfo: songInfo,
+    });
+    return this.firestore.collection('songs_dev')
+    .add(songs.Song.toObject(song))
+    .then((data) => {
+      song.id = data.id;
+      return song;
+    });
+  }
 
   searchSong(search: string): songs.SongSearchResult[] {
     const shallow = songs.SongSearchResult.create({

@@ -34,6 +34,11 @@
     border: 1px solid mat-color($accent);
     position: relative;
 
+    &:hover,
+    &:focus-within {
+      box-shadow: 0 1px 6px 0 mat-color($accent);
+    }
+
     .sochord-logo {
       height: 36px;
       margin-right: 20px;

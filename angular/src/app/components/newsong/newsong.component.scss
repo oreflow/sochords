@@ -1,0 +1,48 @@
+@import '~@angular/material/theming';
+
+@mixin new-song-component-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $pane-width: 400px;
+
+  .component-root {
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+    flex-direction:column;
+  }
+
+  .song-name-field {
+    mat-label,
+    input {
+      font-size: 24px;
+    }
+    width: $pane-width;
+  }
+
+  .create-song-button-wrapper {
+    margin-top: 20px;
+    width: $pane-width;
+
+    & > button {
+      float: right;
+    }
+  }
+  .error-creating {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    line-height: normal;
+
+    mat-icon {
+      margin-bottom: 40px;
+      font-size: 84px;
+      height: 84px;
+      width: 84px;
+    }
+    font-size: 24px;
+  }
+}
