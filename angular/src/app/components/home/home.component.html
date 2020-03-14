@@ -5,11 +5,13 @@
            type="text"
            placeholder="Find a Song..."
            [formControl]="searchControl"
-           [matAutocomplete]="auto">
-  </div>
+           [matAutocomplete]="auto" />
   <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
     <mat-option *ngFor="let option of filteredSearch | async" [value]="option">
-      {{option}}
+      {{option.songInfo.title}}
     </mat-option>
   </mat-autocomplete>
+  </div>
+
+  <button mat-button class="add-song-button">ADD NEW SONG</button>
 </div>

@@ -1,6 +1,22 @@
 syntax = "proto3";
 
-package com.oreflow.schord;
+package songs;
+
+message ArtistInfo {
+  string name = 1;
+}
+
+message SongInfo {
+  string title = 1;
+  repeated ArtistInfo artists = 2;
+}
+
+message SongSearchResult {
+  string id = 1;
+  SongInfo song_info = 2;
+}
+
+// BORDER: Legacy stuff
 
 enum SoChordSong {
   UNKNOWN = 0;
