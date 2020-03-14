@@ -1,0 +1,87 @@
+syntax = "proto3";
+
+package com.oreflow.schord;
+
+enum SoChordSong {
+  UNKNOWN = 0;
+  SHALLOW = 1;
+  GOOD_RIDDANCE = 2;
+  THE_PARTING_GLASS = 3;
+}
+
+message StringCombination {
+  int32 e4 = 1;
+  int32 b = 2;
+  int32 g = 3;
+  int32 d = 4;
+  int32 a = 5;
+  int32 e2 = 6;
+  string name = 7;
+}
+
+enum Tempo {
+  UNKNOWN_TEMPO = 0;
+  EIGHT = 1;
+}
+
+message PickInstruction {
+  Tempo tempo = 1;
+  repeated StringCombination picks = 2;
+}
+
+enum Strum {
+  NONE = 0;
+  UP = 1;
+  DOWN = 2;
+}
+
+message Chord {
+  string name = 1;
+  repeated Strum strumming_pattern = 2;
+}
+
+message ChordInstruction {
+  repeated Chord chords = 1;
+}
+
+message InstructionSection {
+  oneof instruction {
+    PickInstruction pick_instruction = 1;
+    ChordInstruction chord_instruction = 2;
+  }
+}
+message Instruction {
+  repeated InstructionSection sections = 1;
+}
+
+message Vocal {
+  repeated string lines = 1;
+}
+
+message SongSection {
+  enum Section {
+    UNKNOWN_SECTION = 0;
+    INTRO = 1;
+    VERSE = 2;
+    PRE_CHORUS = 3;
+    CHORUS = 4;
+    BRIDGE = 5;
+    OUTRO = 6;
+    POST_CHORUS = 7;
+    SOLO = 8;
+    BREAK = 9;
+  }
+
+  Section section = 1;
+
+  int32 number = 2;
+}
+
+message Song {
+  repeated SongSection sections = 1;
+  map<string, Instruction> instructions = 2;
+  map<string, Vocal> vocals = 3;
+}
+
+
+

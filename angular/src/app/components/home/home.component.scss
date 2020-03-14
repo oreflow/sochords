@@ -1,0 +1,44 @@
+@import '~@angular/material/theming';
+
+@mixin home-component-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+
+
+  .component-root {
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .search-field-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background-color: white;
+    border-radius: 9999px;
+
+    border: 1px solid mat-color($accent);
+    position: relative;
+
+    .sochord-logo {
+      height: 36px;
+      margin-right: 10px;
+    }
+
+    .search-field {
+      font-size: 36px;
+      width: 500px;
+      border: none;
+      caret-color: mat-color($accent);
+      outline: none;
+      color: gray;
+      &::placeholder {
+        color: lightgray;
+      }
+
+    }
+  }
+}
