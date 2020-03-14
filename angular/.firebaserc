@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "so-chords": {
+      "hosting": {
+        "sochords": [
+          "so-chords"
+        ]
+      }
+    }
+  }
+}

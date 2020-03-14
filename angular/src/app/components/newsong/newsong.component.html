@@ -1,0 +1,32 @@
+<div class="component-root">
+  <div *ngIf="state === states.PENDING">
+    <h1>Create New Song</h1>
+    <mat-form-field class="song-name-field">
+      <mat-label>Song name</mat-label>
+      <input matInput [formControl]="songName" 
+             required 
+             minlength="2">
+      <mat-error *ngIf="songName.invalid && songName.errors.required">
+        Song name is required.
+      </mat-error>
+      <mat-error *ngIf="songName.invalid && songName.errors.minlength">
+        Song name has to be at least 2 characters.
+      </mat-error>
+    </mat-form-field>
+    <div class="create-song-button-wrapper">
+      <button mat-raised-button 
+              color="accent"
+              [disabled]="songName.invalid"
+              (click)="createSong()">
+        CREATE SONG
+      </button>
+    </div>
+  </div>
+  <div *ngIf="state === states.CREATING">
+    <mat-spinner color="accent"></mat-spinner>
+  </div>
+  <div *ngIf="state === states.ERROR" class="error-creating">
+    <mat-icon color="error">warning</mat-icon>
+    <mat-error>There was an error creating the song.<br> Please try again later</mat-error>
+  </div>
+</div>

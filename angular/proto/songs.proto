@@ -16,8 +16,21 @@ message SongSearchResult {
   SongInfo song_info = 2;
 }
 
+message Song {
+  string id = 1;
+  string owner_user_id = 2;
+  enum State {
+    STATE_UNKNOWN = 0;
+    DRAFT = 1;
+    COMPLETE = 2;
+  }
+  State state = 3;
+  SongInfo info = 4;
+}
+
 // BORDER: Legacy stuff
 
+/*
 enum SoChordSong {
   UNKNOWN = 0;
   SHALLOW = 1;
@@ -98,6 +111,4 @@ message Song {
   map<string, Instruction> instructions = 2;
   map<string, Vocal> vocals = 3;
 }
-
-
-
+*/
