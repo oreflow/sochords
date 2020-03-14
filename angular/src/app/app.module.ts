@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
+import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -27,6 +28,7 @@ import { SongComponent } from 'app/components/song/song.component';
     BrowserAnimationsModule,
     BrowserModule,
     HttpClientModule,
+    MatButtonModule,
     MatAutocompleteModule,
     MatFormFieldModule,
     MatIconModule,

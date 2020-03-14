@@ -10,6 +10,17 @@
     flex-grow: 1;
     justify-content: center;
     align-items: center;
+    flex-direction:column;
+
+    .add-song-button {
+      font-size: 24px;
+      margin-top: 20px;
+      padding: 10px;
+      color: lightgray;
+      &:hover {
+        color: mat-color($accent);
+      }
+    }
   }
 
   .search-field-wrapper {
@@ -25,7 +36,7 @@
 
     .sochord-logo {
       height: 36px;
-      margin-right: 10px;
+      margin-right: 20px;
     }
 
     .search-field {

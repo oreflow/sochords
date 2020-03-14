@@ -3,6 +3,9 @@ import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 
+import { songs } from 'gen/proto/songs';
+import SongService from 'app/service/song.service';
+
 @Component({
   selector: 'home-root',
   templateUrl: './home.component.html',
@@ -10,15 +13,13 @@ import { startWith, map } from 'rxjs/operators';
 })
 export class HomeComponent implements OnInit {
   searchControl = new FormControl();
-  searchOptions = ['dummy1', 'dummy2'];
-  filteredSearch: Observable<string[]>;
+  filteredSearch: Observable<songs.SongSearchResult[]>;
+
+  constructor(private songService: SongService) {}
 
   ngOnInit() {
     this.filteredSearch = this.searchControl.valueChanges.pipe(
       startWith(''),
-      map(value => this.getSearchResults(value)));
-  }
-  getSearchResults(filterValue) {
-    return this.searchOptions;
+      map(value => this.songService.searchSong(value)));
   }
 }
