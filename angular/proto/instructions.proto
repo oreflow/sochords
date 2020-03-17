@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+package instructions;
+
+message StringCombination {
+  string e4 = 1;
+  string b = 2;
+  string g = 3;
+  string d = 4;
+  string a = 5;
+  string e2 = 6;
+  string chord = 7;
+  string guide = 8;
+}
+
+message TabInstructionBlock {
+  repeated StringCombination picks = 1;
+}
+
+message TabInstruction {
+  repeated TabInstructionBlock tab_blocks = 1;
+}
+
+message ChordInstruction {
+}
+
+// BORDER: Legacy stuff
+
+/*
+
+enum Tempo {
+  UNKNOWN_TEMPO = 0;
+  EIGHT = 1;
+}
+
+enum Strum {
+  NONE = 0;
+  UP = 1;
+  DOWN = 2;
+}
+
+message Chord {
+  string name = 1;
+  repeated Strum strumming_pattern = 2;
+}
+
+message ChordInstruction {
+  repeated Chord chords = 1;
+}
+
+message Vocal {
+  repeated string lines = 1;
+}
+*/

@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  firestorePrefix: 'DEV_',
   firebase: {
     apiKey: 'AIzaSyAz4cg3jwZ3fb5gwoMcxJsUZbo4piXlQQ8',
     authDomain: 'so-chords.firebaseapp.com',

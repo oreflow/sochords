@@ -1,4 +1,9 @@
-<mat-toolbar color="primary">SoChords</mat-toolbar>
-<div class="app-body">
+<mat-toolbar color="primary">
+  <div class="main-header" [routerLink]="''">SoChords</div>
+</mat-toolbar>
+<div *ngIf="state === states.INITIALIZING">
+  Loading...
+</div>
+<div class="app-body" *ngIf="state === states.RUNNING">
   <router-outlet></router-outlet>
 </div>

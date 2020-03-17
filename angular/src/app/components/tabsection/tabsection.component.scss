@@ -1,0 +1,120 @@
+@import '~@angular/material/theming';
+
+@mixin tab-section-component-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+
+  $cell-size: 30px;
+  $font-size: calc(0.6 * #{$cell-size});
+
+  .tab-section-root {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+    .pick-block-table {
+      border-collapse: separate;
+      border-spacing: 2px;
+    }
+
+    .remove-pick-cell {
+      text-align: center;
+      font-size: $font-size;
+      .remove-pick-button {
+        width: $cell-size;
+        min-width: 0;
+        padding: 0;
+      }
+    }
+
+    .guitar-string-cell {
+      font-size: $font-size;
+      text-transform: uppercase;
+    }
+
+    .pick-input,
+    .chord-input,
+    .guide-input {
+      height: $cell-size;
+      min-width: $cell-size;
+      text-align: center;
+      border: none;
+      padding: 0;
+      background-color: rgba(0,0,0,0.2);
+      font-size: $font-size;
+      outline: none;
+    }
+
+    .chord-edit-cell {
+      font-size: $font-size;
+      text-align: center;
+      &.has-chord {
+        .chord-input {
+          background-color: transparent;
+        }
+      }
+    }
+
+    .chord-display-cell {
+      font-size: $font-size;
+      height: $cell-size;
+      text-align: center;
+    }
+
+    .guitar-string-cell {
+      text-align: center;
+    }
+
+    .guide-cell {
+      font-size: $font-size;
+      text-align: center;
+      .guide-input[readonly] {
+        background-color: transparent;
+        cursor: default;
+      }
+      &.has-guide {
+        .guide-input {
+          background-color: transparent;
+        }
+      }
+    }
+
+    .pick-cell {
+      font-size: $font-size;
+      height: $cell-size;
+      min-width: $cell-size;
+      position: relative;
+      text-align: center;
+
+      &.has-fret {
+        background-color: mat-color($primary);
+        color: white;
+        border-radius: 9999px;
+        & > input {
+          color: white;
+          background-color: transparent;
+        }
+      }
+      .pick-input[readonly] {
+        background-color: transparent;
+        cursor: default;
+      }
+
+      &::after {
+        content: ' ';
+        background-color: mat-color($accent);
+        height: 2px;
+        left: 3px;
+        position: absolute;
+        top: calc(50% - 1px);
+        width: calc(100% - 6px);
+        z-index: -1;
+      }
+    }
+
+    .add-block-button {
+      margin: 20px;
+
+    }
+  }
+}

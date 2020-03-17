@@ -1,0 +1,42 @@
+<div class="editsong-root">
+  <div class="loading" *ngIf="state === states.LOADING"><mat-spinner color="accent"></mat-spinner></div>
+  <div *ngIf="state === states.SONG_NOT_FOUND">TODO: Not Found Component</div>
+  <div *ngIf="state === states.RUNNING">
+    <div class="basic-info">
+      <h1>Basic Info</h1>
+      <div>
+        Title: {{song?.info?.title}}
+      </div>
+      <div>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="section-info">
+      <h1>Instructions</h1>
+      <div class="song-sections">
+        <div class="section" *ngFor="let section of song?.sections" [ngSwitch]="section.sectionType">
+          <tab-section 
+             *ngSwitchCase="sectionTypeEnum.TAB_SECTION" 
+             [editing]="true" 
+             [tabSection]="section.tabSection"
+             (updated)="updateTabSection(section.id, $event)"
+             ></tab-section>
+          <div *ngSwitchCase="sectionTypeEnum.CHORD_SECTION">Chords!!!</div>
+          <div *ngSwitchDefault>Unidentified type</div>
+        </div>
+        <button 
+           class="add-song-section-button" 
+           mat-stroked-button
+           color="accent"
+           [matMenuTriggerFor]="sectionTypeMenu">
+          <mat-icon>add</mat-icon>Add Section
+        </button>
+        <mat-menu #sectionTypeMenu="matMenu">
+          <button mat-menu-item (click)="addSection(sectionTypeEnum.TAB_SECTION)">Tab Section</button>
+          <button mat-menu-item (click)="addSection(sectionTypeEnum.CHORD_SECTION)">Chords Section</button>
+        </mat-menu>
+      </div>
+      <div>
+    </div>
+  </div>
+</div>
