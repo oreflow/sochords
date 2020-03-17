@@ -1,15 +1,15 @@
 <div class="song-root">
-  <div *ngIf="state === states.LOADING"><mat-spinner color="accent"></mat-spinner></div>
+  <div class="loading" *ngIf="state === states.LOADING"><mat-spinner color="accent"></mat-spinner></div>
   <div *ngIf="state === states.SONG_NOT_FOUND">TODO: Not Found Component</div>
   <div *ngIf="state === states.RUNNING">
-    Title: {{(song$ | async)?.info?.title}}
-
-
+    <div class="basic-info">
+      <h1>{{(song$ | async)?.info?.title}}</h1>
+    </div>
 
     <div class="section-info">
       <div class="song-sections">
         <div class="section" *ngFor="let section of (song$ | async)?.sections">
-          section {{section.id}}
+          <h2>{{section.info.name}}</h2>
           <container-element [ngSwitch]="section.sectionType">
             <tab-section 
              *ngSwitchCase="sectionTypeEnum.TAB_SECTION" 

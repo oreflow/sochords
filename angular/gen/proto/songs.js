@@ -883,7 +883,7 @@ $root.songs = (function() {
          * Properties of a SongSectionInfo.
          * @memberof songs
          * @interface ISongSectionInfo
-         * @property {string|null} [sectionName] SongSectionInfo sectionName
+         * @property {string|null} [name] SongSectionInfo name
          */
 
         /**
@@ -902,12 +902,12 @@ $root.songs = (function() {
         }
 
         /**
-         * SongSectionInfo sectionName.
-         * @member {string} sectionName
+         * SongSectionInfo name.
+         * @member {string} name
          * @memberof songs.SongSectionInfo
          * @instance
          */
-        SongSectionInfo.prototype.sectionName = "";
+        SongSectionInfo.prototype.name = "";
 
         /**
          * Creates a new SongSectionInfo instance using the specified properties.
@@ -933,8 +933,8 @@ $root.songs = (function() {
         SongSectionInfo.encode = function encode(message, writer) {
             if (!writer)
                 writer = $Writer.create();
-            if (message.sectionName != null && message.hasOwnProperty("sectionName"))
-                writer.uint32(/* id 1, wireType 2 =*/10).string(message.sectionName);
+            if (message.name != null && message.hasOwnProperty("name"))
+                writer.uint32(/* id 1, wireType 2 =*/10).string(message.name);
             return writer;
         };
 
@@ -970,7 +970,7 @@ $root.songs = (function() {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
-                    message.sectionName = reader.string();
+                    message.name = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -1007,9 +1007,9 @@ $root.songs = (function() {
         SongSectionInfo.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
-            if (message.sectionName != null && message.hasOwnProperty("sectionName"))
-                if (!$util.isString(message.sectionName))
-                    return "sectionName: string expected";
+            if (message.name != null && message.hasOwnProperty("name"))
+                if (!$util.isString(message.name))
+                    return "name: string expected";
             return null;
         };
 
@@ -1025,8 +1025,8 @@ $root.songs = (function() {
             if (object instanceof $root.songs.SongSectionInfo)
                 return object;
             var message = new $root.songs.SongSectionInfo();
-            if (object.sectionName != null)
-                message.sectionName = String(object.sectionName);
+            if (object.name != null)
+                message.name = String(object.name);
             return message;
         };
 
@@ -1044,9 +1044,9 @@ $root.songs = (function() {
                 options = {};
             var object = {};
             if (options.defaults)
-                object.sectionName = "";
-            if (message.sectionName != null && message.hasOwnProperty("sectionName"))
-                object.sectionName = message.sectionName;
+                object.name = "";
+            if (message.name != null && message.hasOwnProperty("name"))
+                object.name = message.name;
             return object;
         };
 

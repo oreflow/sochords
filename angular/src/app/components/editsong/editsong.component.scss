@@ -1,29 +1,46 @@
 
-.editsong-root {
-  width: 100%;
-  .loading {
-    height: 100%;
-    display: flex;
-    align-items: center; 
-    justify-content: center;
+@import '~@angular/material/theming';
+
+@mixin edit-song-component-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+
+  .edit-song-root {
+    width: 100%;
+    .loading {
+      height: 100%;
+      display: flex;
+      align-items: center; 
+      justify-content: center;
+    }
+
+    .basic-info,
+    .section-info {
+      padding: 10px;
+    }
+
+    .song-sections {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      .section {
+        margin-top: 10px;
+        border: 1px solid mat-color($primary);
+      }
+      .section-info {
+        .song-name-field {
+          font-size: 24px;
+        }
+        .remove-section-button {
+          float: right;
+        }
+      }
+
+      .add-song-section-button {
+        margin-top: 10px;
+        font-size: 24px;
+      }
+    }
   }
 }
-
-.basic-info,
-.section-info {
-  padding: 20px;
-}
-
-.song-sections {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-
-
-  .add-song-section-button {
-    font-size: 24px;
-
-  }
-}
-
-

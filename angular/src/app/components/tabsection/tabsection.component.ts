@@ -17,13 +17,7 @@ export class TabSectionComponent implements OnInit {
   @Input() tabSection: songs.TabSection;
   @Output() updated = new EventEmitter<songs.TabSection>();
 
-  constructor() {}
-
   ngOnInit() {
-    console.log('test');
-    console.log(this.editing);
-    console.log(this.tabSection);
-
     if (Object.keys(this.tabSection).length === 0) {
       this.tabSection.instruction = instructions.TabInstruction.create({
         tabBlocks: []

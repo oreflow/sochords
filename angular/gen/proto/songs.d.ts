@@ -383,8 +383,8 @@ export namespace songs {
     /** Properties of a SongSectionInfo. */
     interface ISongSectionInfo {
 
-        /** SongSectionInfo sectionName */
-        sectionName?: (string|null);
+        /** SongSectionInfo name */
+        name?: (string|null);
     }
 
     /** Represents a SongSectionInfo. */
@@ -396,8 +396,8 @@ export namespace songs {
          */
         constructor(properties?: songs.ISongSectionInfo);
 
-        /** SongSectionInfo sectionName. */
-        public sectionName: string;
+        /** SongSectionInfo name. */
+        public name: string;
 
         /**
          * Creates a new SongSectionInfo instance using the specified properties.
