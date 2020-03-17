@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { Action, DocumentSnapshot } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
-import { map, share } from 'rxjs/operators';
+import { Action, DocumentSnapshot, QuerySnapshot } from '@angular/fire/firestore';
+import { Observable, Subscription } from 'rxjs';
+import { map, share, shareReplay, switchMap } from 'rxjs/operators';
 import {v4 as uuidv4} from 'uuid';
 
 import { FirestoreService, SoChordCollection }  from 'app/service/firestore.service';
@@ -11,10 +11,33 @@ import { Errors } from 'app/errors';
 
 @Injectable({providedIn: 'root'})
 export default class SongService {
+  _mySongsSubscription: Subscription;
+  _mySongs: Promise<Observable<songs.Song[]>>;
 
   constructor(
     private firestoreService: FirestoreService,
-    private auth: AngularFireAuth) {}
+    private auth: AngularFireAuth) {
+    this._createMySongsObservable();
+  }
+
+  _createMySongsObservable() {
+    this._mySongs= this.auth.currentUser.then((user) => {
+      return Observable.create((observer) => {
+        this.firestoreService.getCollectionRef(SoChordCollection.SONG)
+          .ref.where('ownerUid', '==', user.uid)
+          .onSnapshot((querySnapshot: QuerySnapshot<any>) => {
+            console.log('onSnapshot');
+            observer.next(querySnapshot.docs.map((snapshot) => {
+              return songs.Song.create(snapshot.data());
+            }));
+          });
+      }).pipe(shareReplay(1));
+    });
+  }
+
+  getMySongs(): Promise<Observable<songs.Song[]>> {
+    return this._mySongs;
+  }
 
   async createSong(songInfo: songs.SongInfo): Promise<songs.Song> {
     const user = await this.auth.currentUser;
@@ -28,8 +51,8 @@ export default class SongService {
       ownerUid: user.uid
     });
     const createdDoc = await this.firestoreService
-      .getDocRef(SoChordCollection.SONG, song.id)
-      .set(songs.Song.toObject(song));
+    .getDocRef(SoChordCollection.SONG, song.id)
+    .set(songs.Song.toObject(song));
     return song;
   }
 
@@ -51,31 +74,6 @@ export default class SongService {
     return this.firestoreService
     .getDocRef(SoChordCollection.SONG, song.id)
     .set(songs.Song.toObject(song));
-  }
-
-  searchSong(search: string): songs.SongSearchResult[] {
-    const shallow = songs.SongSearchResult.create({
-      id: 'shallow-kjh3i8rhfkwej',
-      songInfo: songs.SongInfo.create({
-        title: 'Shallow',
-        artists: [
-          {name: 'Lady Gaga'},
-          {name: 'Bradley Cooper'},
-        ],
-      }),
-    });
-    const goodRiddance = songs.SongSearchResult.create({
-      id: 'good-riddance-123456awswe',
-      songInfo: songs.SongInfo.create({
-        title: 'Good Riddance (Time of your life)',
-        artists: [
-          {name: 'Green Day'},
-        ],
-      }),
-    });
-    console.log(shallow);
-
-    return [shallow, goodRiddance].filter((song) => song.songInfo.title.indexOf(search) >= 0);
   }
 }
 

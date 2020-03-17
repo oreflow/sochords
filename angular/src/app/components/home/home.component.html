@@ -7,8 +7,11 @@
            [formControl]="searchControl"
            [matAutocomplete]="auto"/>
   <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-    <mat-option *ngFor="let option of filteredSearch | async" [value]="option">
-      {{option.songInfo.title}}
+    <mat-option *ngFor="let song of filteredSearch | async"
+                [value]="song.info.title"
+                [routerLink]="['song', song.id]"
+                (onSelectionChange)="selectedSong(song)">
+      {{song.info.title}}
     </mat-option>
   </mat-autocomplete>
   </div>

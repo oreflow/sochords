@@ -1,0 +1,10 @@
+<div class="tab-section-root" [ngClass]="{'editing': editing}">
+  <div class="pick-block" 
+       *ngFor="let block of tabSection.instruction.tabBlocks"
+       [ngClass]="{'first-block': block === tabSection.instruction.tabBlocks[0]}">
+    <mat-divider class="block-divider" vertical="true" color="primary"></mat-divider>
+  </div>
+  <div *ngIf="editing">
+    <button mat-stroked-button class="add-block-button" color="accent" (click)="addTabBlock()">ADD TABS</button>
+  </div>
+</div>

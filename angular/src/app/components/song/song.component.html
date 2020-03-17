@@ -3,14 +3,18 @@
   <div *ngIf="state === states.SONG_NOT_FOUND">TODO: Not Found Component</div>
   <div *ngIf="state === states.RUNNING">
     <div class="basic-info">
-      <h1>{{(song$ | async)?.info?.title}}</h1>
+      <h1 class="song-title">{{(song$ | async)?.info?.title}}</h1>
+      <button mat-icon-button 
+              class="edit-song-button" 
+              color="accent" 
+              [routerLink]="['/editSong', (song$ | async).id]"><mat-icon>edit</mat-icon></button>
     </div>
 
     <div class="section-info">
       <div class="song-sections">
         <div class="section" *ngFor="let section of (song$ | async)?.sections">
           <h2>{{section.info.name}}</h2>
-          <container-element [ngSwitch]="section.sectionType">
+          <div [ngSwitch]="section.sectionType">
             <tab-section 
              *ngSwitchCase="sectionTypeEnum.TAB_SECTION" 
              [editing]="false" 
@@ -18,7 +22,7 @@
              ></tab-section>
             <div *ngSwitchCase="sectionTypeEnum.CHORD_SECTION">Chords!!!</div>
             <div *ngSwitchDefault>Unidentified type</div>
-          </container-element>
+          </div>
         </div>
       </div>
       <div>
