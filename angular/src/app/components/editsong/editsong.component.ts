@@ -45,6 +45,7 @@ export class EditSongComponent implements OnInit, OnDestroy {
             if (!this.song) {
               this.song = song;
               this.state = _EditSongState.RUNNING;
+              this._setRequiredFields();
             } else {
               this.receivedUpdatedSong(song);
             }
@@ -56,6 +57,15 @@ export class EditSongComponent implements OnInit, OnDestroy {
           }
         );
   }
+
+  _setRequiredFields() {
+    if (!this.song.info) this.song.info = {};
+    if (!this.song.sections) this.song.sections = [];
+    for (let section of this.song.sections) {
+      if (!section.info) section.info = {};
+    }
+  }
+
 
   receivedUpdatedSong(song: songs.Song) {
     console.log('Received updated Song:', song);
@@ -71,6 +81,7 @@ export class EditSongComponent implements OnInit, OnDestroy {
         this.song.sections.push(songs.SongSection.create({
           id: uuidv4(),
           sectionType,
+          info: {},
           tabSection: {}
         }));
         break;
@@ -78,6 +89,7 @@ export class EditSongComponent implements OnInit, OnDestroy {
         this.song.sections.push(songs.SongSection.create({
           id: uuidv4(),
           sectionType,
+          info: {},
           chordSection: {},
         }));
         break;
@@ -86,9 +98,19 @@ export class EditSongComponent implements OnInit, OnDestroy {
   }
 
   updateTabSection(id: string, tabSection: songs.TabSection) {
-    console.log('updating', id, tabSection);
     const songSection = this.song.sections.find((ss) => ss.id === id);
     songSection.tabSection = tabSection;
+    this.updateSong();
+  }
+
+  updateSectionInfo(id: string, sectionInfo: songs.SongSectionInfo) {
+    const songSection = this.song.sections.find((ss) => ss.id === id);
+    songSection.info = sectionInfo;
+    this.updateSong();
+  }
+
+  removeSection(section: songs.SongSection) {
+    this.song.sections.splice(this.song.sections.indexOf(section), 1);
     this.updateSong();
   }
 

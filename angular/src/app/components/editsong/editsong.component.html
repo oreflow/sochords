@@ -1,4 +1,4 @@
-<div class="editsong-root">
+<div class="edit-song-root">
   <div class="loading" *ngIf="state === states.LOADING"><mat-spinner color="accent"></mat-spinner></div>
   <div *ngIf="state === states.SONG_NOT_FOUND">TODO: Not Found Component</div>
   <div *ngIf="state === states.RUNNING">
@@ -15,12 +15,22 @@
       <h1>Instructions</h1>
       <div class="song-sections">
         <div class="section" *ngFor="let section of song?.sections" [ngSwitch]="section.sectionType">
+          <div class="section-info">
+            <mat-form-field class="song-name-field">
+              <mat-label>Section name</mat-label>
+              <input matInput 
+                     [(ngModel)]="section.info.name" 
+                     (change)="updateSectionInfo(section.id, section.info)"/>
+            </mat-form-field>
+            <button mat-icon-button class="remove-section-button" (click)="removeSection(section)" color="warn">
+              <mat-icon>close</mat-icon>
+            </button>
+          </div>
           <tab-section 
              *ngSwitchCase="sectionTypeEnum.TAB_SECTION" 
              [editing]="true" 
              [tabSection]="section.tabSection"
-             (updated)="updateTabSection(section.id, $event)"
-             ></tab-section>
+             (updated)="updateTabSection(section.id, $event)"></tab-section>
           <div *ngSwitchCase="sectionTypeEnum.CHORD_SECTION">Chords!!!</div>
           <div *ngSwitchDefault>Unidentified type</div>
         </div>

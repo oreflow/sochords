@@ -12,6 +12,11 @@
     flex-wrap: wrap;
     align-items: center;
 
+    .pick-block {
+      display: flex;
+      flex-direction: row;
+    }
+
     .pick-block-table {
       border-collapse: separate;
       border-spacing: 2px;
@@ -114,7 +119,28 @@
 
     .add-block-button {
       margin: 20px;
+    }
+  }
 
+  .tab-section-root {
+    .help-cell {
+      position: absolute;
+      visibility: collapse;
+    }
+    .first-block {
+      .block-divider {
+        visibility: collapse;
+      }
+      .guitar-string-cell {
+        position: inherit;
+        visibility: visible;
+      }
+    }
+    &.editing {
+      .help-cell {
+        position: inherit;
+        visibility: visible;
+      }
     }
   }
 }
