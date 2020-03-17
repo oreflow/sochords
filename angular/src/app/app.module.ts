@@ -26,6 +26,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { environment } from 'environments/environment';
 
 import { EditSongComponent } from 'app/components/editsong/editsong.component';
+import { ErrorComponent } from 'app/components/error/error.component';
 import { HomeComponent } from 'app/components/home/home.component';
 import { NewSongComponent } from 'app/components/newsong/newsong.component';
 import { TabSectionComponent } from 'app/components/tabsection/tabsection.component';
@@ -42,6 +43,7 @@ import 'firebase/firestore';
     // Components.
     AppComponent,
     EditSongComponent,
+    ErrorComponent,
     HomeComponent,
     NewSongComponent,
     TabSectionComponent,

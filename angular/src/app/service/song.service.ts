@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Action, DocumentSnapshot, QuerySnapshot } from '@angular/fire/firestore';
 import { Observable, Subscription } from 'rxjs';
-import { map, share, shareReplay, switchMap } from 'rxjs/operators';
+import { map, share, shareReplay, switchMap, catchError } from 'rxjs/operators';
 import {v4 as uuidv4} from 'uuid';
 
 import { FirestoreService, SoChordCollection }  from 'app/service/firestore.service';

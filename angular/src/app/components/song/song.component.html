@@ -1,6 +1,6 @@
 <div class="song-root">
   <div class="loading" *ngIf="state === states.LOADING"><mat-spinner color="accent"></mat-spinner></div>
-  <div *ngIf="state === states.SONG_NOT_FOUND">TODO: Not Found Component</div>
+  <div class="error" *ngIf="state === states.ERROR"><sc-error [errorType]="error"></sc-error></div>
   <div *ngIf="state === states.RUNNING">
     <div class="basic-info">
       <h1 class="song-title">{{(song$ | async)?.info?.title}}</h1>
@@ -27,8 +27,5 @@
       </div>
       <div>
       </div>
-
-
-
     </div>
 </div>

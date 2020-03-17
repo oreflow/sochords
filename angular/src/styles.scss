@@ -3,6 +3,7 @@
 
 @import '~@angular/material/theming';
 @import 'app/components/editsong/editsong.component.scss';
+@import 'app/components/error/error.component.scss';
 @import 'app/components/home/home.component.scss';
 @import 'app/components/newsong/newsong.component.scss';
 @import 'app/components/song/song.component.scss';
@@ -19,6 +20,7 @@ $theme: mat-light-theme($primary, $accent, $warn);
 
 @include angular-material-theme($theme);
 @include edit-song-component-theme($theme);
+@include sc-error-component-theme($theme);
 @include home-component-theme($theme);
 @include new-song-component-theme($theme);
 @include song-component-theme($theme);

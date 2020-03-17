@@ -1,18 +1,18 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Subscription, empty } from 'rxjs';
-import { switchMap, shareReplay, catchError, last } from 'rxjs/operators';
+import { switchMap, shareReplay, last } from 'rxjs/operators';
 import {v4 as uuidv4} from 'uuid';
 
 
 import { songs } from 'gen/proto/songs';
 import SongService from 'app/service/song.service';
-import { ErrorType, NotFoundError } from 'app/errors';
+import { ErrorType, Errors } from 'app/errors';
 
 enum _EditSongState {
   LOADING,
-    SONG_NOT_FOUND,
-    RUNNING,
+  ERROR,
+  RUNNING,
 }
 
 @Component({
@@ -23,6 +23,7 @@ enum _EditSongState {
 export class EditSongComponent implements OnInit, OnDestroy {
   states = _EditSongState;
   state = _EditSongState.LOADING;
+  error? : ErrorType;
   sectionTypeEnum = songs.SongSection.SectionType;
   _songSubscription: Subscription;
   song?: songs.Song ;
@@ -51,9 +52,8 @@ export class EditSongComponent implements OnInit, OnDestroy {
             }
           },
           (error) => {
-            if (error instanceof NotFoundError) {
-              this.state = _EditSongState.SONG_NOT_FOUND;
-            }
+            this.state = _EditSongState.ERROR;
+            this.error = Errors.getErrorType(error);
           }
         );
   }

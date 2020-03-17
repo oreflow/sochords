@@ -5,11 +5,11 @@ import { switchMap, shareReplay, catchError } from 'rxjs/operators';
 
 import { songs } from 'gen/proto/songs';
 import SongService from 'app/service/song.service';
-import { ErrorType, NotFoundError } from 'app/errors';
+import { ErrorType, Errors } from 'app/errors';
 
 enum _SongComponentState {
   LOADING,
-  SONG_NOT_FOUND,
+  ERROR,
   RUNNING,
 }
 @Component({
@@ -20,6 +20,7 @@ enum _SongComponentState {
 export class SongComponent {
   states = _SongComponentState;
   state = _SongComponentState.LOADING;
+  error?: ErrorType;
   sectionTypeEnum = songs.SongSection.SectionType;
   _songSubscription: Subscription;
   song$?: Observable<songs.Song> ;
@@ -40,9 +41,8 @@ export class SongComponent {
     this._songSubscription = this.song$.subscribe(
       (_) => this.state = _SongComponentState.RUNNING,
       (error) => {
-        if (error instanceof NotFoundError) {
-          this.state = _SongComponentState.SONG_NOT_FOUND;
-        }
+        this.state = _SongComponentState.ERROR;
+        this.error = Errors.getErrorType(error);
       }
     );
   }
