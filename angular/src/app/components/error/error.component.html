@@ -1,0 +1,14 @@
+<div class="sc-error-root">
+  <div class="error-wrapper" *ngIf="errorType === errorTypes.UNAUTHORIZED" >
+    <mat-icon color="warn">warning</mat-icon>
+    <div>UNAUTHORIZED</div>
+  </div>
+  <div class="error-wrapper" *ngIf="errorType === errorTypes.NOT_FOUND" >
+    <mat-icon color="warn">priority_high</mat-icon>
+    <div>NOT FOUND</div>
+  </div>
+  <div class="error-wrapper" *ngIf="errorType === errorTypes.UNKNOWN_ERROR_TYPE" >
+    <mat-icon color="warn">error</mat-icon>
+    <div>UNKNOWN ERROR</div>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+@import '~@angular/material/theming';
+
+@mixin sc-error-component-theme($theme) {
+  $primary: map-get($theme, primary);
+  $warn: map-get($theme, warn);
+
+  .sc-error-root {
+    .error-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      color: mat-color($warn);
+
+      & > mat-icon {
+        font-size: 64px;
+        height: 64px;
+        width: 64px;
+        margin-bottom: 20px;
+      }
+    }
+  }
+}

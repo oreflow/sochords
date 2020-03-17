@@ -1,11 +1,16 @@
 <div class="edit-song-root">
   <div class="loading" *ngIf="state === states.LOADING"><mat-spinner color="accent"></mat-spinner></div>
-  <div *ngIf="state === states.SONG_NOT_FOUND">TODO: Not Found Component</div>
+  <div class="error" *ngIf="state === states.ERROR"><sc-error [errorType]="error"></sc-error></div>
   <div *ngIf="state === states.RUNNING">
     <div class="basic-info">
       <h1>Basic Info</h1>
       <div>
-        Title: {{song?.info?.title}}
+        <mat-form-field class="song-title-field">
+          <mat-label>Title</mat-label>
+          <input matInput 
+                 [(ngModel)]="song?.info.title" 
+                 (change)="updateSong()"/>
+        </mat-form-field>
       </div>
       <div>
       </div>
@@ -16,7 +21,7 @@
       <div class="song-sections">
         <div class="section" *ngFor="let section of song?.sections" [ngSwitch]="section.sectionType">
           <div class="section-info">
-            <mat-form-field class="song-name-field">
+            <mat-form-field class="section-name-field">
               <mat-label>Section name</mat-label>
               <input matInput 
                      [(ngModel)]="section.info.name" 

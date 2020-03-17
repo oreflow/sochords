@@ -14,9 +14,23 @@
       justify-content: center;
     }
 
+    .error {
+      height: 100%;
+      display: flex;
+      align-items: center; 
+      justify-content: center;
+    }
+
     .basic-info,
     .section-info {
       padding: 10px;
+    }
+
+    .basic-info {
+      .song-title-field {
+        font-size: 24px;
+        width: 500px;
+      }
     }
 
     .song-sections {
@@ -29,7 +43,7 @@
         border: 1px solid mat-color($primary);
       }
       .section-info {
-        .song-name-field {
+        .section-name-field {
           font-size: 24px;
         }
         .remove-section-button {
