@@ -34,6 +34,7 @@ export class NewSongComponent {
         this.state = NewSongState.DONE;
         this.router.navigate(['editSong', song.id]);
       }).catch((error) => {
+        console.log(error);
         this.state = NewSongState.ERROR;
       });
   }

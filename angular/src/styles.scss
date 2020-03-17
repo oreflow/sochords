@@ -4,6 +4,7 @@
 @import '~@angular/material/theming';
 @import 'app/components/home/home.component.scss';
 @import 'app/components/newsong/newsong.component.scss';
+@import 'app/components/tabsection/tabsection.component.scss';
 
 // Be sure that you only ever include this mixin once!
 @include mat-core();
@@ -17,6 +18,7 @@ $theme: mat-light-theme($primary, $accent, $warn);
 @include angular-material-theme($theme);
 @include home-component-theme($theme);
 @include new-song-component-theme($theme);
+@include tab-section-component-theme($theme);
 
 // Global styles below.
 html, body { height: 100%; }
@@ -26,6 +28,21 @@ body {
   color: #333333;
   background-color: #eeeeee;
 }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: none;
+}
+td, th {
+  display: table-cell;
+  vertical-align: inherit;
+  font-weight: inherit;
+  text-align:inherit;
+  margin: 0;
+  padding: 0;
+}
+
 app-root {
   display: flex;
   flex-direction: column;
@@ -40,6 +57,7 @@ app-root {
 
 router-outlet + * {
   display: flex;
-  flex-grou: 1;
+  height: 100%;
   width: 100%;
 }
+
