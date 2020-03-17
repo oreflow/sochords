@@ -1,7 +1,8 @@
 import { Component, OnInit} from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { startWith, map } from 'rxjs/operators';
+import { startWith, switchMap, withLatestFrom, map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 import { songs } from 'gen/proto/songs';
 import SongService from 'app/service/song.service';
@@ -15,11 +16,23 @@ export class HomeComponent implements OnInit {
   searchControl = new FormControl();
   filteredSearch: Observable<songs.SongSearchResult[]>;
 
-  constructor(private songService: SongService) {}
+  constructor(
+    private router: Router,
+    private songService: SongService) {}
 
-  ngOnInit() {
+  async ngOnInit() {
+    const mySongs = await this.songService.getMySongs();
     this.filteredSearch = this.searchControl.valueChanges.pipe(
-      startWith(''),
-      map(value => this.songService.searchSong(value)));
+      withLatestFrom(mySongs),
+      map(([search, songs]) => {
+        return songs.filter((song) => {
+          if (song.info?.title?.toLowerCase().indexOf(search.toLowerCase()) >= 0) {
+            return true;
+          }
+        }).slice(0, 5);
+      }));
+  }
+  selectedSong(song: songs.Song) {
+    this.router.navigate(['song', song.id]);
   }
 }
