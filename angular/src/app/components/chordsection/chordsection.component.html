@@ -1,10 +1,87 @@
-<div class="tab-section-root" [ngClass]="{'editing': editing}">
-  <div class="pick-block" 
-       *ngFor="let block of tabSection.instruction.tabBlocks"
-       [ngClass]="{'first-block': block === tabSection.instruction.tabBlocks[0]}">
-    <mat-divider class="block-divider" vertical="true" color="primary"></mat-divider>
+<div class="chord-section-root" [ngClass]="{'editing': editing}">
+
+    <div *ngIf="editing">
+      <h2>Chords</h2>
+      <div class="chord-row">
+        <div class="chord-input-wrapper" *ngFor="let chord of chordSection.instruction.chords">
+          <mat-icon class="chord-close-icon" 
+                    color="warn" 
+                    matTooltip="RemoveChord" 
+                    (click)="removeChord(chord)">
+            close
+          </mat-icon>
+          <input class="chord-name-input"
+                 draggable="true"
+                 [(ngModel)]="chord.name" 
+                 [matAutocomplete]="auto"
+                 scAutoWidth minSize="3">
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let option of ['A', 'C', 'F']" [value]="option">{{option}}</mat-option>
+          </mat-autocomplete>
+
+          <mat-icon draggable="true" class="chord-drag-icon" (dragstart)="chordDragStart($event, chord)">drag_indicator</mat-icon>
+        </div>
+        <div>
+          <button mat-stroked-button 
+                  color="accent" 
+                  (click)="addChord()">
+            <mat-icon>add</mat-icon> ADD CHORD
+          </button>
+        </div>
+      </div>
+    </div>
+
+  <div class="chords-and-lyrics-row" 
+       *ngFor="let cal of chordSection.instruction.chordsAndLyrics; let calIndex = index">
+
+    <div *ngIf="editingLyricLine.get(calIndex)">
+      <input class="lyric-input" 
+             placeholder="Add Line of Lyrics" 
+             [(ngModel)]="cal.lyricLine" 
+             (change)="onUpdate()"
+             scAutoWidth minSize="80"/>
+      <mat-icon class="edit-lyric-done" 
+                color="accent" 
+                matTooltip="Done editing" 
+                (click)="editingLyricLine.set(calIndex, false)">check</mat-icon>
+    </div>
+
+    <div *ngIf="!editingLyricLine.get(calIndex)">
+      <div class="split-character"
+           (dragenter)="setDragOverAttr($event)"
+           (dragover)="setDragOverAttr($event)"
+           (dragleave)="removeDragOverAttr($event)"
+           (drop)="droppedOnCharacter($event, cal, charIndex)"
+           *ngFor="let c of cal?.lyricLine.split(''); let charIndex = index"
+           ><div class="inline-chord-placer"
+                 *ngFor="let inlineChord of chordsByOffset.get(calIndex)?.get(charIndex)"
+                 ><div class="inline-chord">{{inlineChord.name}}</div></div>{{c}}</div>
+
+      <mat-icon class="split-character-edit" 
+                color="accent" 
+                matTooltip="Edit lyric line" 
+                (click)="editingLyricLine.set(calIndex, true)">
+        edit
+      </mat-icon>
+      <mat-icon class="split-character-clean" 
+                color="primary" 
+                matTooltip="Clear chords" 
+                (click)="clearChords(cal)">
+        layers_clear
+      </mat-icon>
+      <mat-icon class="split-character-remove" 
+                color="warn" 
+                matTooltip="Remove lyric line" 
+                (click)="removeChordsAndLyrics(cal)">
+        close
+      </mat-icon>
+    </div>
   </div>
-  <div *ngIf="editing">
-    <button mat-stroked-button class="add-block-button" color="accent" (click)="addTabBlock()">ADD TABS</button>
+
+  <div *ngIf="editing" class="add-chord-section">
+    <button mat-stroked-button 
+            class="add-block-button" 
+            color="accent" 
+            (click)="addChordsAndLyrics()">ADD LYRICS & CHORDS</button>
   </div>
 </div>

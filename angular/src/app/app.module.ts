@@ -20,11 +20,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { AppComponent } from 'app/appcomponent/app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { environment } from 'environments/environment';
 
+import { ChordSectionComponent } from 'app/components/chordsection/chordsection.component';
 import { EditSongComponent } from 'app/components/editsong/editsong.component';
 import { ErrorComponent } from 'app/components/error/error.component';
 import { HomeComponent } from 'app/components/home/home.component';
@@ -42,6 +44,7 @@ import 'firebase/firestore';
   declarations: [
     // Components.
     AppComponent,
+    ChordSectionComponent,
     EditSongComponent,
     ErrorComponent,
     HomeComponent,
@@ -73,6 +76,7 @@ import 'firebase/firestore';
     MatMenuModule,
     MatProgressSpinnerModule,
     MatToolbarModule,
+    MatTooltipModule,
     ReactiveFormsModule,
   ],
   providers: [],

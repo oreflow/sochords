@@ -571,9 +571,6 @@ export namespace songs {
 
         /** ChordSection instruction */
         instruction?: (instructions.IChordInstruction|null);
-
-        /** ChordSection vocal */
-        vocal?: (songs.IVocal|null);
     }
 
     /** Represents a ChordSection. */
@@ -587,9 +584,6 @@ export namespace songs {
 
         /** ChordSection instruction. */
         public instruction?: (instructions.IChordInstruction|null);
-
-        /** ChordSection vocal. */
-        public vocal?: (songs.IVocal|null);
 
         /**
          * Creates a new ChordSection instance using the specified properties.
@@ -1226,8 +1220,314 @@ export namespace instructions {
         public toJSON(): { [k: string]: any };
     }
 
+    /** ChordType enum. */
+    enum ChordType {
+        UNKNOWN_CHORD = 0,
+        A = 1,
+        B = 2,
+        C = 3,
+        D = 4,
+        E = 5,
+        F = 6,
+        G = 7
+    }
+
+    /** Properties of a Chord. */
+    interface IChord {
+
+        /** Chord chordType */
+        chordType?: (instructions.ChordType|null);
+
+        /** Chord name */
+        name?: (string|null);
+    }
+
+    /** Represents a Chord. */
+    class Chord implements IChord {
+
+        /**
+         * Constructs a new Chord.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: instructions.IChord);
+
+        /** Chord chordType. */
+        public chordType: instructions.ChordType;
+
+        /** Chord name. */
+        public name: string;
+
+        /**
+         * Creates a new Chord instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns Chord instance
+         */
+        public static create(properties?: instructions.IChord): instructions.Chord;
+
+        /**
+         * Encodes the specified Chord message. Does not implicitly {@link instructions.Chord.verify|verify} messages.
+         * @param message Chord message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: instructions.IChord, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified Chord message, length delimited. Does not implicitly {@link instructions.Chord.verify|verify} messages.
+         * @param message Chord message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: instructions.IChord, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a Chord message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns Chord
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): instructions.Chord;
+
+        /**
+         * Decodes a Chord message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns Chord
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): instructions.Chord;
+
+        /**
+         * Verifies a Chord message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a Chord message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns Chord
+         */
+        public static fromObject(object: { [k: string]: any }): instructions.Chord;
+
+        /**
+         * Creates a plain object from a Chord message. Also converts values to other types if specified.
+         * @param message Chord
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: instructions.Chord, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this Chord to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a ChordInLyric. */
+    interface IChordInLyric {
+
+        /** ChordInLyric chord */
+        chord?: (instructions.IChord|null);
+
+        /** ChordInLyric offset */
+        offset?: (number|null);
+    }
+
+    /** Represents a ChordInLyric. */
+    class ChordInLyric implements IChordInLyric {
+
+        /**
+         * Constructs a new ChordInLyric.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: instructions.IChordInLyric);
+
+        /** ChordInLyric chord. */
+        public chord?: (instructions.IChord|null);
+
+        /** ChordInLyric offset. */
+        public offset: number;
+
+        /**
+         * Creates a new ChordInLyric instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns ChordInLyric instance
+         */
+        public static create(properties?: instructions.IChordInLyric): instructions.ChordInLyric;
+
+        /**
+         * Encodes the specified ChordInLyric message. Does not implicitly {@link instructions.ChordInLyric.verify|verify} messages.
+         * @param message ChordInLyric message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: instructions.IChordInLyric, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified ChordInLyric message, length delimited. Does not implicitly {@link instructions.ChordInLyric.verify|verify} messages.
+         * @param message ChordInLyric message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: instructions.IChordInLyric, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a ChordInLyric message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns ChordInLyric
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): instructions.ChordInLyric;
+
+        /**
+         * Decodes a ChordInLyric message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns ChordInLyric
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): instructions.ChordInLyric;
+
+        /**
+         * Verifies a ChordInLyric message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a ChordInLyric message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns ChordInLyric
+         */
+        public static fromObject(object: { [k: string]: any }): instructions.ChordInLyric;
+
+        /**
+         * Creates a plain object from a ChordInLyric message. Also converts values to other types if specified.
+         * @param message ChordInLyric
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: instructions.ChordInLyric, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this ChordInLyric to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a ChordsAndLyrics. */
+    interface IChordsAndLyrics {
+
+        /** ChordsAndLyrics lyricLine */
+        lyricLine?: (string|null);
+
+        /** ChordsAndLyrics chordsInLyric */
+        chordsInLyric?: (instructions.IChordInLyric[]|null);
+    }
+
+    /** Represents a ChordsAndLyrics. */
+    class ChordsAndLyrics implements IChordsAndLyrics {
+
+        /**
+         * Constructs a new ChordsAndLyrics.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: instructions.IChordsAndLyrics);
+
+        /** ChordsAndLyrics lyricLine. */
+        public lyricLine: string;
+
+        /** ChordsAndLyrics chordsInLyric. */
+        public chordsInLyric: instructions.IChordInLyric[];
+
+        /**
+         * Creates a new ChordsAndLyrics instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns ChordsAndLyrics instance
+         */
+        public static create(properties?: instructions.IChordsAndLyrics): instructions.ChordsAndLyrics;
+
+        /**
+         * Encodes the specified ChordsAndLyrics message. Does not implicitly {@link instructions.ChordsAndLyrics.verify|verify} messages.
+         * @param message ChordsAndLyrics message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: instructions.IChordsAndLyrics, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified ChordsAndLyrics message, length delimited. Does not implicitly {@link instructions.ChordsAndLyrics.verify|verify} messages.
+         * @param message ChordsAndLyrics message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: instructions.IChordsAndLyrics, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a ChordsAndLyrics message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns ChordsAndLyrics
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): instructions.ChordsAndLyrics;
+
+        /**
+         * Decodes a ChordsAndLyrics message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns ChordsAndLyrics
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): instructions.ChordsAndLyrics;
+
+        /**
+         * Verifies a ChordsAndLyrics message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a ChordsAndLyrics message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns ChordsAndLyrics
+         */
+        public static fromObject(object: { [k: string]: any }): instructions.ChordsAndLyrics;
+
+        /**
+         * Creates a plain object from a ChordsAndLyrics message. Also converts values to other types if specified.
+         * @param message ChordsAndLyrics
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: instructions.ChordsAndLyrics, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this ChordsAndLyrics to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a ChordInstruction. */
     interface IChordInstruction {
+
+        /** ChordInstruction chordsAndLyrics */
+        chordsAndLyrics?: (instructions.IChordsAndLyrics[]|null);
+
+        /** ChordInstruction chords */
+        chords?: (instructions.IChord[]|null);
     }
 
     /** Represents a ChordInstruction. */
@@ -1238,6 +1538,12 @@ export namespace instructions {
          * @param [properties] Properties to set
          */
         constructor(properties?: instructions.IChordInstruction);
+
+        /** ChordInstruction chordsAndLyrics. */
+        public chordsAndLyrics: instructions.IChordsAndLyrics[];
+
+        /** ChordInstruction chords. */
+        public chords: instructions.IChord[];
 
         /**
          * Creates a new ChordInstruction instance using the specified properties.

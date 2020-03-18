@@ -1291,7 +1291,6 @@ $root.songs = (function() {
          * @memberof songs
          * @interface IChordSection
          * @property {instructions.IChordInstruction|null} [instruction] ChordSection instruction
-         * @property {songs.IVocal|null} [vocal] ChordSection vocal
          */
 
         /**
@@ -1316,14 +1315,6 @@ $root.songs = (function() {
          * @instance
          */
         ChordSection.prototype.instruction = null;
-
-        /**
-         * ChordSection vocal.
-         * @member {songs.IVocal|null|undefined} vocal
-         * @memberof songs.ChordSection
-         * @instance
-         */
-        ChordSection.prototype.vocal = null;
 
         /**
          * Creates a new ChordSection instance using the specified properties.
@@ -1351,8 +1342,6 @@ $root.songs = (function() {
                 writer = $Writer.create();
             if (message.instruction != null && message.hasOwnProperty("instruction"))
                 $root.instructions.ChordInstruction.encode(message.instruction, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
-            if (message.vocal != null && message.hasOwnProperty("vocal"))
-                $root.songs.Vocal.encode(message.vocal, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
             return writer;
         };
 
@@ -1389,9 +1378,6 @@ $root.songs = (function() {
                 switch (tag >>> 3) {
                 case 1:
                     message.instruction = $root.instructions.ChordInstruction.decode(reader, reader.uint32());
-                    break;
-                case 2:
-                    message.vocal = $root.songs.Vocal.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -1433,11 +1419,6 @@ $root.songs = (function() {
                 if (error)
                     return "instruction." + error;
             }
-            if (message.vocal != null && message.hasOwnProperty("vocal")) {
-                var error = $root.songs.Vocal.verify(message.vocal);
-                if (error)
-                    return "vocal." + error;
-            }
             return null;
         };
 
@@ -1458,11 +1439,6 @@ $root.songs = (function() {
                     throw TypeError(".songs.ChordSection.instruction: object expected");
                 message.instruction = $root.instructions.ChordInstruction.fromObject(object.instruction);
             }
-            if (object.vocal != null) {
-                if (typeof object.vocal !== "object")
-                    throw TypeError(".songs.ChordSection.vocal: object expected");
-                message.vocal = $root.songs.Vocal.fromObject(object.vocal);
-            }
             return message;
         };
 
@@ -1479,14 +1455,10 @@ $root.songs = (function() {
             if (!options)
                 options = {};
             var object = {};
-            if (options.defaults) {
+            if (options.defaults)
                 object.instruction = null;
-                object.vocal = null;
-            }
             if (message.instruction != null && message.hasOwnProperty("instruction"))
                 object.instruction = $root.instructions.ChordInstruction.toObject(message.instruction, options);
-            if (message.vocal != null && message.hasOwnProperty("vocal"))
-                object.vocal = $root.songs.Vocal.toObject(message.vocal, options);
             return object;
         };
 
@@ -2936,12 +2908,739 @@ $root.instructions = (function() {
         return TabInstruction;
     })();
 
+    /**
+     * ChordType enum.
+     * @name instructions.ChordType
+     * @enum {string}
+     * @property {number} UNKNOWN_CHORD=0 UNKNOWN_CHORD value
+     * @property {number} A=1 A value
+     * @property {number} B=2 B value
+     * @property {number} C=3 C value
+     * @property {number} D=4 D value
+     * @property {number} E=5 E value
+     * @property {number} F=6 F value
+     * @property {number} G=7 G value
+     */
+    instructions.ChordType = (function() {
+        var valuesById = {}, values = Object.create(valuesById);
+        values[valuesById[0] = "UNKNOWN_CHORD"] = 0;
+        values[valuesById[1] = "A"] = 1;
+        values[valuesById[2] = "B"] = 2;
+        values[valuesById[3] = "C"] = 3;
+        values[valuesById[4] = "D"] = 4;
+        values[valuesById[5] = "E"] = 5;
+        values[valuesById[6] = "F"] = 6;
+        values[valuesById[7] = "G"] = 7;
+        return values;
+    })();
+
+    instructions.Chord = (function() {
+
+        /**
+         * Properties of a Chord.
+         * @memberof instructions
+         * @interface IChord
+         * @property {instructions.ChordType|null} [chordType] Chord chordType
+         * @property {string|null} [name] Chord name
+         */
+
+        /**
+         * Constructs a new Chord.
+         * @memberof instructions
+         * @classdesc Represents a Chord.
+         * @implements IChord
+         * @constructor
+         * @param {instructions.IChord=} [properties] Properties to set
+         */
+        function Chord(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * Chord chordType.
+         * @member {instructions.ChordType} chordType
+         * @memberof instructions.Chord
+         * @instance
+         */
+        Chord.prototype.chordType = 0;
+
+        /**
+         * Chord name.
+         * @member {string} name
+         * @memberof instructions.Chord
+         * @instance
+         */
+        Chord.prototype.name = "";
+
+        /**
+         * Creates a new Chord instance using the specified properties.
+         * @function create
+         * @memberof instructions.Chord
+         * @static
+         * @param {instructions.IChord=} [properties] Properties to set
+         * @returns {instructions.Chord} Chord instance
+         */
+        Chord.create = function create(properties) {
+            return new Chord(properties);
+        };
+
+        /**
+         * Encodes the specified Chord message. Does not implicitly {@link instructions.Chord.verify|verify} messages.
+         * @function encode
+         * @memberof instructions.Chord
+         * @static
+         * @param {instructions.IChord} message Chord message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        Chord.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.chordType != null && message.hasOwnProperty("chordType"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.chordType);
+            if (message.name != null && message.hasOwnProperty("name"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.name);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified Chord message, length delimited. Does not implicitly {@link instructions.Chord.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof instructions.Chord
+         * @static
+         * @param {instructions.IChord} message Chord message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        Chord.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a Chord message from the specified reader or buffer.
+         * @function decode
+         * @memberof instructions.Chord
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {instructions.Chord} Chord
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        Chord.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.instructions.Chord();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.chordType = reader.int32();
+                    break;
+                case 2:
+                    message.name = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a Chord message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof instructions.Chord
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {instructions.Chord} Chord
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        Chord.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a Chord message.
+         * @function verify
+         * @memberof instructions.Chord
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        Chord.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.chordType != null && message.hasOwnProperty("chordType"))
+                switch (message.chordType) {
+                default:
+                    return "chordType: enum value expected";
+                case 0:
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                case 6:
+                case 7:
+                    break;
+                }
+            if (message.name != null && message.hasOwnProperty("name"))
+                if (!$util.isString(message.name))
+                    return "name: string expected";
+            return null;
+        };
+
+        /**
+         * Creates a Chord message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof instructions.Chord
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {instructions.Chord} Chord
+         */
+        Chord.fromObject = function fromObject(object) {
+            if (object instanceof $root.instructions.Chord)
+                return object;
+            var message = new $root.instructions.Chord();
+            switch (object.chordType) {
+            case "UNKNOWN_CHORD":
+            case 0:
+                message.chordType = 0;
+                break;
+            case "A":
+            case 1:
+                message.chordType = 1;
+                break;
+            case "B":
+            case 2:
+                message.chordType = 2;
+                break;
+            case "C":
+            case 3:
+                message.chordType = 3;
+                break;
+            case "D":
+            case 4:
+                message.chordType = 4;
+                break;
+            case "E":
+            case 5:
+                message.chordType = 5;
+                break;
+            case "F":
+            case 6:
+                message.chordType = 6;
+                break;
+            case "G":
+            case 7:
+                message.chordType = 7;
+                break;
+            }
+            if (object.name != null)
+                message.name = String(object.name);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a Chord message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof instructions.Chord
+         * @static
+         * @param {instructions.Chord} message Chord
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        Chord.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.chordType = options.enums === String ? "UNKNOWN_CHORD" : 0;
+                object.name = "";
+            }
+            if (message.chordType != null && message.hasOwnProperty("chordType"))
+                object.chordType = options.enums === String ? $root.instructions.ChordType[message.chordType] : message.chordType;
+            if (message.name != null && message.hasOwnProperty("name"))
+                object.name = message.name;
+            return object;
+        };
+
+        /**
+         * Converts this Chord to JSON.
+         * @function toJSON
+         * @memberof instructions.Chord
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        Chord.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return Chord;
+    })();
+
+    instructions.ChordInLyric = (function() {
+
+        /**
+         * Properties of a ChordInLyric.
+         * @memberof instructions
+         * @interface IChordInLyric
+         * @property {instructions.IChord|null} [chord] ChordInLyric chord
+         * @property {number|null} [offset] ChordInLyric offset
+         */
+
+        /**
+         * Constructs a new ChordInLyric.
+         * @memberof instructions
+         * @classdesc Represents a ChordInLyric.
+         * @implements IChordInLyric
+         * @constructor
+         * @param {instructions.IChordInLyric=} [properties] Properties to set
+         */
+        function ChordInLyric(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * ChordInLyric chord.
+         * @member {instructions.IChord|null|undefined} chord
+         * @memberof instructions.ChordInLyric
+         * @instance
+         */
+        ChordInLyric.prototype.chord = null;
+
+        /**
+         * ChordInLyric offset.
+         * @member {number} offset
+         * @memberof instructions.ChordInLyric
+         * @instance
+         */
+        ChordInLyric.prototype.offset = 0;
+
+        /**
+         * Creates a new ChordInLyric instance using the specified properties.
+         * @function create
+         * @memberof instructions.ChordInLyric
+         * @static
+         * @param {instructions.IChordInLyric=} [properties] Properties to set
+         * @returns {instructions.ChordInLyric} ChordInLyric instance
+         */
+        ChordInLyric.create = function create(properties) {
+            return new ChordInLyric(properties);
+        };
+
+        /**
+         * Encodes the specified ChordInLyric message. Does not implicitly {@link instructions.ChordInLyric.verify|verify} messages.
+         * @function encode
+         * @memberof instructions.ChordInLyric
+         * @static
+         * @param {instructions.IChordInLyric} message ChordInLyric message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        ChordInLyric.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.chord != null && message.hasOwnProperty("chord"))
+                $root.instructions.Chord.encode(message.chord, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            if (message.offset != null && message.hasOwnProperty("offset"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.offset);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified ChordInLyric message, length delimited. Does not implicitly {@link instructions.ChordInLyric.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof instructions.ChordInLyric
+         * @static
+         * @param {instructions.IChordInLyric} message ChordInLyric message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        ChordInLyric.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a ChordInLyric message from the specified reader or buffer.
+         * @function decode
+         * @memberof instructions.ChordInLyric
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {instructions.ChordInLyric} ChordInLyric
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        ChordInLyric.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.instructions.ChordInLyric();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.chord = $root.instructions.Chord.decode(reader, reader.uint32());
+                    break;
+                case 2:
+                    message.offset = reader.int32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a ChordInLyric message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof instructions.ChordInLyric
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {instructions.ChordInLyric} ChordInLyric
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        ChordInLyric.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a ChordInLyric message.
+         * @function verify
+         * @memberof instructions.ChordInLyric
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        ChordInLyric.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.chord != null && message.hasOwnProperty("chord")) {
+                var error = $root.instructions.Chord.verify(message.chord);
+                if (error)
+                    return "chord." + error;
+            }
+            if (message.offset != null && message.hasOwnProperty("offset"))
+                if (!$util.isInteger(message.offset))
+                    return "offset: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a ChordInLyric message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof instructions.ChordInLyric
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {instructions.ChordInLyric} ChordInLyric
+         */
+        ChordInLyric.fromObject = function fromObject(object) {
+            if (object instanceof $root.instructions.ChordInLyric)
+                return object;
+            var message = new $root.instructions.ChordInLyric();
+            if (object.chord != null) {
+                if (typeof object.chord !== "object")
+                    throw TypeError(".instructions.ChordInLyric.chord: object expected");
+                message.chord = $root.instructions.Chord.fromObject(object.chord);
+            }
+            if (object.offset != null)
+                message.offset = object.offset | 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a ChordInLyric message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof instructions.ChordInLyric
+         * @static
+         * @param {instructions.ChordInLyric} message ChordInLyric
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        ChordInLyric.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.chord = null;
+                object.offset = 0;
+            }
+            if (message.chord != null && message.hasOwnProperty("chord"))
+                object.chord = $root.instructions.Chord.toObject(message.chord, options);
+            if (message.offset != null && message.hasOwnProperty("offset"))
+                object.offset = message.offset;
+            return object;
+        };
+
+        /**
+         * Converts this ChordInLyric to JSON.
+         * @function toJSON
+         * @memberof instructions.ChordInLyric
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        ChordInLyric.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return ChordInLyric;
+    })();
+
+    instructions.ChordsAndLyrics = (function() {
+
+        /**
+         * Properties of a ChordsAndLyrics.
+         * @memberof instructions
+         * @interface IChordsAndLyrics
+         * @property {string|null} [lyricLine] ChordsAndLyrics lyricLine
+         * @property {Array.<instructions.IChordInLyric>|null} [chordsInLyric] ChordsAndLyrics chordsInLyric
+         */
+
+        /**
+         * Constructs a new ChordsAndLyrics.
+         * @memberof instructions
+         * @classdesc Represents a ChordsAndLyrics.
+         * @implements IChordsAndLyrics
+         * @constructor
+         * @param {instructions.IChordsAndLyrics=} [properties] Properties to set
+         */
+        function ChordsAndLyrics(properties) {
+            this.chordsInLyric = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * ChordsAndLyrics lyricLine.
+         * @member {string} lyricLine
+         * @memberof instructions.ChordsAndLyrics
+         * @instance
+         */
+        ChordsAndLyrics.prototype.lyricLine = "";
+
+        /**
+         * ChordsAndLyrics chordsInLyric.
+         * @member {Array.<instructions.IChordInLyric>} chordsInLyric
+         * @memberof instructions.ChordsAndLyrics
+         * @instance
+         */
+        ChordsAndLyrics.prototype.chordsInLyric = $util.emptyArray;
+
+        /**
+         * Creates a new ChordsAndLyrics instance using the specified properties.
+         * @function create
+         * @memberof instructions.ChordsAndLyrics
+         * @static
+         * @param {instructions.IChordsAndLyrics=} [properties] Properties to set
+         * @returns {instructions.ChordsAndLyrics} ChordsAndLyrics instance
+         */
+        ChordsAndLyrics.create = function create(properties) {
+            return new ChordsAndLyrics(properties);
+        };
+
+        /**
+         * Encodes the specified ChordsAndLyrics message. Does not implicitly {@link instructions.ChordsAndLyrics.verify|verify} messages.
+         * @function encode
+         * @memberof instructions.ChordsAndLyrics
+         * @static
+         * @param {instructions.IChordsAndLyrics} message ChordsAndLyrics message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        ChordsAndLyrics.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.lyricLine != null && message.hasOwnProperty("lyricLine"))
+                writer.uint32(/* id 1, wireType 2 =*/10).string(message.lyricLine);
+            if (message.chordsInLyric != null && message.chordsInLyric.length)
+                for (var i = 0; i < message.chordsInLyric.length; ++i)
+                    $root.instructions.ChordInLyric.encode(message.chordsInLyric[i], writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified ChordsAndLyrics message, length delimited. Does not implicitly {@link instructions.ChordsAndLyrics.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof instructions.ChordsAndLyrics
+         * @static
+         * @param {instructions.IChordsAndLyrics} message ChordsAndLyrics message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        ChordsAndLyrics.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a ChordsAndLyrics message from the specified reader or buffer.
+         * @function decode
+         * @memberof instructions.ChordsAndLyrics
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {instructions.ChordsAndLyrics} ChordsAndLyrics
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        ChordsAndLyrics.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.instructions.ChordsAndLyrics();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.lyricLine = reader.string();
+                    break;
+                case 2:
+                    if (!(message.chordsInLyric && message.chordsInLyric.length))
+                        message.chordsInLyric = [];
+                    message.chordsInLyric.push($root.instructions.ChordInLyric.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a ChordsAndLyrics message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof instructions.ChordsAndLyrics
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {instructions.ChordsAndLyrics} ChordsAndLyrics
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        ChordsAndLyrics.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a ChordsAndLyrics message.
+         * @function verify
+         * @memberof instructions.ChordsAndLyrics
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        ChordsAndLyrics.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.lyricLine != null && message.hasOwnProperty("lyricLine"))
+                if (!$util.isString(message.lyricLine))
+                    return "lyricLine: string expected";
+            if (message.chordsInLyric != null && message.hasOwnProperty("chordsInLyric")) {
+                if (!Array.isArray(message.chordsInLyric))
+                    return "chordsInLyric: array expected";
+                for (var i = 0; i < message.chordsInLyric.length; ++i) {
+                    var error = $root.instructions.ChordInLyric.verify(message.chordsInLyric[i]);
+                    if (error)
+                        return "chordsInLyric." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a ChordsAndLyrics message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof instructions.ChordsAndLyrics
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {instructions.ChordsAndLyrics} ChordsAndLyrics
+         */
+        ChordsAndLyrics.fromObject = function fromObject(object) {
+            if (object instanceof $root.instructions.ChordsAndLyrics)
+                return object;
+            var message = new $root.instructions.ChordsAndLyrics();
+            if (object.lyricLine != null)
+                message.lyricLine = String(object.lyricLine);
+            if (object.chordsInLyric) {
+                if (!Array.isArray(object.chordsInLyric))
+                    throw TypeError(".instructions.ChordsAndLyrics.chordsInLyric: array expected");
+                message.chordsInLyric = [];
+                for (var i = 0; i < object.chordsInLyric.length; ++i) {
+                    if (typeof object.chordsInLyric[i] !== "object")
+                        throw TypeError(".instructions.ChordsAndLyrics.chordsInLyric: object expected");
+                    message.chordsInLyric[i] = $root.instructions.ChordInLyric.fromObject(object.chordsInLyric[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a ChordsAndLyrics message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof instructions.ChordsAndLyrics
+         * @static
+         * @param {instructions.ChordsAndLyrics} message ChordsAndLyrics
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        ChordsAndLyrics.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.chordsInLyric = [];
+            if (options.defaults)
+                object.lyricLine = "";
+            if (message.lyricLine != null && message.hasOwnProperty("lyricLine"))
+                object.lyricLine = message.lyricLine;
+            if (message.chordsInLyric && message.chordsInLyric.length) {
+                object.chordsInLyric = [];
+                for (var j = 0; j < message.chordsInLyric.length; ++j)
+                    object.chordsInLyric[j] = $root.instructions.ChordInLyric.toObject(message.chordsInLyric[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this ChordsAndLyrics to JSON.
+         * @function toJSON
+         * @memberof instructions.ChordsAndLyrics
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        ChordsAndLyrics.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return ChordsAndLyrics;
+    })();
+
     instructions.ChordInstruction = (function() {
 
         /**
          * Properties of a ChordInstruction.
          * @memberof instructions
          * @interface IChordInstruction
+         * @property {Array.<instructions.IChordsAndLyrics>|null} [chordsAndLyrics] ChordInstruction chordsAndLyrics
+         * @property {Array.<instructions.IChord>|null} [chords] ChordInstruction chords
          */
 
         /**
@@ -2953,11 +3652,29 @@ $root.instructions = (function() {
          * @param {instructions.IChordInstruction=} [properties] Properties to set
          */
         function ChordInstruction(properties) {
+            this.chordsAndLyrics = [];
+            this.chords = [];
             if (properties)
                 for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
                         this[keys[i]] = properties[keys[i]];
         }
+
+        /**
+         * ChordInstruction chordsAndLyrics.
+         * @member {Array.<instructions.IChordsAndLyrics>} chordsAndLyrics
+         * @memberof instructions.ChordInstruction
+         * @instance
+         */
+        ChordInstruction.prototype.chordsAndLyrics = $util.emptyArray;
+
+        /**
+         * ChordInstruction chords.
+         * @member {Array.<instructions.IChord>} chords
+         * @memberof instructions.ChordInstruction
+         * @instance
+         */
+        ChordInstruction.prototype.chords = $util.emptyArray;
 
         /**
          * Creates a new ChordInstruction instance using the specified properties.
@@ -2983,6 +3700,12 @@ $root.instructions = (function() {
         ChordInstruction.encode = function encode(message, writer) {
             if (!writer)
                 writer = $Writer.create();
+            if (message.chordsAndLyrics != null && message.chordsAndLyrics.length)
+                for (var i = 0; i < message.chordsAndLyrics.length; ++i)
+                    $root.instructions.ChordsAndLyrics.encode(message.chordsAndLyrics[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            if (message.chords != null && message.chords.length)
+                for (var i = 0; i < message.chords.length; ++i)
+                    $root.instructions.Chord.encode(message.chords[i], writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
             return writer;
         };
 
@@ -3017,6 +3740,16 @@ $root.instructions = (function() {
             while (reader.pos < end) {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
+                case 1:
+                    if (!(message.chordsAndLyrics && message.chordsAndLyrics.length))
+                        message.chordsAndLyrics = [];
+                    message.chordsAndLyrics.push($root.instructions.ChordsAndLyrics.decode(reader, reader.uint32()));
+                    break;
+                case 2:
+                    if (!(message.chords && message.chords.length))
+                        message.chords = [];
+                    message.chords.push($root.instructions.Chord.decode(reader, reader.uint32()));
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -3052,6 +3785,24 @@ $root.instructions = (function() {
         ChordInstruction.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
+            if (message.chordsAndLyrics != null && message.hasOwnProperty("chordsAndLyrics")) {
+                if (!Array.isArray(message.chordsAndLyrics))
+                    return "chordsAndLyrics: array expected";
+                for (var i = 0; i < message.chordsAndLyrics.length; ++i) {
+                    var error = $root.instructions.ChordsAndLyrics.verify(message.chordsAndLyrics[i]);
+                    if (error)
+                        return "chordsAndLyrics." + error;
+                }
+            }
+            if (message.chords != null && message.hasOwnProperty("chords")) {
+                if (!Array.isArray(message.chords))
+                    return "chords: array expected";
+                for (var i = 0; i < message.chords.length; ++i) {
+                    var error = $root.instructions.Chord.verify(message.chords[i]);
+                    if (error)
+                        return "chords." + error;
+                }
+            }
             return null;
         };
 
@@ -3066,7 +3817,28 @@ $root.instructions = (function() {
         ChordInstruction.fromObject = function fromObject(object) {
             if (object instanceof $root.instructions.ChordInstruction)
                 return object;
-            return new $root.instructions.ChordInstruction();
+            var message = new $root.instructions.ChordInstruction();
+            if (object.chordsAndLyrics) {
+                if (!Array.isArray(object.chordsAndLyrics))
+                    throw TypeError(".instructions.ChordInstruction.chordsAndLyrics: array expected");
+                message.chordsAndLyrics = [];
+                for (var i = 0; i < object.chordsAndLyrics.length; ++i) {
+                    if (typeof object.chordsAndLyrics[i] !== "object")
+                        throw TypeError(".instructions.ChordInstruction.chordsAndLyrics: object expected");
+                    message.chordsAndLyrics[i] = $root.instructions.ChordsAndLyrics.fromObject(object.chordsAndLyrics[i]);
+                }
+            }
+            if (object.chords) {
+                if (!Array.isArray(object.chords))
+                    throw TypeError(".instructions.ChordInstruction.chords: array expected");
+                message.chords = [];
+                for (var i = 0; i < object.chords.length; ++i) {
+                    if (typeof object.chords[i] !== "object")
+                        throw TypeError(".instructions.ChordInstruction.chords: object expected");
+                    message.chords[i] = $root.instructions.Chord.fromObject(object.chords[i]);
+                }
+            }
+            return message;
         };
 
         /**
@@ -3078,8 +3850,25 @@ $root.instructions = (function() {
          * @param {$protobuf.IConversionOptions} [options] Conversion options
          * @returns {Object.<string,*>} Plain object
          */
-        ChordInstruction.toObject = function toObject() {
-            return {};
+        ChordInstruction.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults) {
+                object.chordsAndLyrics = [];
+                object.chords = [];
+            }
+            if (message.chordsAndLyrics && message.chordsAndLyrics.length) {
+                object.chordsAndLyrics = [];
+                for (var j = 0; j < message.chordsAndLyrics.length; ++j)
+                    object.chordsAndLyrics[j] = $root.instructions.ChordsAndLyrics.toObject(message.chordsAndLyrics[j], options);
+            }
+            if (message.chords && message.chords.length) {
+                object.chords = [];
+                for (var j = 0; j < message.chords.length; ++j)
+                    object.chords[j] = $root.instructions.Chord.toObject(message.chords[j], options);
+            }
+            return object;
         };
 
         /**

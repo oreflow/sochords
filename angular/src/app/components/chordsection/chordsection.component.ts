@@ -6,79 +6,102 @@ import { startWith, map } from 'rxjs/operators';
 import { instructions } from 'gen/proto/instructions';
 import { songs } from 'gen/proto/songs';
 
+const DRAGGING_ATTRIBUTE = 'dragging';
+
 @Component({
-  selector: 'tab-section',
-  templateUrl: './tabsection.component.html',
-  styleUrls: ['./tabsection.component.scss']
+  selector: 'chord-section',
+  templateUrl: './chordsection.component.html',
+  styleUrls: ['./chordsection.component.scss']
 })
-export class TabSectionComponent implements OnInit {
+export class ChordSectionComponent implements OnInit {
+  editingLyricLine: Map<number, boolean> = new Map();
+  chordsByOffset: Map<number, Map<number, instructions.Chord[]>> = new Map();
 
   @Input() editing: boolean;
-  @Input() tabSection: songs.TabSection;
-  @Output() updated = new EventEmitter<songs.TabSection>();
+  @Input() chordSection: songs.ChordSection;
+  @Output() updated = new EventEmitter<songs.ChordSection>();
 
   ngOnInit() {
-    if (Object.keys(this.tabSection).length === 0) {
-      this.tabSection.instruction = instructions.TabInstruction.create({
-        tabBlocks: []
-      });
+    if(!this.chordSection.instruction) {
+      this.chordSection.instruction = {
+        chordsAndLyrics: [],
+        chords: [],
+      };
     }
+    this._updateChordsByOffset();
   }
 
-  _getEmptyBlock(size: number) {
-    const picks = [];
-    for(let i = 0; i < size; i++) {
-      picks.push(instructions.StringCombination.create({
-        e4: '',
-        b: '',
-        g: '',
-        d: '',
-        a: '',
-        e2: '',
-        chord: '',
-        guide: '',
+  addChordsAndLyrics() {
+    this.chordSection.instruction.chordsAndLyrics.push(
+      instructions.ChordsAndLyrics.create({
+        chordsInLyric: [],
       }));
-    }
-    return instructions.TabInstructionBlock.create({picks});
-  }
-
-  getMergedChords(block: instructions.TabInstructionBlock): {chord: string, size: number}[] {
-    const mergedChords = [];
-    return block.picks
-      .reduce((acc: {chord: string, size: number}[], stringCombination) => {
-        if (acc[acc.length - 1]?.chord === stringCombination.chord) {
-          acc[acc.length - 1].size++;
-        } else {
-          acc.push({chord: stringCombination.chord, size: 1});
-        }
-        return acc;
-      }, []);
-  }
-
-  removePick(block: instructions.TabInstructionBlock, pick: instructions.StringCombination) {
-    block.picks.splice(block.picks.indexOf(pick), 1);
     this.onUpdate();
   }
 
-  removeBlock(block: instructions.TabInstructionBlock) {
-    this.tabSection.instruction.tabBlocks.splice(
-      this.tabSection.instruction.tabBlocks.indexOf(block), 1);
+  clearChords(cal: instructions.ChordsAndLyrics) {
+    cal.chordsInLyric = [];
+    this._updateChordsByOffset();
     this.onUpdate();
   }
 
-  addTabBlock() {
-    if (this.tabSection.instruction.tabBlocks.length === 0) {
-      this.tabSection.instruction.tabBlocks.push(this._getEmptyBlock(8));
-    } else {
-      const size = this.tabSection.instruction
-        .tabBlocks[this.tabSection.instruction.tabBlocks.length - 1].picks.length;
-      this.tabSection.instruction.tabBlocks.push(this._getEmptyBlock(size));
-    }
+  removeChordsAndLyrics(cal: instructions.ChordsAndLyrics) {
+    const cals = this.chordSection.instruction.chordsAndLyrics;
+    cals.splice(cals.indexOf(cal), 1);
     this.onUpdate();
+  }
+
+  chordDragStart($event, chord: instructions.Chord) {
+    $event.dataTransfer.setData('chord', JSON.stringify(chord));
+  }
+
+  setDragOverAttr($event) {
+    $event.target.setAttribute(DRAGGING_ATTRIBUTE, '');
+    $event.preventDefault();
+  }
+
+  removeDragOverAttr($event) {
+    $event.target.removeAttribute(DRAGGING_ATTRIBUTE, '');
+    $event.preventDefault();
+  }
+
+  droppedOnCharacter($event, cal: instructions.ChordsAndLyrics, offset: number) {
+    $event.target.removeAttribute(DRAGGING_ATTRIBUTE, '');
+    const chord: instructions.Chord = JSON.parse($event.dataTransfer.getData('chord'));
+    if (!cal.chordsInLyric) cal.chordsInLyric = [];
+    cal.chordsInLyric.push({ offset, chord });
+    this._updateChordsByOffset();
+    this.onUpdate();
+  }
+
+  addChord() {
+    if (!this.chordSection.instruction.chords) this.chordSection.instruction.chords = [];
+    this.chordSection.instruction.chords.push({});
+    this.onUpdate();
+  }
+
+  removeChord(chord: instructions.Chord) {
+    const chords = this.chordSection.instruction.chords;
+    chords.splice(chords.indexOf(chord), 1);
+    this.onUpdate();
+  }
+
+  _updateChordsByOffset() {
+    this.chordsByOffset = new Map();
+    this.chordSection.instruction.chordsAndLyrics.forEach((cal, index) => {
+      this.chordsByOffset.set(index, new Map());
+      if (!cal.chordsInLyric) return;
+      cal.chordsInLyric.forEach((cil) => {
+        if (!this.chordsByOffset.get(index).has(cil.offset))
+          this.chordsByOffset.get(index).set(cil.offset, []);
+        this.chordsByOffset.get(index).get(cil.offset).push(cil.chord);
+      });
+    });
   }
 
   onUpdate() {
+    this.chordSection.instruction.chordsAndLyrics.forEach((cal) => console.log(cal.lyricLine));
     if (!this.editing) return;
-    this.updated.emit(this.tabSection);
+    this.updated.emit(this.chordSection);
   }
 }
