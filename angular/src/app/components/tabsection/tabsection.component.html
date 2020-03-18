@@ -48,7 +48,7 @@
                  [scReadOnly]="!editing">
         </td>
       </tr>
-      <tr >
+      <tr>
         <td class="help-cell guide-cell"><ng-container *ngIf="editing">Guide:</ng-container></td>
         <td class="guide-cell" *ngFor="let pick of block.picks" [ngClass]="{'has-guide': pick.guide !== ''}">
           <input class="guide-input" 

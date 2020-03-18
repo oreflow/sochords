@@ -35,7 +35,6 @@ message TabSection {
 
 message ChordSection {
   ChordInstruction instruction = 1;
-  Vocal vocal = 2;
 }
 
 message SongSection {

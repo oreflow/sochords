@@ -31,12 +31,16 @@
               <mat-icon>close</mat-icon>
             </button>
           </div>
-          <tab-section 
-             *ngSwitchCase="sectionTypeEnum.TAB_SECTION" 
-             [editing]="true" 
-             [tabSection]="section.tabSection"
-             (updated)="updateTabSection(section.id, $event)"></tab-section>
-          <div *ngSwitchCase="sectionTypeEnum.CHORD_SECTION">Chords!!!</div>
+          <div *ngSwitchCase="sectionTypeEnum.TAB_SECTION" >
+            <tab-section [editing]="true"
+                         [tabSection]="section.tabSection"
+                         (updated)="updateTabSection(section.id, $event)"></tab-section>
+          </div>
+          <div *ngSwitchCase="sectionTypeEnum.CHORD_SECTION">
+            <chord-section [editing]="true"
+                           [chordSection]="section.chordSection"
+                           (updated)="updateChordSection(section.id, $event)"></chord-section>
+          </div>
           <div *ngSwitchDefault>Unidentified type</div>
         </div>
         <button 

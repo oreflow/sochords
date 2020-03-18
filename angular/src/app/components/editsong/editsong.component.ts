@@ -103,6 +103,12 @@ export class EditSongComponent implements OnInit, OnDestroy {
     this.updateSong();
   }
 
+  updateChordSection(id: string, chordSection: songs.ChordSection) {
+    const songSection = this.song.sections.find((ss) => ss.id === id);
+    songSection.chordSection = chordSection;
+    this.updateSong();
+  }
+
   updateSectionInfo(id: string, sectionInfo: songs.SongSectionInfo) {
     const songSection = this.song.sections.find((ss) => ss.id === id);
     songSection.info = sectionInfo;
