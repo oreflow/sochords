@@ -16,6 +16,11 @@
       align-items: center;
       justify-content: center;
       flex-wrap: wrap;
+      margin-bottom: 50px;
+      .chords-header {
+        font-size: 24px;
+        margin-right: 10px;
+      }
 
       .chord-input-wrapper {
         display: flex;
@@ -70,6 +75,7 @@
         bottom: calc(100% + 5px);
         left: -50%;
         user-select: none;
+        z-index: 1;
       }
     }
 
