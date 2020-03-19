@@ -1,8 +1,8 @@
 <div class="chord-section-root" [ngClass]="{'editing': editing}">
 
     <div *ngIf="editing">
-      <h2>Chords</h2>
       <div class="chord-row">
+        <div class="chords-header">Chords</div>
         <div class="chord-input-wrapper" *ngFor="let chord of chordSection.instruction.chords">
           <mat-icon class="chord-close-icon" 
                     color="warn" 
@@ -42,7 +42,7 @@
              placeholder="Add Line of Lyrics" 
              [(ngModel)]="cal.lyricLine" 
              (change)="onUpdate()"
-             scAutoWidth minSize="80"/>
+             scAutoWidth minSize="40"/>
       <mat-icon class="edit-lyric-done" 
                 color="accent" 
                 matTooltip="Done editing" 
