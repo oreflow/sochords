@@ -13,17 +13,15 @@
     <div class="section-info">
       <div class="song-sections">
         <div class="section" *ngFor="let section of (song$ | async)?.sections">
-          <h2>{{section.info.name}}</h2>
+          <div class="section-header">{{section.info.name}}</div>
           <div [ngSwitch]="section.sectionType">
             <div *ngSwitchCase="sectionTypeEnum.TAB_SECTION" >
               <tab-section [editing]="false"
-                           [tabSection]="section.tabSection"
-                           (updated)="updateTabSection(section.id, $event)"></tab-section>
+                           [tabSection]="section.tabSection"></tab-section>
             </div>
             <div *ngSwitchCase="sectionTypeEnum.CHORD_SECTION">
               <chord-section [editing]="false"
-                             [chordSection]="section.chordSection"
-                             (updated)="updateChordSection(section.id, $event)"></chord-section>
+                             [chordSection]="section.chordSection"></chord-section>
             </div>
             <div *ngSwitchDefault>Unidentified type</div>
           </div>

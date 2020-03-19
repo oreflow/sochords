@@ -36,7 +36,7 @@
         }
 
         .chord-drag-icon {
-          cursor: drag;
+          cursor: grab;
           transform: rotate(90deg);
         }
       }
@@ -64,11 +64,12 @@
       width: 0;
 
       .inline-chord {
+        cursor: grab;
         font-size: 30px;
         position: absolute;
         bottom: calc(100% + 5px);
         left: -50%;
-        selection: none;
+        user-select: none;
       }
     }
 
@@ -77,8 +78,8 @@
       white-space: pre;
       float: left;
       font-size: 24px;
-      select: none;
-      margin-top: 40px;
+      user-select: none;
+      padding-top: 40px;
 
       &[dragging] {
         padding-left: 10px;
@@ -86,7 +87,7 @@
           content: ' ';
           position: absolute;
           left: 0;
-          bottom: 100%;
+          bottom: 25px;
           height: 0;
           width: 0;
           border-top: 10px solid green;

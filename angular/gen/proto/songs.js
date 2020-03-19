@@ -3408,6 +3408,7 @@ $root.instructions = (function() {
          * Properties of a ChordsAndLyrics.
          * @memberof instructions
          * @interface IChordsAndLyrics
+         * @property {string|null} [id] ChordsAndLyrics id
          * @property {string|null} [lyricLine] ChordsAndLyrics lyricLine
          * @property {Array.<instructions.IChordInLyric>|null} [chordsInLyric] ChordsAndLyrics chordsInLyric
          */
@@ -3427,6 +3428,14 @@ $root.instructions = (function() {
                     if (properties[keys[i]] != null)
                         this[keys[i]] = properties[keys[i]];
         }
+
+        /**
+         * ChordsAndLyrics id.
+         * @member {string} id
+         * @memberof instructions.ChordsAndLyrics
+         * @instance
+         */
+        ChordsAndLyrics.prototype.id = "";
 
         /**
          * ChordsAndLyrics lyricLine.
@@ -3468,11 +3477,13 @@ $root.instructions = (function() {
         ChordsAndLyrics.encode = function encode(message, writer) {
             if (!writer)
                 writer = $Writer.create();
+            if (message.id != null && message.hasOwnProperty("id"))
+                writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
             if (message.lyricLine != null && message.hasOwnProperty("lyricLine"))
-                writer.uint32(/* id 1, wireType 2 =*/10).string(message.lyricLine);
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.lyricLine);
             if (message.chordsInLyric != null && message.chordsInLyric.length)
                 for (var i = 0; i < message.chordsInLyric.length; ++i)
-                    $root.instructions.ChordInLyric.encode(message.chordsInLyric[i], writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                    $root.instructions.ChordInLyric.encode(message.chordsInLyric[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
             return writer;
         };
 
@@ -3508,9 +3519,12 @@ $root.instructions = (function() {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
-                    message.lyricLine = reader.string();
+                    message.id = reader.string();
                     break;
                 case 2:
+                    message.lyricLine = reader.string();
+                    break;
+                case 3:
                     if (!(message.chordsInLyric && message.chordsInLyric.length))
                         message.chordsInLyric = [];
                     message.chordsInLyric.push($root.instructions.ChordInLyric.decode(reader, reader.uint32()));
@@ -3550,6 +3564,9 @@ $root.instructions = (function() {
         ChordsAndLyrics.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (!$util.isString(message.id))
+                    return "id: string expected";
             if (message.lyricLine != null && message.hasOwnProperty("lyricLine"))
                 if (!$util.isString(message.lyricLine))
                     return "lyricLine: string expected";
@@ -3577,6 +3594,8 @@ $root.instructions = (function() {
             if (object instanceof $root.instructions.ChordsAndLyrics)
                 return object;
             var message = new $root.instructions.ChordsAndLyrics();
+            if (object.id != null)
+                message.id = String(object.id);
             if (object.lyricLine != null)
                 message.lyricLine = String(object.lyricLine);
             if (object.chordsInLyric) {
@@ -3607,8 +3626,12 @@ $root.instructions = (function() {
             var object = {};
             if (options.arrays || options.defaults)
                 object.chordsInLyric = [];
-            if (options.defaults)
+            if (options.defaults) {
+                object.id = "";
                 object.lyricLine = "";
+            }
+            if (message.id != null && message.hasOwnProperty("id"))
+                object.id = message.id;
             if (message.lyricLine != null && message.hasOwnProperty("lyricLine"))
                 object.lyricLine = message.lyricLine;
             if (message.chordsInLyric && message.chordsInLyric.length) {

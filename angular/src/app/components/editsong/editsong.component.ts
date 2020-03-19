@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Subscription, empty } from 'rxjs';
 import { switchMap, shareReplay, last } from 'rxjs/operators';
-import {v4 as uuidv4} from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 
 
 import { songs } from 'gen/proto/songs';
