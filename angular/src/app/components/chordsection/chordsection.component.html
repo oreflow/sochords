@@ -14,12 +14,15 @@
                  draggable="true"
                  [(ngModel)]="chord.name" 
                  [matAutocomplete]="auto"
-                 scAutoWidth minSize="3">
+                 scAutoWidth minSize="3"
+                 (dragstart)="newChordDragStart($event, chord)">
           <mat-autocomplete #auto="matAutocomplete">
             <mat-option *ngFor="let option of ['A', 'C', 'F']" [value]="option">{{option}}</mat-option>
           </mat-autocomplete>
 
-          <mat-icon draggable="true" class="chord-drag-icon" (dragstart)="chordDragStart($event, chord)">drag_indicator</mat-icon>
+          <mat-icon draggable="true"
+                    class="chord-drag-icon"
+                    (dragstart)="newChordDragStart($event, chord)">drag_indicator</mat-icon>
         </div>
         <div>
           <button mat-stroked-button 
@@ -32,9 +35,9 @@
     </div>
 
   <div class="chords-and-lyrics-row" 
-       *ngFor="let cal of chordSection.instruction.chordsAndLyrics; let calIndex = index">
+       *ngFor="let cal of chordSection.instruction.chordsAndLyrics">
 
-    <div *ngIf="editingLyricLine.get(calIndex)">
+    <div *ngIf="editingLyricLine.get(cal.id)">
       <input class="lyric-input" 
              placeholder="Add Line of Lyrics" 
              [(ngModel)]="cal.lyricLine" 
@@ -43,24 +46,28 @@
       <mat-icon class="edit-lyric-done" 
                 color="accent" 
                 matTooltip="Done editing" 
-                (click)="editingLyricLine.set(calIndex, false)">check</mat-icon>
+                (click)="editingLyricLine.set(cal.id, false)">check</mat-icon>
     </div>
 
-    <div *ngIf="!editingLyricLine.get(calIndex)">
+    <div *ngIf="!editingLyricLine.get(cal.id)">
       <div class="split-character"
            (dragenter)="setDragOverAttr($event)"
            (dragover)="setDragOverAttr($event)"
            (dragleave)="removeDragOverAttr($event)"
            (drop)="droppedOnCharacter($event, cal, charIndex)"
-           *ngFor="let c of cal?.lyricLine.split(''); let charIndex = index"
+           *ngFor="let c of getAdjustedLyricLine(cal); let charIndex = index"
            ><div class="inline-chord-placer"
-                 *ngFor="let inlineChord of chordsByOffset.get(calIndex)?.get(charIndex)"
-                 ><div class="inline-chord">{{inlineChord.name}}</div></div>{{c}}</div>
+                 *ngFor="let inlineChord of chordsByOffset.get(cal.id)?.get(charIndex)"
+                 ><div class="inline-chord"
+                       draggable="true" 
+                       (dblclick)="removeInlineChord(cal, charIndex, inlineChord)"
+                       (dragstart)="existingChordDragStart($event, cal.id, charIndex, inlineChord)"
+                       >{{inlineChord?.name}}</div></div>{{c}}</div>
 
       <mat-icon class="split-character-edit" 
                 color="accent" 
                 matTooltip="Edit lyric line" 
-                (click)="editingLyricLine.set(calIndex, true)">
+                (click)="editingLyricLine.set(cal.id, true)">
         edit
       </mat-icon>
       <mat-icon class="split-character-clean" 

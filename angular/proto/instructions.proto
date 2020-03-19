@@ -43,8 +43,9 @@ message ChordInLyric {
 }
 
 message ChordsAndLyrics {
-  string lyric_line = 1;
-  repeated ChordInLyric chords_in_lyric = 2;
+  string id = 1;
+  string lyric_line = 2;
+  repeated ChordInLyric chords_in_lyric = 3;
 }
 
 message ChordInstruction {

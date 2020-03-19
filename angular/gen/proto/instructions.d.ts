@@ -521,6 +521,9 @@ export namespace instructions {
     /** Properties of a ChordsAndLyrics. */
     interface IChordsAndLyrics {
 
+        /** ChordsAndLyrics id */
+        id?: (string|null);
+
         /** ChordsAndLyrics lyricLine */
         lyricLine?: (string|null);
 
@@ -536,6 +539,9 @@ export namespace instructions {
          * @param [properties] Properties to set
          */
         constructor(properties?: instructions.IChordsAndLyrics);
+
+        /** ChordsAndLyrics id. */
+        public id: string;
 
         /** ChordsAndLyrics lyricLine. */
         public lyricLine: string;
