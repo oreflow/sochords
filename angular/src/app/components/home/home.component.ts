@@ -29,9 +29,15 @@ export class HomeComponent implements OnInit {
           if (song.info?.title?.toLowerCase().indexOf(search.toLowerCase()) >= 0) {
             return true;
           }
+          for (const artist of song?.info?.artists || []) {
+            if (artist?.name.toLowerCase().indexOf(search.toLowerCase()) >= 0) {
+              return true;
+            }
+          }
         }).slice(0, 5);
       }));
   }
+
   selectedSong(song: songs.Song) {
     this.router.navigate(['song', song.id]);
   }

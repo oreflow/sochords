@@ -23,17 +23,13 @@ export class ChordSectionComponent implements OnInit {
   @Output() updated = new EventEmitter<songs.ChordSection>();
 
   ngOnInit() {
-    if(!this.chordSection.instruction) {
-      this.chordSection.instruction = {
-        chordsAndLyrics: [],
-        chords: [],
-      };
-    }
-    if (this.chordSection?.instruction?.chordsAndLyrics) {
-      this.chordSection?.instruction?.chordsAndLyrics.forEach((cal) => {
-        cal.id = cal.id || uuidv4();
-      });
-    }
+    if (!this.chordSection.instruction) this.chordSection.instruction = {};
+    if (!this.chordSection.instruction.chordsAndLyrics) this.chordSection.instruction.chordsAndLyrics = [];
+    if (!this.chordSection.instruction.chords) this.chordSection.instruction.chords= [];
+    // Tmp fix, if missing IDs for CALs, fix this.
+    this.chordSection?.instruction?.chordsAndLyrics.forEach((cal) => {
+      cal.id = cal.id || uuidv4();
+    });
     this._updateChordsByOffset();
   }
 
@@ -72,6 +68,7 @@ export class ChordSectionComponent implements OnInit {
   }
 
   setDragOverAttr($event) {
+    console.log('dragover', $event);
     $event.target.setAttribute(DRAGGING_ATTRIBUTE, '');
     $event.preventDefault();
   }

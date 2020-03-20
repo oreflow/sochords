@@ -4,13 +4,30 @@
   <div *ngIf="state === states.RUNNING">
     <div class="basic-info">
       <h1>Basic Info</h1>
-      <div>
-        <mat-form-field class="song-title-field">
-          <mat-label>Title</mat-label>
-          <input matInput 
-                 [(ngModel)]="song?.info.title" 
-                 (change)="updateSong()"/>
-        </mat-form-field>
+      <div class="basic-info-form">
+        <div class="song-title-wrapper">
+          <h2>Title</h2>
+          <mat-form-field class="song-title-field">
+            <input matInput 
+                   [(ngModel)]="song?.info.title" 
+                   (change)="updateSong()"/>
+          </mat-form-field>
+        </div>
+        <div class="artists-wrapper">
+          <h2>Artists</h2>
+          <div class="artist-row" *ngFor="let artist of song?.info.artists; let i = index;">
+            <mat-form-field class="artist-name-field">
+              <input matInput 
+                     [(ngModel)]="artist.name" 
+                     (change)="updateSong()"/>
+            </mat-form-field>
+            <button mat-icon-button 
+                    color="accent" 
+                    *ngIf="i > 0" 
+                    (click)="removeArtist(artist)"><mat-icon>close</mat-icon></button>
+          </div>
+          <button mat-stroked-button color="accent" (click)="addArtist()">ADD ARTIST</button>
+        </div>
       </div>
       <div>
       </div>
@@ -24,6 +41,7 @@
             <mat-form-field class="section-name-field">
               <mat-label>Section name</mat-label>
               <input matInput 
+                     class="section-name-field"
                      [(ngModel)]="section.info.name" 
                      (change)="updateSectionInfo(section.id, section.info)"/>
             </mat-form-field>
@@ -48,7 +66,7 @@
            mat-stroked-button
            color="accent"
            [matMenuTriggerFor]="sectionTypeMenu">
-          <mat-icon>add</mat-icon>Add Section
+          <mat-icon>add</mat-icon>ADD SECTION
         </button>
         <mat-menu #sectionTypeMenu="matMenu">
           <button mat-menu-item (click)="addSection(sectionTypeEnum.TAB_SECTION)">Tab Section</button>
