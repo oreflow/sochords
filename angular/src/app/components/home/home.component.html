@@ -13,6 +13,12 @@
                         [routerLink]="['song', song.id]"
                         (onSelectionChange)="selectedSong(song)">
           {{song.info.title}}
+          <span *ngIf="song?.info?.artists">-</span>
+          <span class="autosuggest-artists">
+            <span *ngFor="let artist of song.info?.artists || []">
+              {{artist.name}}
+            </span>
+          </span>
         </mat-option>
       </mat-autocomplete>
     </div>

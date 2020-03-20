@@ -45,6 +45,9 @@
           transform: rotate(90deg);
         }
       }
+      .add-chord-button {
+        margin-left: 20px;
+      }
     }
 
 
@@ -69,8 +72,9 @@
       width: 0;
 
       .inline-chord {
+        background-color: mat-color($accent, 100);
         cursor: grab;
-        font-size: 30px;
+        font-size: 24px;
         position: absolute;
         bottom: calc(100% + 5px);
         left: -50%;

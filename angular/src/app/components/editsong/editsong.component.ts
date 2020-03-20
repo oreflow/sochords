@@ -61,14 +61,22 @@ export class EditSongComponent implements OnInit, OnDestroy {
   _setRequiredFields() {
     if (!this.song.info) this.song.info = {};
     if (!this.song.sections) this.song.sections = [];
+    if (!this.song.info.artists) this.song.info.artists = [{name: ''}];
     for (let section of this.song.sections) {
       if (!section.info) section.info = {};
     }
   }
 
-
   receivedUpdatedSong(song: songs.Song) {
     console.log('Received updated Song:', song);
+  }
+
+  addArtist() {
+    this.song.info.artists.push({name: ''});
+  }
+
+  removeArtist(artist: songs.ArtistInfo) {
+    this.song.info.artists.splice(this.song.info.artists.indexOf(artist), 1);
   }
 
   ngOnDestroy() {
