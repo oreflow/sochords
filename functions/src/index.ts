@@ -1,8 +1,15 @@
-import * as functions from 'firebase-functions';
+import { firestore, initializeApp } from 'firebase-admin';
+import CopySongDevToProd from './copysongdevtoprod';
 
-// // Start writing Firebase Functions
-// // https://firebase.google.com/docs/functions/typescript
-//
-// export const helloWorld = functions.https.onRequest((request, response) => {
-//  response.send("Hello from Firebase!");
-// });
+initializeApp();
+
+let _firestore: firestore.Firestore;
+export const getFirestore = () => {
+  if (!_firestore) {
+    _firestore = firestore();
+    _firestore.settings({ timestampsInSnapshots: true });
+  }
+  return _firestore;
+}
+
+export const copySongDevToProd = new CopySongDevToProd(getFirestore()).onRequest;
