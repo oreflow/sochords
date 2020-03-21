@@ -17,6 +17,10 @@
 <div *ngIf="state === states.INITIALIZING">
   Loading...
 </div>
+<div class="small-device-disclaimer" *ngIf="state !== states.INITIALIZING">
+      <mat-icon class="sochords-logo" svgIcon="sochords_logo"></mat-icon>
+      SoChords does not yet support small devices.
+</div>
 <div class="app-body" *ngIf="state !== states.INITIALIZING">
   <router-outlet></router-outlet>
 </div>
