@@ -367,6 +367,8 @@ $root.instructions = (function() {
          * @memberof instructions
          * @interface ITabInstructionBlock
          * @property {Array.<instructions.IStringCombination>|null} [picks] TabInstructionBlock picks
+         * @property {boolean|null} [breakLine] TabInstructionBlock breakLine
+         * @property {string|null} [trailingText] TabInstructionBlock trailingText
          */
 
         /**
@@ -392,6 +394,22 @@ $root.instructions = (function() {
          * @instance
          */
         TabInstructionBlock.prototype.picks = $util.emptyArray;
+
+        /**
+         * TabInstructionBlock breakLine.
+         * @member {boolean} breakLine
+         * @memberof instructions.TabInstructionBlock
+         * @instance
+         */
+        TabInstructionBlock.prototype.breakLine = false;
+
+        /**
+         * TabInstructionBlock trailingText.
+         * @member {string} trailingText
+         * @memberof instructions.TabInstructionBlock
+         * @instance
+         */
+        TabInstructionBlock.prototype.trailingText = "";
 
         /**
          * Creates a new TabInstructionBlock instance using the specified properties.
@@ -420,6 +438,10 @@ $root.instructions = (function() {
             if (message.picks != null && message.picks.length)
                 for (var i = 0; i < message.picks.length; ++i)
                     $root.instructions.StringCombination.encode(message.picks[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            if (message.breakLine != null && message.hasOwnProperty("breakLine"))
+                writer.uint32(/* id 2, wireType 0 =*/16).bool(message.breakLine);
+            if (message.trailingText != null && message.hasOwnProperty("trailingText"))
+                writer.uint32(/* id 3, wireType 2 =*/26).string(message.trailingText);
             return writer;
         };
 
@@ -458,6 +480,12 @@ $root.instructions = (function() {
                     if (!(message.picks && message.picks.length))
                         message.picks = [];
                     message.picks.push($root.instructions.StringCombination.decode(reader, reader.uint32()));
+                    break;
+                case 2:
+                    message.breakLine = reader.bool();
+                    break;
+                case 3:
+                    message.trailingText = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -503,6 +531,12 @@ $root.instructions = (function() {
                         return "picks." + error;
                 }
             }
+            if (message.breakLine != null && message.hasOwnProperty("breakLine"))
+                if (typeof message.breakLine !== "boolean")
+                    return "breakLine: boolean expected";
+            if (message.trailingText != null && message.hasOwnProperty("trailingText"))
+                if (!$util.isString(message.trailingText))
+                    return "trailingText: string expected";
             return null;
         };
 
@@ -528,6 +562,10 @@ $root.instructions = (function() {
                     message.picks[i] = $root.instructions.StringCombination.fromObject(object.picks[i]);
                 }
             }
+            if (object.breakLine != null)
+                message.breakLine = Boolean(object.breakLine);
+            if (object.trailingText != null)
+                message.trailingText = String(object.trailingText);
             return message;
         };
 
@@ -546,11 +584,19 @@ $root.instructions = (function() {
             var object = {};
             if (options.arrays || options.defaults)
                 object.picks = [];
+            if (options.defaults) {
+                object.breakLine = false;
+                object.trailingText = "";
+            }
             if (message.picks && message.picks.length) {
                 object.picks = [];
                 for (var j = 0; j < message.picks.length; ++j)
                     object.picks[j] = $root.instructions.StringCombination.toObject(message.picks[j], options);
             }
+            if (message.breakLine != null && message.hasOwnProperty("breakLine"))
+                object.breakLine = message.breakLine;
+            if (message.trailingText != null && message.hasOwnProperty("trailingText"))
+                object.trailingText = message.trailingText;
             return object;
         };
 

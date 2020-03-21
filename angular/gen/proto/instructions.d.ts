@@ -139,6 +139,12 @@ export namespace instructions {
 
         /** TabInstructionBlock picks */
         picks?: (instructions.IStringCombination[]|null);
+
+        /** TabInstructionBlock breakLine */
+        breakLine?: (boolean|null);
+
+        /** TabInstructionBlock trailingText */
+        trailingText?: (string|null);
     }
 
     /** Represents a TabInstructionBlock. */
@@ -152,6 +158,12 @@ export namespace instructions {
 
         /** TabInstructionBlock picks. */
         public picks: instructions.IStringCombination[];
+
+        /** TabInstructionBlock breakLine. */
+        public breakLine: boolean;
+
+        /** TabInstructionBlock trailingText. */
+        public trailingText: string;
 
         /**
          * Creates a new TabInstructionBlock instance using the specified properties.
