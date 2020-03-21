@@ -6,7 +6,8 @@
              type="text"
              placeholder="Find a Song..."
              [formControl]="searchControl"
-             [matAutocomplete]="auto"/>
+             [matAutocomplete]="auto"
+             (focus)="searchControl.setValue(searchControl.value || '')"/>
       <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
         <mat-option *ngFor="let song of filteredSearch | async"
                         [value]="song.info.title"
@@ -27,5 +28,5 @@
             class="add-song-button"
             [routerLink]="'/newSong'">ADD NEW SONG</button>
   </div>
-  <div class="disclaimer">Note: This page is currently under development, and any songs you add could disappear at any point.</div>
+  <div class="disclaimer">Note: This page is under development. You can only see your own songs, and songs may disappear at any point.</div>
 </div>

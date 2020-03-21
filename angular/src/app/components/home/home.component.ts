@@ -21,9 +21,8 @@ export class HomeComponent implements OnInit {
     private songService: SongService) {}
 
   async ngOnInit() {
-    const mySongs = await this.songService.getMySongs();
     this.filteredSearch = this.searchControl.valueChanges.pipe(
-      withLatestFrom(mySongs),
+      withLatestFrom(this.songService.getMySongs()),
       map(([search, songs]) => {
         return songs.filter((song) => {
           if (song.info?.title?.toLowerCase().indexOf(search.toLowerCase()) >= 0) {

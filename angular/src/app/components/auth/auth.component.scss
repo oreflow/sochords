@@ -1,0 +1,79 @@
+@import '~@angular/material/theming';
+
+@mixin auth-component-theme($theme) {
+  $primary: map-get($theme, primary);
+  $warn: map-get($theme, warn);
+
+  .auth-root {
+    .error-message {
+      color: mat-color($warn);
+    }
+
+    .loading-view {
+      display: flex;
+      flex-direction: row;
+      align-content: center;
+      justify-content: center;
+    }
+
+    .reset-password-view,
+    .signed-in-view,
+    .anonymous-view,
+    .create-account-view {
+      display: flex;
+      flex-direction: column;
+      align-content: center;
+      justify-content: center;
+    }
+
+
+    .close-sign-in-button-row,
+    .close-create-button-row,
+    .reset-password-button-row,
+    .sign-out-button-row {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      margin-top: 5px;
+    }
+
+    .anonymous-view {
+      .username-field,
+      .password-field {
+        margin-top: 5px;
+      }
+
+      .forgotten-password-row {
+        color: gray;
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      .create-account-button {
+        margin-top: 30px;
+        margin: 10px;
+      }
+      .google-sign-in-button {
+        margin: 10px;
+        color: rgba(0, 0, 0, 0.6);
+      }
+
+      .google-logo {
+        margin-right: 20px;
+      }
+    }
+    .reset-password-view {
+
+    }
+    .signing-in-view {
+
+    }
+    .migrating-data-view {
+
+    }
+    .signed-in-view {
+
+    }
+
+  }
+}
