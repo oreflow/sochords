@@ -32,7 +32,7 @@ export class AppComponent implements OnInit{
     private _dialog: MatDialog,
     private auth: AngularFireAuth) {
     this.matIconRegistry.addSvgIcon(
-      'sochord_logo',
+      'sochords_logo',
       this.domSanitizer.bypassSecurityTrustResourceUrl('assets/sochord_logo.svg'));
     this.matIconRegistry.addSvgIcon(
       'google_logo',
