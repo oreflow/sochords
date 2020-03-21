@@ -15,6 +15,7 @@
     .pick-block {
       display: flex;
       flex-direction: row;
+      flex-wrap: nowrap;
     }
 
     .pick-block-table {
@@ -115,6 +116,20 @@
         width: calc(100% - 6px);
         z-index: -1;
       }
+    }
+    .after-table-editing-block, 
+    .after-table-view-block {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 10px;
+      .trailing-text {
+        font-size: 24px;
+      }
+    }
+    .line-break {
+      flex-basis: 100%;
+      height: 0;
     }
 
     .add-block-button {

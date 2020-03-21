@@ -15,6 +15,8 @@ message StringCombination {
 
 message TabInstructionBlock {
   repeated StringCombination picks = 1;
+  bool break_line = 2;
+  string trailing_text = 3;
 }
 
 message TabInstruction {
