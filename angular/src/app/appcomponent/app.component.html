@@ -1,9 +1,22 @@
-<mat-toolbar color="primary">
-  <div class="main-header" [routerLink]="''">SoChords</div>
+<mat-toolbar color="primary" class="sochord-app-toolbar">
+  <mat-toolbar-row class="toolbar-row">
+    <div class="left-block">
+      <div class="main-header" [routerLink]="''">SoChords</div>
+    </div>
+    <div class="right-block">
+      <button mat-icon-button class="profile-button" [matMenuTriggerFor]="profileMenu">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+      <mat-menu #profileMenu="matMenu">
+        <button mat-menu-item *ngIf="state === states.ANONYMOUS" (click)="openAuthDialog()">Sign In</button>
+        <button mat-menu-item *ngIf="state === states.SIGNED_IN" (click)="signOut()">Sign Out</button>
+      </mat-menu>
+    </div>
+  </mat-toolbar-row>
 </mat-toolbar>
 <div *ngIf="state === states.INITIALIZING">
   Loading...
 </div>
-<div class="app-body" *ngIf="state === states.RUNNING">
+<div class="app-body" *ngIf="state !== states.INITIALIZING">
   <router-outlet></router-outlet>
 </div>

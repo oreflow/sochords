@@ -1,0 +1,91 @@
+<div class="auth-root" >
+  <div class="anonymous-view" *ngIf="state === states.ANONYMOUS">
+    <h1>Sign In</h1>
+
+    <mat-form-field class="username-field" appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput [(ngModel)]="username">
+    </mat-form-field>
+
+    <mat-form-field class="password-field" appearance="fill">
+      <mat-label>Password</mat-label>
+      <input type="password" matInput [(ngModel)]="password">
+    </mat-form-field>
+
+    <div class="error-message" *ngIf="errorMessage">{{errorMessage}}</div>
+
+    <div class="close-sign-in-button-row">
+      <button mat-raised-button (click)="closeDialog()">Cancel</button>
+      <button mat-raised-button (click)="signInWithEmailAndPassword(username, password)">Sign in</button>
+    </div>
+    <div class="forgotten-password-row" (click)="showResetPassword()"><button mat-button>Forgotten password</button></div>
+
+    <button class="create-account-button" mat-raised-button (click)="showCreateAccount()">Create New Account</button>
+    <button class="google-sign-in-button" mat-raised-button (click)="signInWithGoogle()">
+      <mat-icon class="google-logo" svgIcon="google_logo"></mat-icon>Sign in with Google
+    </button>
+  </div>
+
+
+  <div class="create-account-view" *ngIf="state === states.CREATE_ACCOUNT">
+    <h1>Create new account.</h1>
+
+    <mat-form-field class="username-field" appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput [(ngModel)]="username">
+    </mat-form-field>
+
+    <mat-form-field class="password-field" appearance="fill">
+      <mat-label>Password</mat-label>
+      <input type="password" matInput [(ngModel)]="password">
+    </mat-form-field>
+
+    <div class="error-message" *ngIf="errorMessage">{{errorMessage}}</div>
+
+    <div class="close-create-button-row">
+      <button mat-raised-button (click)="showDefaultSignInView()">Cancel</button>
+      <button mat-raised-button (click)="createNewAccount(username, password)">Create account</button>
+    </div>
+  </div>
+  
+
+  <div class="reset-password-view" *ngIf="state === states.RESET_PASSWORD">
+    <h1>Reset password</h1>
+    <mat-form-field class="username-field" appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput [(ngModel)]="username">
+    </mat-form-field>
+    <div class="error-message" *ngIf="errorMessage">{{errorMessage}}</div>
+    <div class="reset-password-button-row">
+      <button mat-raised-button 
+              (click)="showDefaultSignInView()">
+        Back
+      </button>
+      <button mat-raised-button 
+              [disabled]="passwordResetMessage"
+              (click)="resetPassword(username)">
+        Reset password
+      </button>
+    </div>
+  </div>
+
+
+  <div class="loading-view" color="accent" *ngIf="state === states.LOADING">
+    <mat-spinner></mat-spinner>
+  </div>
+
+
+  <div class="signed-in-view" *ngIf="state === states.SIGNED_IN">
+    <h3>Signed in as {{(user$ | async).email}}</h3>
+    <div class="sign-out-button-row">
+      <button mat-raised-button 
+              (click)="closeDialog()">
+        Close
+      </button>
+      <button mat-raised-button 
+              (click)="signOut()">
+        Sign Out
+      </button>
+    </div>
+  </div>
+</div>

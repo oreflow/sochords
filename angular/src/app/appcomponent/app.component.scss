@@ -1,3 +1,15 @@
-.main-header {
-  cursor: pointer;
+.sochord-app-toolbar {
+  .toolbar-row {
+    justify-content: space-between;
+
+    .main-header {
+      cursor: pointer;
+    }
+
+    .profile-button {
+      height: 36px;
+      width: 36px;
+      font-size: 36px;
+    }
+  }
 }
