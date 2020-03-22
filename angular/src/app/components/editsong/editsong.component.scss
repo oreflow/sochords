@@ -21,6 +21,11 @@
       justify-content: center;
     }
 
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+    }
+
     .basic-info,
     .section-info {
       padding: 10px;
