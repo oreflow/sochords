@@ -23,6 +23,13 @@
       border-spacing: 2px;
     }
 
+    .add-pick-cell {
+      width: 36px; // Adapted to button-height
+      .add-pick-button {
+        transform: translate(calc(-50% + 18px), 0) rotate(-90deg);
+      }
+    }
+
     .remove-pick-cell {
       text-align: center;
       font-size: $font-size;

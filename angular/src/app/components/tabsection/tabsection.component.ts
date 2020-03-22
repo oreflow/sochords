@@ -28,16 +28,7 @@ export class TabSectionComponent implements OnInit {
   _getEmptyBlock(size: number) {
     const picks = [];
     for(let i = 0; i < size; i++) {
-      picks.push(instructions.StringCombination.create({
-        e4: '',
-        b: '',
-        g: '',
-        d: '',
-        a: '',
-        e2: '',
-        chord: '',
-        guide: '',
-      }));
+      picks.push({});
     }
     return instructions.TabInstructionBlock.create({picks});
   }
@@ -46,10 +37,11 @@ export class TabSectionComponent implements OnInit {
     const mergedChords = [];
     return block.picks
       .reduce((acc: {chord: string, size: number}[], stringCombination) => {
-        if (acc[acc.length - 1]?.chord === stringCombination.chord) {
+        const chord = stringCombination.chord || '';
+        if (acc[acc.length - 1]?.chord === chord) {
           acc[acc.length - 1].size++;
         } else {
-          acc.push({chord: stringCombination.chord, size: 1});
+          acc.push({chord: stringCombination.chord || '', size: 1});
         }
         return acc;
       }, []);
@@ -57,6 +49,11 @@ export class TabSectionComponent implements OnInit {
 
   removePick(block: instructions.TabInstructionBlock, pick: instructions.StringCombination) {
     block.picks.splice(block.picks.indexOf(pick), 1);
+    this.onUpdate();
+  }
+
+  addPick(block: instructions.TabInstructionBlock) {
+    block.picks.push({});
     this.onUpdate();
   }
 
@@ -70,9 +67,16 @@ export class TabSectionComponent implements OnInit {
     if (this.tabSection.instruction.tabBlocks.length === 0) {
       this.tabSection.instruction.tabBlocks.push(this._getEmptyBlock(8));
     } else {
-      const size = this.tabSection.instruction
-        .tabBlocks[this.tabSection.instruction.tabBlocks.length - 1].picks.length;
-      this.tabSection.instruction.tabBlocks.push(this._getEmptyBlock(size));
+      const lastBlock = this.tabSection.instruction
+        .tabBlocks[this.tabSection.instruction.tabBlocks.length - 1];
+      const size = lastBlock.picks.length;
+      const newBlock = this._getEmptyBlock(size);
+      for (let i = 0; i < size; i++) {
+        if (lastBlock.picks[i].guide) {
+          newBlock.picks[i].guide = lastBlock.picks[i].guide;
+        }
+      }
+      this.tabSection.instruction.tabBlocks.push(newBlock);
     }
     this.onUpdate();
   }
