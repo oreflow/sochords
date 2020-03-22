@@ -3,7 +3,14 @@
   <div class="error" *ngIf="state === states.ERROR"><sc-error [errorType]="error"></sc-error></div>
   <div *ngIf="state === states.RUNNING">
     <div class="basic-info">
-      <h1>Basic Info</h1>
+      <div class="header-row">
+        <h1>Basic Info</h1>
+        <button mat-icon-button 
+                color="accent" 
+                (click)="updateSong()"
+                [routerLink]="['/song', song.id]"
+                matTooltip="Done Editing" ><mat-icon>check</mat-icon></button>
+      </div>
       <div class="basic-info-form">
         <div class="song-title-wrapper">
           <h2>Title</h2>
