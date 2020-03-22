@@ -24,18 +24,26 @@ export class HomeComponent implements OnInit {
     this.filteredSearch = this.searchControl.valueChanges.pipe(
       withLatestFrom(this.songService.getMySongs()),
       map(([search, songs]) => {
+        const normalizedSearch = this._normalize(search);
         return songs.filter((song) => {
-          if (song.info?.title?.toLowerCase().indexOf(search.toLowerCase()) >= 0) {
+          const normalizedTitle = this._normalize(song.info?.title)
+          if (normalizedTitle?.indexOf(normalizedSearch) >= 0) {
             return true;
           }
           for (const artist of song?.info?.artists || []) {
-            if (artist?.name.toLowerCase().indexOf(search.toLowerCase()) >= 0) {
+            const normalizedArtist = this._normalize(artist?.name);
+            if (normalizedArtist.indexOf(normalizedSearch) >= 0) {
               return true;
             }
           }
         }).slice(0, 5);
       }));
   }
+
+  _normalize(input: string) {
+    return input?.normalize('NFKD').replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
+  }
+
 
   selectedSong(song: songs.Song) {
     this.router.navigate(['song', song.id]);
