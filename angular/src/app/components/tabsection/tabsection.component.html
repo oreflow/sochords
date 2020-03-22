@@ -17,10 +17,18 @@
               <mat-icon class="remove-pick-button">remove</mat-icon>
             </button>
           </td>
+          <td rowspan="9" *ngIf="editing">
+            <div class="add-pick-cell">
+            <button mat-stroked-button class="add-pick-button" (click)="addPick(block)" color="accent">
+              <mat-icon>add</mat-icon>
+              Add Column
+            </button>
+            </div>
+          </td>
         </tr>
         <tr *ngIf="editing">
           <td class="help-cell chord-edit-cell">Chord: </td>
-          <td class="chord-edit-cell" *ngFor="let pick of block.picks" [ngClass]="{'has-chord': pick.chord !== ''}">
+          <td class="chord-edit-cell" *ngFor="let pick of block.picks" [ngClass]="{'has-chord': pick.chord?.length > 0}">
             <input class="chord-input" 
                    [(ngModel)]="pick.chord" 
                    (change)="onUpdate()" 
@@ -39,7 +47,7 @@
           <td class="help-cell guitar-string-cell">{{guitarString}}</td>
           <td class="pick-cell"
               *ngFor="let pick of block.picks" 
-              [ngClass]="{'has-fret': pick[guitarString] !== ''}">
+              [ngClass]="{'has-fret': pick[guitarString]?.length > 0}">
             <input class="pick-input" 
                    [(ngModel)]="pick[guitarString]" 
                    (change)="onUpdate()" 
@@ -54,7 +62,7 @@
           </td>
           <td class="guide-cell" 
               *ngFor="let pick of block.picks" 
-              [ngClass]="{'has-guide': pick.guide !== ''}">
+              [ngClass]="{'has-guide': pick.guide?.length > 0}">
             <input class="guide-input" 
                    [(ngModel)]="pick.guide" 
                    (change)="onUpdate()" 
