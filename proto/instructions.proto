@@ -1,6 +1,7 @@
 syntax = "proto3";
 
 package instructions;
+option go_package = "sochordspb";
 
 message StringCombination {
   string e4 = 1;

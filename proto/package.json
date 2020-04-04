@@ -1,0 +1,12 @@
+{
+  "name": "sochords",
+  "version": "0.0.0",
+  "scripts": {
+    "protoc": "./generate_protos"
+  },
+  "private": true,
+  "dependencies": {},
+  "devDependencies": {
+    "protobufjs": "^6.8.9"
+  }
+}
