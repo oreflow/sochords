@@ -1,0 +1,38 @@
+
+REPO_ROOT=$(git rev-parse --show-toplevel)
+GO_GEN_DIRECTORY="$REPO_ROOT/chordgenerator/gen/proto" 
+TS_GEN_DIRECTORY="$REPO_ROOT/angular/gen/proto" 
+
+if [ ! -d "GO_GEN_DIRECTORY" ]; then
+  mkdir -p $GO_GEN_DIRECTORY
+fi
+
+if [ ! -d "TS_GEN_DIRECTORY" ]; then
+  mkdir -p $TS_GEN_DIRECTORY
+fi
+
+for f in *.proto; do
+  echo $f
+    # Strips file suffix .proto
+    FILENAME="${f/\.proto/}"
+
+    JS_OUT="${TS_GEN_DIRECTORY}/${FILENAME}.js"
+    TS_OUT="${TS_GEN_DIRECTORY}/${FILENAME}.d.ts"
+
+    echo "Compling $f"
+    echo "JS Output: $JS_OUT"
+    ./node_modules/.bin/pbjs \
+        -t static-module \
+        -w commonjs \
+        -o $JS_OUT \
+        $f
+    echo "TS Output: $TS_OUT"
+    ./node_modules/.bin/pbts \
+        -o $TS_OUT \
+        $JS_OUT
+done
+
+protoc --go_out=$GO_GEN_DIRECTORY *.proto
+
+echo "Compiled Go protos"
+ls $GO_GEN_DIRECTORY

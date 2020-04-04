@@ -1,6 +1,7 @@
 syntax = "proto3";
 
 package songs;
+option go_package = "sochordspb";
 
 import 'instructions.proto';
 
@@ -29,12 +30,12 @@ message SongSectionInfo {
 }
 
 message TabSection {
-  TabInstruction instruction = 1;
+  instructions.TabInstruction instruction = 1;
   Vocal vocal = 2;
 }
 
 message ChordSection {
-  ChordInstruction instruction = 1;
+  instructions.ChordInstruction instruction = 1;
 }
 
 message SongSection {
