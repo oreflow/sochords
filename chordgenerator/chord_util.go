@@ -58,7 +58,7 @@ func isWithin4Frets(fretCombinations []*StringFret) bool {
 	return (maxFret - minFret) <= 3
 }
 
-func _canBeBarChord(fretCombination []*StringFret) (bool, int) {
+func canBeBarChord(fretCombination []*StringFret) (bool, int) {
 	minFret := math.MaxInt32
 	for _, fret := range fretCombination {
 		if fret.fret >= 0 && fret.fret < minFret {
@@ -73,7 +73,7 @@ func _canBeBarChord(fretCombination []*StringFret) (bool, int) {
 
 func getRequiredFingers(fretCombination []*StringFret) int {
 	fingers := 0
-	barChord, minFret := _canBeBarChord(fretCombination)
+	barChord, minFret := canBeBarChord(fretCombination)
 	if barChord {
 		fingers++
 	}
