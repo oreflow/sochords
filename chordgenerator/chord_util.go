@@ -2,8 +2,8 @@ package main
 
 import "math"
 
-func hasRequiredNotes(fretCombination []*StringFret, requiredNotes []string) bool {
-	notesInChord := make(map[string]bool)
+func hasRequiredNotes(fretCombination []*StringFret, requiredNotes []Note) bool {
+	notesInChord := make(map[Note]bool)
 	for _, fret := range fretCombination {
 		notesInChord[fret.note] = true
 	}
@@ -16,9 +16,19 @@ func hasRequiredNotes(fretCombination []*StringFret, requiredNotes []string) boo
 }
 
 func hasMutedStrings(fretCombination []*StringFret) bool {
+	firstPlayed := math.MaxInt32
+	lastPlayed := 0
+	for i, fret := range fretCombination {
+		if fret.fret > 0 {
+			if firstPlayed == math.MaxInt32 {
+				firstPlayed = i
+			}
+			lastPlayed = i
+		}
+	}
 	hasNonPlayedWithPlayedBefore := false
 	hasNonPlayedWithPlayedAfter := false
-	for i := 1; i < len(fretCombination); i++ {
+	for i := firstPlayed + 1; i <= lastPlayed; i++ {
 		if fretCombination[i].fret == -1 && fretCombination[i-1].fret >= 0 {
 			hasNonPlayedWithPlayedAfter = true
 		}
@@ -75,7 +85,7 @@ func getRequiredFingers(fretCombination []*StringFret) int {
 	return fingers
 }
 
-func isInversion(fretCombination []*StringFret, requiredNotes []string) bool {
+func isInversion(fretCombination []*StringFret, requiredNotes []Note) bool {
 	if len(requiredNotes) < 2 {
 		return false
 	}
@@ -87,7 +97,7 @@ func isInversion(fretCombination []*StringFret, requiredNotes []string) bool {
 	return false
 }
 
-func is2ndInversion(fretCombination []*StringFret, requiredNotes []string) bool {
+func is2ndInversion(fretCombination []*StringFret, requiredNotes []Note) bool {
 	if len(requiredNotes) < 3 {
 		return false
 	}
