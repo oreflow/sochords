@@ -1,0 +1,3 @@
+[submodule "chordgenerator/chordgenerator/src/github.com/golang/protobuf"]
+	path = chordgenerator/chordgenerator/src/github.com/golang/protobuf
+	url = http://github.com/golang/protobuf
