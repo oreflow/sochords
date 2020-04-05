@@ -13,6 +13,13 @@ message ChordPattern {
 }
 
 message GuitarChord {
-  string name = 1;
-  ChordPattern chord_pattern = 2;
+  string id = 1;
+  string name = 2;
+  float complexity = 3;
+  ChordPattern chord_pattern = 4;
+  int32 complexity_rank = 5;
+}
+
+message GuitarChords {
+  repeated GuitarChord chords = 1;
 }

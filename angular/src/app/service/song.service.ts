@@ -31,6 +31,10 @@ export default class SongService {
           return songs.Song.create(snapshot.data());
         }));
       });
+    await this.firestoreService
+      .getCollectionRef(SoChordCollection.CHORD).get().toPromise().then((data) => {
+        console.log(data);
+      });
   }
 
   getMySongs(): Observable<songs.Song[]> {
