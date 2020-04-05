@@ -1,6 +1,6 @@
 
 REPO_ROOT=$(git rev-parse --show-toplevel)
-GO_GEN_DIRECTORY="$REPO_ROOT/chordgenerator/gen/proto" 
+GO_GEN_DIRECTORY="$REPO_ROOT/chordgenerator/src/gen/sochordspb" 
 TS_GEN_DIRECTORY="$REPO_ROOT/angular/gen/proto" 
 
 if [ ! -d "GO_GEN_DIRECTORY" ]; then
@@ -35,4 +35,4 @@ done
 protoc --go_out=$GO_GEN_DIRECTORY *.proto
 
 echo "Compiled Go protos"
-ls $GO_GEN_DIRECTORY
+ls -l $GO_GEN_DIRECTORY
