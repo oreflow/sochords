@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package chords;
+option go_package = "sochordspb";
+
+message ChordPattern {
+  string e4 = 1;
+  string b = 2;
+  string g = 3;
+  string d = 4;
+  string a = 5;
+  string e2 = 6;
+}
+
+message GuitarChord {
+  string name = 1;
+  ChordPattern chord_pattern = 2;
+}

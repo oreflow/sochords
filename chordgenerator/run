@@ -1,0 +1,6 @@
+
+REPO_ROOT=$(git rev-parse --show-toplevel)
+
+export GOPATH="${REPO_ROOT}/chordgenerator"
+
+go run *.go
