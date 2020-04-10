@@ -216,12 +216,12 @@ func main() {
         chord := &sochordspb.GuitarChord{
           Name: fmt.Sprintf("%s%s", chord.note, chord.chordType.suffix),
           ChordPattern: &sochordspb.ChordPattern{
-            E4: toStringWithEmptyStringForMinus1(c[0].fret),
-            B: toStringWithEmptyStringForMinus1(c[1].fret),
-            G: toStringWithEmptyStringForMinus1(c[2].fret),
-            D: toStringWithEmptyStringForMinus1(c[3].fret),
-            A: toStringWithEmptyStringForMinus1(c[4].fret),
-            E2: toStringWithEmptyStringForMinus1(c[5].fret),
+            E2: toStringWithEmptyStringForMinus1(c[0].fret),
+            A: toStringWithEmptyStringForMinus1(c[1].fret),
+            D: toStringWithEmptyStringForMinus1(c[2].fret),
+            G: toStringWithEmptyStringForMinus1(c[3].fret),
+            B: toStringWithEmptyStringForMinus1(c[4].fret),
+            E4: toStringWithEmptyStringForMinus1(c[5].fret),
           },
           Complexity: getComplexityScore(c),
         }

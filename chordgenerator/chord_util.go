@@ -19,7 +19,7 @@ func hasMutedStrings(fretCombination []*StringFret) bool {
 	firstPlayed := math.MaxInt32
 	lastPlayed := 0
 	for i, fret := range fretCombination {
-		if fret.fret > 0 {
+		if fret.fret >= 0 {
 			if firstPlayed == math.MaxInt32 {
 				firstPlayed = i
 			}
