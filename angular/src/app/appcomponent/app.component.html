@@ -1,7 +1,11 @@
 <mat-toolbar color="primary" class="sochord-app-toolbar">
   <mat-toolbar-row class="toolbar-row">
     <div class="left-block">
-      <div class="main-header" [routerLink]="''">SoChords</div>
+      <button mat-button class="main-header" [routerLink]="''">SoChords</button>
+      <button mat-button class="nav-button">
+        <span class="highlighted-text" [routerLink]="''">So</span><span>ngs</span>
+      </button>
+      <button mat-button class="nav-button"><span class="highlighted-text" [routerLink]="'chordExplorer'">Chords</span></button>
     </div>
     <div class="right-block">
       <button mat-icon-button class="profile-button" [matMenuTriggerFor]="profileMenu">
