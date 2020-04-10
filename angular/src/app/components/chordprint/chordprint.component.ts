@@ -16,7 +16,6 @@ export class ChordPrintComponent implements OnInit {
   @Input() chord: chords.GuitarChord;
 
   ngOnInit() {
-    console.log(this.chord);
     this._setFrets();
     this._setBar();
   }
