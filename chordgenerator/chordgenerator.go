@@ -7,6 +7,7 @@ import (
   "encoding/json"
   "context"
   "crypto/sha1"
+  "io/ioutil"
 
   "gen/sochordspb"
   "github.com/golang/protobuf/jsonpb"
@@ -151,6 +152,7 @@ func getId(jsonMarshaler jsonpb.Marshaler,chord *sochordspb.GuitarChord) (string
   return fmt.Sprintf("%x", h.Sum(nil)), nil
 }
 
+
 func sendToFirebase(
   batch *firestore.WriteBatch,
   jsonMarshaler jsonpb.Marshaler,
@@ -169,7 +171,7 @@ func sendToFirebase(
   fmt.Printf("Added '%s' to firebase batch\n", chord.GetName())
 }
 
-const FIREBASE_COLLECTION = "DEV_CHORDS"
+const FIREBASE_COLLECTION = "PROD_CHORDS"
 
 
 func main() {
@@ -193,6 +195,7 @@ func main() {
   }
   defer client.Close()
 
+  top3AllChords := &sochordspb.GuitarChords{}
 
   for note, _ := range noteMap {
     allChordsForNote := getChordsForNote(note)
@@ -234,17 +237,40 @@ func main() {
       })
       for i, pbchord := range pbchords {
         pbchord.ComplexityRank = int32(i + 1)
+        if pbchord.GetComplexityRank() <= 3 {
+          top3AllChords.Chords = append(top3AllChords.Chords, pbchord)
+        }
       }
+      chords := &sochordspb.GuitarChords{
+        Chords: pbchords,
+      }
+      fmt.Printf("Writing file 'out/%s.json'\n", pbchords[0].Name)
+      jsonString, err := jsonMarshaler.MarshalToString(chords)
+      if err != nil {
+        fmt.Errorf("%s\n", err)
+        return
+      }
+      ioutil.WriteFile(fmt.Sprintf("out/%s.json", pbchords[0].Name), []byte(jsonString), 0644)
+        /*
       batch := client.Batch()
       for _, pbchord := range pbchords {
         //fmt.Printf("%s\n", pbchord)
-        sendToFirebase(batch, jsonMarshaler, client, pbchord)
+        //sendToFirebase(batch, jsonMarshaler, client, pbchord)
+
       }
       _, err = batch.Commit(ctx)
       if err != nil {
         fmt.Printf("Error committing batch %s", err)
       }
+      */
     }
   }
+  fmt.Printf("Writing file top3allchords.json\n",)
+  jsonString, err := jsonMarshaler.MarshalToString(top3AllChords)
+  if err != nil {
+    fmt.Errorf("%s\n", err)
+    return
+  }
+  ioutil.WriteFile(fmt.Sprintf("out/top3allchords.json"), []byte(jsonString), 0644)
   fmt.Printf("DONE\n")
 }
