@@ -1,0 +1,54 @@
+
+@import '~@angular/material/theming';
+
+@mixin chord-explorer-component-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+
+  .chord-explorer-root {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    .selection-section {
+      padding: 20px;
+      .search-field {
+        background-color: transparent;
+        font-size: 36px;
+        width: 500px;
+        border: none;
+        caret-color: mat-color($accent);
+        outline: none;
+        color: gray;
+        &::placeholder {
+          color: lightgray;
+        }
+      }
+    }
+    .no-chord-selected {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-grow: 1;
+      .sochords-logo {
+        height: 128px;
+        width: 128px;
+        opacity: 0.3;
+      }
+    }
+    .chord-variations-header {
+      margin: 20px;
+      .selected-chord {
+        color: mat-color($accent, 900);
+        font-weight: bold;
+      }
+    }
+    .display-section {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      .chord-wrapper {
+        margin: 10px;
+      }
+    }
+  }
+}

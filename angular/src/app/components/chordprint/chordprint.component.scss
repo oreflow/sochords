@@ -1,0 +1,110 @@
+@import '~@angular/material/theming';
+
+@mixin chord-print-component-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+
+  $cell-size: 30px;
+  $cell-height: calc(#{$cell-size} * 1.3);
+  $dot-size: calc(0.5 * #{$cell-size});
+
+  $played-color: mat-color($primary);
+  $played-size: calc(#{$cell-size} * 0.9);
+
+  .chord-print-root {
+    .chord-table {
+      .top-fret-row {
+        .instruction-header-cell {
+          position: relative;
+          border-bottom: 5px solid mat-color($accent, 900);
+          height: $cell-size;
+          width: $cell-size;
+          text-align: center;
+        }
+        .instruction-header-cell::after {
+            content: '';
+            position: absolute;
+            background-color: mat-color($accent, 100);
+            height: calc(#{$cell-height} * 4);
+            width: 2px;
+            right: calc(-1 * #{$dot-size} / 2);
+            top: calc(#{$cell-size} + 5px);
+            left: calc(#{$cell-size} / 2 - 1px);
+            z-index: 1;
+        }
+      }
+      .instruction-row {
+        .fret-cell {
+          min-width: 20px;
+        }
+        &.single-dot {
+          .instruction-cell:nth-child(4)::before {
+            content: '';
+            position: absolute;
+            background-color: mat-color($accent, 100);
+            height: $dot-size;
+            width: $dot-size;
+            border-radius: 50%;
+            right: calc(-1 * #{$dot-size} / 2);
+            top: calc((#{$cell-height} - #{$dot-size}) / 2);
+            z-index: 2;
+          }
+        }
+        &.double-dot {
+          .instruction-cell:nth-child(3)::before, 
+          .instruction-cell:nth-child(5)::before {
+            content: '';
+            position: absolute;
+            background-color: mat-color($accent, 100);
+            height: $dot-size;
+            width: $dot-size;
+            border-radius: 50%;
+            right: calc(-1 * #{$dot-size} / 2);
+            top: calc((#{$cell-height} - #{$dot-size}) / 2);
+            z-index: 2;
+          }
+        }
+        .instruction-cell {
+          background-color: mat-color($primary, 100);
+          border-bottom: 1px solid mat-color($accent);
+          position: relative;
+          height: $cell-height;
+          text-align: center;
+          width: $cell-size;
+        }
+
+        .played-cell {
+          position: absolute;
+          border-radius: 50%;
+          height: $played-size;
+          width: $played-size;
+          background-color: $played-color;
+          top: calc((#{$cell-height} - #{$played-size}) / 2);
+          left: calc((#{$cell-size} - #{$played-size}) / 2);
+          z-index: 3;
+        }
+
+        .bar-chord-width-2::after { width: calc(#{$cell-size} * 2); }
+        .bar-chord-width-3::after { width: calc(#{$cell-size} * 3); }
+        .bar-chord-width-4::after { width: calc(#{$cell-size} * 4); }
+        .bar-chord-width-5::after { width: calc(#{$cell-size} * 5); }
+        .bar-chord-width-6::after { width: calc(#{$cell-size} * 6); }
+
+        .bar-chord-width-2::after,
+        .bar-chord-width-3::after,
+        .bar-chord-width-4::after,
+        .bar-chord-width-5::after,
+        .bar-chord-width-6::after {
+          content: '';
+          border-radius: 99999px;
+          height: $played-size;
+          background-color: $played-color;
+          position: absolute;
+          left: 0;
+          top: calc((#{$cell-height} - #{$played-size}) / 2);
+          z-index: 3;
+        }
+      }
+    }
+  }
+}

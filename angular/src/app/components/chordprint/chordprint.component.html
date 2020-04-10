@@ -1,0 +1,25 @@
+<div class="chord-print-root">
+  <div class="wrapping-column">
+    <div>
+      <table class="chord-table">
+        <tr class="top-fret-row">
+          <td class="fret-cell"></td>
+          <td class="instruction-header-cell" *ngFor="let gs of guitarStrings">
+            <div class="open-string" *ngIf="chord.chordPattern[gs] === '0'">O</div>
+            <div class="non-played-string" *ngIf="chord.chordPattern[gs] === ''">X</div>
+          </td>
+        </tr>
+        <tr class="instruction-row"
+            [ngClass]="getFretClass(fret)" 
+            *ngFor="let fret of frets">
+          <td class="fret-cell"><div>{{fret}}</div></td>
+          <td class="instruction-cell"
+              *ngFor="let gs of guitarStrings"
+              [ngClass]="getInstructionCellClass(gs, fret)">
+            <div class="played-cell" *ngIf="fret === chord.chordPattern[gs]"></div>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
