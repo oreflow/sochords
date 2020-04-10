@@ -1,0 +1,29 @@
+<div class="chord-explorer-root">
+  <div class="selection-section">
+    <input class="search-field"
+           type="text"
+           placeholder="Search for a Chord..."
+           [formControl]="searchControl"
+           [matAutocomplete]="auto"
+           (focus)="searchControl.setValue(searchControl.value || '')"/>
+    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+      <mat-option *ngFor="let chordName of filteredSearch | async"
+                      [value]="chordName"
+                      (onSelectionChange)="selectChord(chordName)">
+        {{chordName}}
+      </mat-option>
+    </mat-autocomplete>
+  </div>
+  <mat-divider></mat-divider>
+  <div *ngIf="!selectedChord" class="no-chord-selected">
+      <mat-icon class="sochords-logo" svgIcon="sochords_logo"></mat-icon>
+  </div>
+  <div *ngIf="selectedChord">
+    <h1 class="chord-variations-header">Chord variations for <span class="selected-chord">{{selectedChord}}</span></h1>
+    <div class="display-section">
+      <div class="chord-wrapper" *ngFor="let chord of selectedChordVariants$ | async">
+        <chord-print [chord]="chord"></chord-print>
+      </div>
+    </div>
+  </div>
+</div>
