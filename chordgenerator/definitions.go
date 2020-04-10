@@ -152,7 +152,7 @@ var addNineNotes = ChordType{
 }
 
 var sixNineNotes = ChordType{
-  suffix: "6/9",
+  suffix: "6add9",
   notesAndScales: []NoteAndScale{
 	{scale: MAJOR, number: 1},
 	{scale: MAJOR, number: 3},
