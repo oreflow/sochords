@@ -2,7 +2,10 @@
 // For more information: https://material.angular.io/guide/theming
 
 @import '~@angular/material/theming';
+@import 'app/appcomponent/app.component.scss';
 @import 'app/components/auth/auth.component.scss';
+@import 'app/components/chordexplorer/chordexplorer.component.scss';
+@import 'app/components/chordprint/chordprint.component.scss';
 @import 'app/components/chordsection/chordsection.component.scss';
 @import 'app/components/editsong/editsong.component.scss';
 @import 'app/components/error/error.component.scss';
@@ -21,7 +24,10 @@ $warn: mat-palette($mat-red);
 $theme: mat-light-theme($primary, $accent, $warn);
 
 @include angular-material-theme($theme);
+@include app-component-theme($theme);
 @include auth-component-theme($theme);
+@include chord-explorer-component-theme($theme);
+@include chord-print-component-theme($theme);
 @include chord-section-component-theme($theme);
 @include edit-song-component-theme($theme);
 @include sc-error-component-theme($theme);

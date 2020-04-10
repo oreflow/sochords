@@ -6,7 +6,6 @@ import { environment } from 'environments/environment';
 
 export enum SoChordCollection {
   SONG = 'SONG',
-  CHORD = 'CHORD',
 }
 
 @Injectable({providedIn: 'root'})

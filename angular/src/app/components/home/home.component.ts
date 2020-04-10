@@ -23,9 +23,9 @@ export class HomeComponent implements OnInit {
   async ngOnInit() {
     this.filteredSearch = this.searchControl.valueChanges.pipe(
       withLatestFrom(this.songService.getMySongs()),
-      map(([search, songs]) => {
+      map(([search, mySongs]) => {
         const normalizedSearch = this._normalize(search);
-        return songs.filter((song) => {
+        return mySongs.filter((song) => {
           const normalizedTitle = this._normalize(song.info?.title)
           if (normalizedTitle?.indexOf(normalizedSearch) >= 0) {
             return true;
@@ -43,7 +43,6 @@ export class HomeComponent implements OnInit {
   _normalize(input: string) {
     return input?.normalize('NFKD').replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
   }
-
 
   selectedSong(song: songs.Song) {
     this.router.navigate(['song', song.id]);

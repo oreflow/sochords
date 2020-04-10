@@ -2,6 +2,7 @@
 import { AngularFireAnalyticsModule } from '@angular/fire/analytics';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
@@ -29,6 +30,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { environment } from 'environments/environment';
 
 import { AuthComponent } from './components/auth/auth.component';
+import { ChordExplorerComponent } from 'app/components/chordexplorer/chordexplorer.component';
+import { ChordPrintComponent } from 'app/components/chordprint/chordprint.component';
 import { ChordSectionComponent } from 'app/components/chordsection/chordsection.component';
 import { EditSongComponent } from 'app/components/editsong/editsong.component';
 import { ErrorComponent } from 'app/components/error/error.component';
@@ -42,12 +45,15 @@ import { ColSpanDirective } from 'app/directives/colspan.directive';
 import { ReadOnlyDirective } from 'app/directives/readonly.directive';
 
 import 'firebase/firestore';
+import 'firebase/storage';
 
 @NgModule({
   declarations: [
     // Components.
     AppComponent,
     AuthComponent,
+    ChordExplorerComponent,
+    ChordPrintComponent,
     ChordSectionComponent,
     EditSongComponent,
     ErrorComponent,
@@ -63,6 +69,7 @@ import 'firebase/firestore';
   imports: [
     AngularFireAnalyticsModule,
     AngularFirestoreModule,
+    AngularFireStorageModule,
     AngularFireModule.initializeApp(environment.firebase),
     AppRoutingModule,
     BrowserAnimationsModule,

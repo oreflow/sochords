@@ -4,6 +4,7 @@ import { HomeComponent } from 'app/components/home/home.component';
 import { SongComponent } from 'app/components/song/song.component';
 import { NewSongComponent } from 'app/components/newsong/newsong.component';
 import { EditSongComponent } from 'app/components/editsong/editsong.component';
+import { ChordExplorerComponent } from 'app/components/chordexplorer/chordexplorer.component';
 
 
 const routes: Routes = [
@@ -11,6 +12,7 @@ const routes: Routes = [
   {path: 'song/:songId', component: SongComponent},
   {path: 'editSong/:songId', component: EditSongComponent},
   {path: 'newSong', component: NewSongComponent},
+  {path: 'chordExplorer', component: ChordExplorerComponent},
 ];
 
 @NgModule({
