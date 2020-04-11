@@ -60,6 +60,7 @@ export class EditSongComponent implements OnInit, OnDestroy {
 
   _setRequiredFields() {
     if (!this.song.info) this.song.info = {};
+    if (!this.song.guitarInfo) this.song.guitarInfo = {};
     if (!this.song.sections) this.song.sections = [];
     if (!this.song.info.artists) this.song.info.artists = [{name: ''}];
     for (let section of this.song.sections) {

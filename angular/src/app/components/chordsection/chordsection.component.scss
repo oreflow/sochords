@@ -4,6 +4,9 @@
   $primary: map-get($theme, primary);
   $accent: map-get($theme, accent);
 
+  $lyric-font-size: 20px;
+  $chord-in-lyric-font-size: 24px;
+
   .chord-section-root {
     display: flex;
     flex-direction: column;
@@ -61,9 +64,9 @@
     }
 
     .lyric-input {
-      font-size: 24px;
-      margin-top: 40px;
-      height: 30px;
+      font-size: $lyric-font-size;
+      margin-top: 30px;
+      height: $lyric-font-size;
       background-color: rgba(0, 0, 0, 0.2);
       border: none;
       border-bottom: 1px solid mat-color($primary);
@@ -77,7 +80,7 @@
       .inline-chord {
         background-color: mat-color($accent, 100);
         cursor: grab;
-        font-size: 24px;
+        font-size: $chord-in-lyric-font-size;
         position: absolute;
         bottom: calc(100% + 5px);
         left: -50%;
@@ -92,7 +95,7 @@
       height: 70px;
       position: relative;
       white-space: pre;
-      font-size: 24px;
+      font-size: $lyric-font-size;
       user-select: none;
       &.padding-character {
         width: 10px;
@@ -121,7 +124,7 @@
     .lyrics-block-text {
       font-size: 18px;
       min-width: 600px;
-      min-height: 200px;
+      min-height: $lyric-font-size;
     }
 
     .add-block-button {

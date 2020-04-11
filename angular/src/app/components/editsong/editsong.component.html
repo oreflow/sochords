@@ -42,6 +42,21 @@
             <mat-icon>add</mat-icon>ADD ARTIST
           </button>
         </div>
+        <div class="guitar-info-wrapper">
+            <mat-form-field>
+              <mat-label>Capo</mat-label>
+              <input matInput 
+                     type="number"
+                     [(ngModel)]="song?.guitarInfo.capo" 
+                     (change)="updateSong()"/>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Tuning</mat-label>
+              <input matInput 
+                     [(ngModel)]="song?.guitarInfo.tuning" 
+                     (change)="updateSong()"/>
+            </mat-form-field>
+        </div>
       </div>
       <div>
       </div>
