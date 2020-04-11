@@ -15,27 +15,17 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-wrap: wrap;
-      margin-bottom: 50px;
-      .chords-header {
-        font-size: 24px;
-        margin-right: 10px;
-      }
 
       .chord-input-wrapper {
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        padding: 5px;
-
-        .chord-close-icon {
-          cursor: pointer;
-        }
+        margin: 5px;
 
         .chord-name-input {
           background-color: rgba(0, 0, 0, 0.2);
-          font-size: 36px;
+          font-size: 30px;
           border: none;
           text-align: center;
         }
@@ -50,27 +40,40 @@
       }
     }
 
+    .chords-and-lyrics-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .chords-and-lyrics-row {
+      &.break-line {
+        flex-basis: 100%;
+      }
+    }
+
+    .editing-lyrics-line,
+    .chords-and-lyrics-line {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+    }
 
     .lyric-input {
       font-size: 24px;
       margin-top: 40px;
+      height: 30px;
       background-color: rgba(0, 0, 0, 0.2);
       border: none;
       border-bottom: 1px solid mat-color($primary);
       text-align: center;
     }
 
-    .edit-lyric-done {
-      font-size: 24px;
-      cursor: pointer;
-      margin-left: 10px;
-    }
-
     .inline-chord-placer {
       height: 0;
       position: relative;
       width: 0;
-
       .inline-chord {
         background-color: mat-color($accent, 100);
         cursor: grab;
@@ -84,12 +87,16 @@
     }
 
     .split-character {
+      display: table-cell;
+      vertical-align: bottom;
+      height: 70px;
       position: relative;
       white-space: pre;
-      float: left;
       font-size: 24px;
       user-select: none;
-      padding-top: 40px;
+      &.padding-character {
+        width: 10px;
+      }
 
       &[dragging] {
         padding-left: 10px;
@@ -103,17 +110,8 @@
           border-top: 10px solid green;
           border-left: 5px solid transparent;
           border-right: 5px solid transparent;
-           
         }
       }
-    }
-
-    .split-character-remove,
-    .split-character-clean,
-    .split-character-edit {
-      margin-left: 10px;
-      margin-top: 40px;
-      cursor: pointer;
     }
 
     .lyric-input {
@@ -122,23 +120,6 @@
 
     .add-block-button {
       margin: 10px;
-    }
-
-    // Editing visibility.
-
-    .split-character-remove,
-    .split-character-clean,
-    .split-character-edit {
-      visibility: collapse;
-    }
-
-    &.editing {
-      .split-character-remove,
-      .split-character-clean,
-      .split-character-edit {
-        visibility: visible;
-      }
-
     }
   }
 }

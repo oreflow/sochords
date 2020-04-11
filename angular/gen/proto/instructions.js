@@ -822,40 +822,14 @@ $root.instructions = (function() {
         return TabInstruction;
     })();
 
-    /**
-     * ChordType enum.
-     * @name instructions.ChordType
-     * @enum {string}
-     * @property {number} UNKNOWN_CHORD=0 UNKNOWN_CHORD value
-     * @property {number} A=1 A value
-     * @property {number} B=2 B value
-     * @property {number} C=3 C value
-     * @property {number} D=4 D value
-     * @property {number} E=5 E value
-     * @property {number} F=6 F value
-     * @property {number} G=7 G value
-     */
-    instructions.ChordType = (function() {
-        var valuesById = {}, values = Object.create(valuesById);
-        values[valuesById[0] = "UNKNOWN_CHORD"] = 0;
-        values[valuesById[1] = "A"] = 1;
-        values[valuesById[2] = "B"] = 2;
-        values[valuesById[3] = "C"] = 3;
-        values[valuesById[4] = "D"] = 4;
-        values[valuesById[5] = "E"] = 5;
-        values[valuesById[6] = "F"] = 6;
-        values[valuesById[7] = "G"] = 7;
-        return values;
-    })();
-
     instructions.Chord = (function() {
 
         /**
          * Properties of a Chord.
          * @memberof instructions
          * @interface IChord
-         * @property {instructions.ChordType|null} [chordType] Chord chordType
          * @property {string|null} [name] Chord name
+         * @property {string|null} [guitarChordId] Chord guitarChordId
          */
 
         /**
@@ -874,20 +848,20 @@ $root.instructions = (function() {
         }
 
         /**
-         * Chord chordType.
-         * @member {instructions.ChordType} chordType
-         * @memberof instructions.Chord
-         * @instance
-         */
-        Chord.prototype.chordType = 0;
-
-        /**
          * Chord name.
          * @member {string} name
          * @memberof instructions.Chord
          * @instance
          */
         Chord.prototype.name = "";
+
+        /**
+         * Chord guitarChordId.
+         * @member {string} guitarChordId
+         * @memberof instructions.Chord
+         * @instance
+         */
+        Chord.prototype.guitarChordId = "";
 
         /**
          * Creates a new Chord instance using the specified properties.
@@ -913,10 +887,10 @@ $root.instructions = (function() {
         Chord.encode = function encode(message, writer) {
             if (!writer)
                 writer = $Writer.create();
-            if (message.chordType != null && message.hasOwnProperty("chordType"))
-                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.chordType);
             if (message.name != null && message.hasOwnProperty("name"))
-                writer.uint32(/* id 2, wireType 2 =*/18).string(message.name);
+                writer.uint32(/* id 1, wireType 2 =*/10).string(message.name);
+            if (message.guitarChordId != null && message.hasOwnProperty("guitarChordId"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.guitarChordId);
             return writer;
         };
 
@@ -952,10 +926,10 @@ $root.instructions = (function() {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
-                    message.chordType = reader.int32();
+                    message.name = reader.string();
                     break;
                 case 2:
-                    message.name = reader.string();
+                    message.guitarChordId = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -992,23 +966,12 @@ $root.instructions = (function() {
         Chord.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
-            if (message.chordType != null && message.hasOwnProperty("chordType"))
-                switch (message.chordType) {
-                default:
-                    return "chordType: enum value expected";
-                case 0:
-                case 1:
-                case 2:
-                case 3:
-                case 4:
-                case 5:
-                case 6:
-                case 7:
-                    break;
-                }
             if (message.name != null && message.hasOwnProperty("name"))
                 if (!$util.isString(message.name))
                     return "name: string expected";
+            if (message.guitarChordId != null && message.hasOwnProperty("guitarChordId"))
+                if (!$util.isString(message.guitarChordId))
+                    return "guitarChordId: string expected";
             return null;
         };
 
@@ -1024,42 +987,10 @@ $root.instructions = (function() {
             if (object instanceof $root.instructions.Chord)
                 return object;
             var message = new $root.instructions.Chord();
-            switch (object.chordType) {
-            case "UNKNOWN_CHORD":
-            case 0:
-                message.chordType = 0;
-                break;
-            case "A":
-            case 1:
-                message.chordType = 1;
-                break;
-            case "B":
-            case 2:
-                message.chordType = 2;
-                break;
-            case "C":
-            case 3:
-                message.chordType = 3;
-                break;
-            case "D":
-            case 4:
-                message.chordType = 4;
-                break;
-            case "E":
-            case 5:
-                message.chordType = 5;
-                break;
-            case "F":
-            case 6:
-                message.chordType = 6;
-                break;
-            case "G":
-            case 7:
-                message.chordType = 7;
-                break;
-            }
             if (object.name != null)
                 message.name = String(object.name);
+            if (object.guitarChordId != null)
+                message.guitarChordId = String(object.guitarChordId);
             return message;
         };
 
@@ -1077,13 +1008,13 @@ $root.instructions = (function() {
                 options = {};
             var object = {};
             if (options.defaults) {
-                object.chordType = options.enums === String ? "UNKNOWN_CHORD" : 0;
                 object.name = "";
+                object.guitarChordId = "";
             }
-            if (message.chordType != null && message.hasOwnProperty("chordType"))
-                object.chordType = options.enums === String ? $root.instructions.ChordType[message.chordType] : message.chordType;
             if (message.name != null && message.hasOwnProperty("name"))
                 object.name = message.name;
+            if (message.guitarChordId != null && message.hasOwnProperty("guitarChordId"))
+                object.guitarChordId = message.guitarChordId;
             return object;
         };
 
@@ -1107,6 +1038,7 @@ $root.instructions = (function() {
          * Properties of a ChordInLyric.
          * @memberof instructions
          * @interface IChordInLyric
+         * @property {string|null} [id] ChordInLyric id
          * @property {instructions.IChord|null} [chord] ChordInLyric chord
          * @property {number|null} [offset] ChordInLyric offset
          */
@@ -1125,6 +1057,14 @@ $root.instructions = (function() {
                     if (properties[keys[i]] != null)
                         this[keys[i]] = properties[keys[i]];
         }
+
+        /**
+         * ChordInLyric id.
+         * @member {string} id
+         * @memberof instructions.ChordInLyric
+         * @instance
+         */
+        ChordInLyric.prototype.id = "";
 
         /**
          * ChordInLyric chord.
@@ -1166,10 +1106,12 @@ $root.instructions = (function() {
         ChordInLyric.encode = function encode(message, writer) {
             if (!writer)
                 writer = $Writer.create();
+            if (message.id != null && message.hasOwnProperty("id"))
+                writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
             if (message.chord != null && message.hasOwnProperty("chord"))
-                $root.instructions.Chord.encode(message.chord, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                $root.instructions.Chord.encode(message.chord, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
             if (message.offset != null && message.hasOwnProperty("offset"))
-                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.offset);
+                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.offset);
             return writer;
         };
 
@@ -1205,9 +1147,12 @@ $root.instructions = (function() {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
-                    message.chord = $root.instructions.Chord.decode(reader, reader.uint32());
+                    message.id = reader.string();
                     break;
                 case 2:
+                    message.chord = $root.instructions.Chord.decode(reader, reader.uint32());
+                    break;
+                case 3:
                     message.offset = reader.int32();
                     break;
                 default:
@@ -1245,6 +1190,9 @@ $root.instructions = (function() {
         ChordInLyric.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (!$util.isString(message.id))
+                    return "id: string expected";
             if (message.chord != null && message.hasOwnProperty("chord")) {
                 var error = $root.instructions.Chord.verify(message.chord);
                 if (error)
@@ -1268,6 +1216,8 @@ $root.instructions = (function() {
             if (object instanceof $root.instructions.ChordInLyric)
                 return object;
             var message = new $root.instructions.ChordInLyric();
+            if (object.id != null)
+                message.id = String(object.id);
             if (object.chord != null) {
                 if (typeof object.chord !== "object")
                     throw TypeError(".instructions.ChordInLyric.chord: object expected");
@@ -1292,9 +1242,12 @@ $root.instructions = (function() {
                 options = {};
             var object = {};
             if (options.defaults) {
+                object.id = "";
                 object.chord = null;
                 object.offset = 0;
             }
+            if (message.id != null && message.hasOwnProperty("id"))
+                object.id = message.id;
             if (message.chord != null && message.hasOwnProperty("chord"))
                 object.chord = $root.instructions.Chord.toObject(message.chord, options);
             if (message.offset != null && message.hasOwnProperty("offset"))
@@ -1325,6 +1278,7 @@ $root.instructions = (function() {
          * @property {string|null} [id] ChordsAndLyrics id
          * @property {string|null} [lyricLine] ChordsAndLyrics lyricLine
          * @property {Array.<instructions.IChordInLyric>|null} [chordsInLyric] ChordsAndLyrics chordsInLyric
+         * @property {boolean|null} [breakLine] ChordsAndLyrics breakLine
          */
 
         /**
@@ -1368,6 +1322,14 @@ $root.instructions = (function() {
         ChordsAndLyrics.prototype.chordsInLyric = $util.emptyArray;
 
         /**
+         * ChordsAndLyrics breakLine.
+         * @member {boolean} breakLine
+         * @memberof instructions.ChordsAndLyrics
+         * @instance
+         */
+        ChordsAndLyrics.prototype.breakLine = false;
+
+        /**
          * Creates a new ChordsAndLyrics instance using the specified properties.
          * @function create
          * @memberof instructions.ChordsAndLyrics
@@ -1398,6 +1360,8 @@ $root.instructions = (function() {
             if (message.chordsInLyric != null && message.chordsInLyric.length)
                 for (var i = 0; i < message.chordsInLyric.length; ++i)
                     $root.instructions.ChordInLyric.encode(message.chordsInLyric[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+            if (message.breakLine != null && message.hasOwnProperty("breakLine"))
+                writer.uint32(/* id 4, wireType 0 =*/32).bool(message.breakLine);
             return writer;
         };
 
@@ -1442,6 +1406,9 @@ $root.instructions = (function() {
                     if (!(message.chordsInLyric && message.chordsInLyric.length))
                         message.chordsInLyric = [];
                     message.chordsInLyric.push($root.instructions.ChordInLyric.decode(reader, reader.uint32()));
+                    break;
+                case 4:
+                    message.breakLine = reader.bool();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -1493,6 +1460,9 @@ $root.instructions = (function() {
                         return "chordsInLyric." + error;
                 }
             }
+            if (message.breakLine != null && message.hasOwnProperty("breakLine"))
+                if (typeof message.breakLine !== "boolean")
+                    return "breakLine: boolean expected";
             return null;
         };
 
@@ -1522,6 +1492,8 @@ $root.instructions = (function() {
                     message.chordsInLyric[i] = $root.instructions.ChordInLyric.fromObject(object.chordsInLyric[i]);
                 }
             }
+            if (object.breakLine != null)
+                message.breakLine = Boolean(object.breakLine);
             return message;
         };
 
@@ -1543,6 +1515,7 @@ $root.instructions = (function() {
             if (options.defaults) {
                 object.id = "";
                 object.lyricLine = "";
+                object.breakLine = false;
             }
             if (message.id != null && message.hasOwnProperty("id"))
                 object.id = message.id;
@@ -1553,6 +1526,8 @@ $root.instructions = (function() {
                 for (var j = 0; j < message.chordsInLyric.length; ++j)
                     object.chordsInLyric[j] = $root.instructions.ChordInLyric.toObject(message.chordsInLyric[j], options);
             }
+            if (message.breakLine != null && message.hasOwnProperty("breakLine"))
+                object.breakLine = message.breakLine;
             return object;
         };
 

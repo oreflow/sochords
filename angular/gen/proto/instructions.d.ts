@@ -326,26 +326,14 @@ export namespace instructions {
         public toJSON(): { [k: string]: any };
     }
 
-    /** ChordType enum. */
-    enum ChordType {
-        UNKNOWN_CHORD = 0,
-        A = 1,
-        B = 2,
-        C = 3,
-        D = 4,
-        E = 5,
-        F = 6,
-        G = 7
-    }
-
     /** Properties of a Chord. */
     interface IChord {
 
-        /** Chord chordType */
-        chordType?: (instructions.ChordType|null);
-
         /** Chord name */
         name?: (string|null);
+
+        /** Chord guitarChordId */
+        guitarChordId?: (string|null);
     }
 
     /** Represents a Chord. */
@@ -357,11 +345,11 @@ export namespace instructions {
          */
         constructor(properties?: instructions.IChord);
 
-        /** Chord chordType. */
-        public chordType: instructions.ChordType;
-
         /** Chord name. */
         public name: string;
+
+        /** Chord guitarChordId. */
+        public guitarChordId: string;
 
         /**
          * Creates a new Chord instance using the specified properties.
@@ -437,6 +425,9 @@ export namespace instructions {
     /** Properties of a ChordInLyric. */
     interface IChordInLyric {
 
+        /** ChordInLyric id */
+        id?: (string|null);
+
         /** ChordInLyric chord */
         chord?: (instructions.IChord|null);
 
@@ -452,6 +443,9 @@ export namespace instructions {
          * @param [properties] Properties to set
          */
         constructor(properties?: instructions.IChordInLyric);
+
+        /** ChordInLyric id. */
+        public id: string;
 
         /** ChordInLyric chord. */
         public chord?: (instructions.IChord|null);
@@ -541,6 +535,9 @@ export namespace instructions {
 
         /** ChordsAndLyrics chordsInLyric */
         chordsInLyric?: (instructions.IChordInLyric[]|null);
+
+        /** ChordsAndLyrics breakLine */
+        breakLine?: (boolean|null);
     }
 
     /** Represents a ChordsAndLyrics. */
@@ -560,6 +557,9 @@ export namespace instructions {
 
         /** ChordsAndLyrics chordsInLyric. */
         public chordsInLyric: instructions.IChordInLyric[];
+
+        /** ChordsAndLyrics breakLine. */
+        public breakLine: boolean;
 
         /**
          * Creates a new ChordsAndLyrics instance using the specified properties.

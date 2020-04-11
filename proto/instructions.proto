@@ -24,31 +24,23 @@ message TabInstruction {
   repeated TabInstructionBlock tab_blocks = 1;
 }
 
-enum ChordType {
-  UNKNOWN_CHORD = 0;
-  A = 1;
-  B = 2;
-  C = 3;
-  D = 4;
-  E = 5;
-  F = 6;
-  G = 7;
-}
-
 message Chord {
-  ChordType chord_type = 1;
-  string name = 2;
+  string name = 1;
+  // Reference to a GuitarChord ID.
+  string guitar_chord_id = 2;
 }
 
 message ChordInLyric {
-  Chord chord = 1;
-  int32 offset = 2;
+  string id = 1;
+  Chord chord = 2;
+  int32 offset = 3;
 }
 
 message ChordsAndLyrics {
   string id = 1;
   string lyric_line = 2;
   repeated ChordInLyric chords_in_lyric = 3;
+  bool break_line = 4;
 }
 
 message ChordInstruction {
