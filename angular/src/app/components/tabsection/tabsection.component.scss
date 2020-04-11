@@ -6,11 +6,19 @@
 
   $cell-size: 30px;
   $font-size: calc(0.6 * #{$cell-size});
+  $lyrics-font-size: 20px;
 
   .tab-section-root {
     display: flex;
-    flex-wrap: wrap;
+    justify-content: center;
     align-items: center;
+
+    .blocks-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+    }
 
     .pick-block {
       display: flex;
@@ -141,6 +149,20 @@
     .add-block-button {
       margin: 20px;
     }
+
+    .block-lyrics-section {
+      .lyrics-header {
+        display: flex;
+        justify-content: space-between;
+      }
+      .block-lyrics-text {
+        background-color: transparent;
+        font-size: $lyrics-font-size;
+        border: none;
+        min-height: 100px;
+        outline: none;
+      }
+    }
   }
 
   .tab-section-root {
@@ -158,9 +180,18 @@
       }
     }
     &.editing {
+      flex-direction: column;
+      align-items: start;
       .help-cell {
         position: inherit;
         visibility: visible;
+      }
+      .block-lyrics-section {
+        flex-basis: 100%;
+
+        .block-lyrics-text {
+          background-color: rgba(0, 0, 0, 0.2);
+        }
       }
     }
   }

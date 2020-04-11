@@ -26,17 +26,18 @@ message SongSearchResult {
   SongInfo song_info = 2;
 }
 
-message Vocal {
-  repeated string lines = 1;
-}
-
 message SongSectionInfo {
   string name = 1;
 }
 
+message BlockLyrics {
+  bool enabled = 1;
+  string lyrics = 2;
+}
+
 message TabSection {
   instructions.TabInstruction instruction = 1;
-  Vocal vocal = 2;
+  BlockLyrics block_lyrics = 2;
 }
 
 message ChordSection {

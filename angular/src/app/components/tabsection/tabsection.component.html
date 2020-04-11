@@ -1,119 +1,151 @@
 <div class="tab-section-root"
      [ngClass]="{'editing': editing}">
-  <ng-container 
+  <div class="blocks-wrapper">
+    <ng-container 
      *ngFor="let block of tabSection.instruction.tabBlocks">
-    <div class="pick-block" 
-         [ngClass]="{'first-block': block === tabSection.instruction.tabBlocks[0]}">
-      <mat-divider class="block-divider" vertical="true" color="primary"></mat-divider>
-      <table class="pick-block-table">
-        <tr *ngIf="editing">
-          <td class="help-cell remove-pick-cell">
-            <button mat-button 
-                    class="remove-block-button" 
-                    color="warn" 
-                    (click)="removeBlock(block)"
-                    matTooltip="Remove this tab sectioh">
-              <mat-icon class="remove-block-button">close</mat-icon>
-            </button>
-          </td>
-          <td class="remove-pick-cell"
-              *ngFor="let pick of block.picks">
-            <button mat-button 
-                    class="remove-pick-button" 
-                    color="warn" 
-                    (click)="removePick(block, pick)"
-                    matTooltip="Remove column">
-              <mat-icon class="remove-pick-button">remove</mat-icon>
-            </button>
-          </td>
-          <td rowspan="9" *ngIf="editing">
-            <div class="add-pick-cell">
-            <button mat-button 
-                    class="add-pick-button" 
-                    (click)="addPick(block)" 
-                    color="accent"
-                    matTooltip="Add new column">
-              <mat-icon>add</mat-icon>ADD COLUMN
-            </button>
-            </div>
-          </td>
-        </tr>
-        <tr *ngIf="editing">
-          <td class="help-cell chord-edit-cell">Chord: </td>
-          <td class="chord-edit-cell" 
-              *ngFor="let pick of block.picks" 
-              [ngClass]="{'has-chord': pick.chord?.length > 0}">
-            <input class="chord-input" 
-                   [(ngModel)]="pick.chord" 
+      <div class="pick-block" 
+           [ngClass]="{'first-block': block === tabSection.instruction.tabBlocks[0]}">
+        <mat-divider class="block-divider" vertical="true" color="primary"></mat-divider>
+        <table class="pick-block-table">
+          <tr *ngIf="editing">
+            <td class="help-cell remove-pick-cell">
+              <button mat-button 
+                      class="remove-block-button" 
+                      color="warn" 
+                      (click)="removeBlock(block)"
+                      matTooltip="Remove this tab sectioh">
+                <mat-icon class="remove-block-button">close</mat-icon>
+              </button>
+            </td>
+            <td class="remove-pick-cell"
+                *ngFor="let pick of block.picks">
+              <button mat-button 
+                      class="remove-pick-button" 
+                      color="warn" 
+                      (click)="removePick(block, pick)"
+                      matTooltip="Remove column">
+                <mat-icon class="remove-pick-button">remove</mat-icon>
+              </button>
+            </td>
+            <td rowspan="9" *ngIf="editing">
+              <div class="add-pick-cell">
+                <button mat-button 
+                        class="add-pick-button" 
+                        (click)="addPick(block)" 
+                        color="accent"
+                        matTooltip="Add new column">
+                  <mat-icon>add</mat-icon>ADD COLUMN
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr *ngIf="editing">
+            <td class="help-cell chord-edit-cell">Chord: </td>
+            <td class="chord-edit-cell" 
+                *ngFor="let pick of block.picks" 
+                [ngClass]="{'has-chord': pick.chord?.length > 0}">
+              <input class="chord-input" 
+                     [(ngModel)]="pick.chord" 
+                     (change)="onUpdate()" 
+                     scAutoWidth 
+                     minSize="1" 
+                     [scReadOnly]="!editing">
+            </td>
+          </tr>
+          <tr *ngIf="!editing">
+            <td class="help-cell chord-display-cell"></td>
+            <td class="chord-display-cell" 
+                *ngFor="let aggChord of getMergedChords(block)"
+                [scColSpan]="aggChord.size">
+              {{aggChord.chord}}
+            </td>
+          </tr>
+          <tr *ngFor="let guitarString of ['e4', 'b', 'g', 'd', 'a', 'e2']">
+            <td class="help-cell guitar-string-cell">{{guitarString}}</td>
+            <td class="pick-cell"
+                *ngFor="let pick of block.picks" 
+                [ngClass]="{'has-fret': pick[guitarString]?.length > 0}">
+              <input class="pick-input" 
+                     [(ngModel)]="pick[guitarString]" 
+                     (change)="onUpdate()" 
+                     scAutoWidth 
+                     minSize="1" 
+                     [scReadOnly]="!editing">
+            </td>
+          </tr>
+          <tr>
+            <td class="help-cell guide-cell">
+              <ng-container *ngIf="editing">Guide:</ng-container>
+            </td>
+            <td class="guide-cell" 
+                *ngFor="let pick of block.picks" 
+                [ngClass]="{'has-guide': pick.guide?.length > 0}">
+              <input class="guide-input" 
+                     [(ngModel)]="pick.guide" 
+                     (change)="onUpdate()" 
+                     scAutoWidth 
+                     minSize="1" 
+                     [scReadOnly]="!editing">
+            </td>
+          </tr>
+        </table>
+        <div *ngIf="editing" class="after-table-editing-block">
+          <mat-checkbox color="accent" 
+                        [(ngModel)]="block.breakLine"
+                        (change)="onUpdate()">
+            Line break
+          </mat-checkbox>
+          <mat-form-field class="trailing-text">
+            <input matInput 
+                   [(ngModel)]="block.trailingText" 
                    (change)="onUpdate()" 
-                   scAutoWidth 
-                   minSize="1" 
-                   [scReadOnly]="!editing">
-          </td>
-        </tr>
-        <tr *ngIf="!editing">
-          <td class="help-cell chord-display-cell"></td>
-          <td class="chord-display-cell" 
-              *ngFor="let aggChord of getMergedChords(block)"
-              [scColSpan]="aggChord.size">
-            {{aggChord.chord}}
-          </td>
-        </tr>
-        <tr *ngFor="let guitarString of ['e4', 'b', 'g', 'd', 'a', 'e2']">
-          <td class="help-cell guitar-string-cell">{{guitarString}}</td>
-          <td class="pick-cell"
-              *ngFor="let pick of block.picks" 
-              [ngClass]="{'has-fret': pick[guitarString]?.length > 0}">
-            <input class="pick-input" 
-                   [(ngModel)]="pick[guitarString]" 
-                   (change)="onUpdate()" 
-                   scAutoWidth 
-                   minSize="1" 
-                   [scReadOnly]="!editing">
-          </td>
-        </tr>
-        <tr>
-          <td class="help-cell guide-cell">
-            <ng-container *ngIf="editing">Guide:</ng-container>
-          </td>
-          <td class="guide-cell" 
-              *ngFor="let pick of block.picks" 
-              [ngClass]="{'has-guide': pick.guide?.length > 0}">
-            <input class="guide-input" 
-                   [(ngModel)]="pick.guide" 
-                   (change)="onUpdate()" 
-                   scAutoWidth 
-                   minSize="1" 
-                   [scReadOnly]="!editing">
-          </td>
-        </tr>
-      </table>
-      <div *ngIf="editing" class="after-table-editing-block">
-        <mat-checkbox color="accent" 
-                      [(ngModel)]="block.breakLine"
-                      (change)="onUpdate()">
-          Line break
-        </mat-checkbox>
-        <mat-form-field class="trailing-text">
-          <input matInput 
-                 [(ngModel)]="block.trailingText" 
-                 (change)="onUpdate()" 
-                 placeholder="Trailing text">
-        </mat-form-field>
+                   placeholder="Trailing text">
+          </mat-form-field>
+        </div>
+        <div *ngIf="!editing" class="after-table-view-block">
+          <div class="trailing-text">{{block.trailingText}}</div>
+        </div>
       </div>
-      <div *ngIf="!editing" class="after-table-view-block">
-        <div class="trailing-text">{{block.trailingText}}</div>
-      </div>
+      <div class="line-break" *ngIf="block.breakLine"></div>
+    </ng-container>
+    <div *ngIf="editing">
+      <button mat-button 
+              class="add-block-button" 
+              color="accent" 
+              (click)="addTabBlock()"
+              matTooltip="Add new tabs block">
+        <mat-icon>add</mat-icon>ADD TABS
+      </button>
     </div>
-    <div class="line-break" *ngIf="block.breakLine"></div>
-  </ng-container>
-  <div *ngIf="editing">
+  </div>
+  <div class="block-lyrics-section"
+            *ngIf="tabSection.blockLyrics.enabled">
+    <div class="lyrics-header" *ngIf="editing">
+      <h2>Lyrics</h2>
+      <button mat-icon-button 
+         class="remove-block-lyrics-button" 
+         color="warn" 
+         (click)="setBlockLyricsEnabled(false)"
+         matTooltip="Disable Lyrics block">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <textarea class="block-lyrics-text"
+              [(ngModel)]="tabSection.blockLyrics.lyrics"
+              placeholder="Add lyrics"
+              (change)="onUpdate()"
+              [readonly]="!editing"
+              scAutoWidth
+              minSize="30"
+              cdkTextareaAutosize></textarea>
+  </div>
+  <div *ngIf="editing && !tabSection.blockLyrics.enabled">
     <button mat-button 
-            class="add-block-button" 
+            class="add-block-lyrics-button" 
             color="accent" 
-            (click)="addTabBlock()"
-            matTooltip="Add new tabs block">
-      <mat-icon>add</mat-icon>ADD TABS
+            (click)="setBlockLyricsEnabled(true)"
+            matTooltip="Add standalone block of lyrics">
+      <mat-icon>add</mat-icon>ADD LYRICS BLOCK
     </button>
   </div>
 </div>
