@@ -5,8 +5,8 @@
 
     <div class="basic-info">
       <h1 class="song-title">{{(song$ | async)?.info?.title}}</h1>
-      <div *ngIf="(song$ |async)?.guitarInfo?.capo">Capo: {{(song$ |async)?.guitarInfo?.capo}}</div>
-      <div *ngIf="(song$ |async)?.guitarInfo?.tuning">Tuning: {{(song$ |async)?.guitarInfo?.tuning}}</div>
+      <h3 *ngIf="(song$ |async)?.guitarInfo?.capo">Capo: {{(song$ |async)?.guitarInfo?.capo}}</h3>
+      <h3 *ngIf="(song$ |async)?.guitarInfo?.tuning">Tuning: {{(song$ |async)?.guitarInfo?.tuning}}</h3>
       <button mat-icon-button 
               class="edit-song-button" 
               color="accent" 
