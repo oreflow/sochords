@@ -2,6 +2,7 @@
   <div class="loading" *ngIf="state === states.LOADING"><mat-spinner color="accent"></mat-spinner></div>
   <div class="error" *ngIf="state === states.ERROR"><sc-error [errorType]="error"></sc-error></div>
   <div *ngIf="state === states.RUNNING">
+
     <div class="basic-info">
       <h1 class="song-title">{{(song$ | async)?.info?.title}}</h1>
       <button mat-icon-button 
@@ -11,23 +12,19 @@
     </div>
 
     <div class="section-info">
-      <div class="song-sections">
-        <div class="section" *ngFor="let section of (song$ | async)?.sections">
-          <div class="section-header">{{section.info.name}}</div>
-          <div [ngSwitch]="section.sectionType">
-            <div *ngSwitchCase="sectionTypeEnum.TAB_SECTION" >
-              <tab-section [editing]="false"
-                           [tabSection]="section.tabSection"></tab-section>
-            </div>
-            <div *ngSwitchCase="sectionTypeEnum.CHORD_SECTION">
-              <chord-section [editing]="false"
-                             [chordSection]="section.chordSection"></chord-section>
-            </div>
-            <div *ngSwitchDefault>Unidentified type</div>
+      <div class="section-wrapper" *ngFor="let section of (song$ | async)?.sections">
+        <mat-divider></mat-divider>
+        <h2>{{section.info.name}}</h2>
+        <div *ngIf="section.sectionType === sectionTypeEnum.TAB_SECTION" >
+          <tab-section [editing]="false"
+           [tabSection]="section.tabSection"></tab-section>
+        </div>
+        <div *ngIf="section.sectionType === sectionTypeEnum.CHORD_SECTION" >
+          <div *ngSwitchCase="sectionTypeEnum.CHORD_SECTION">
+            <chord-section [editing]="false"
+           [chordSection]="section.chordSection"></chord-section>
           </div>
         </div>
-      </div>
-      <div>
       </div>
     </div>
   </div>
