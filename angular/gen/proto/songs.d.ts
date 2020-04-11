@@ -194,6 +194,102 @@ export namespace songs {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a GuitarInfo. */
+    interface IGuitarInfo {
+
+        /** GuitarInfo capo */
+        capo?: (number|null);
+
+        /** GuitarInfo tuning */
+        tuning?: (string|null);
+    }
+
+    /** Represents a GuitarInfo. */
+    class GuitarInfo implements IGuitarInfo {
+
+        /**
+         * Constructs a new GuitarInfo.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: songs.IGuitarInfo);
+
+        /** GuitarInfo capo. */
+        public capo: number;
+
+        /** GuitarInfo tuning. */
+        public tuning: string;
+
+        /**
+         * Creates a new GuitarInfo instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GuitarInfo instance
+         */
+        public static create(properties?: songs.IGuitarInfo): songs.GuitarInfo;
+
+        /**
+         * Encodes the specified GuitarInfo message. Does not implicitly {@link songs.GuitarInfo.verify|verify} messages.
+         * @param message GuitarInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: songs.IGuitarInfo, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified GuitarInfo message, length delimited. Does not implicitly {@link songs.GuitarInfo.verify|verify} messages.
+         * @param message GuitarInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: songs.IGuitarInfo, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a GuitarInfo message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GuitarInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): songs.GuitarInfo;
+
+        /**
+         * Decodes a GuitarInfo message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GuitarInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): songs.GuitarInfo;
+
+        /**
+         * Verifies a GuitarInfo message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GuitarInfo message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GuitarInfo
+         */
+        public static fromObject(object: { [k: string]: any }): songs.GuitarInfo;
+
+        /**
+         * Creates a plain object from a GuitarInfo message. Also converts values to other types if specified.
+         * @param message GuitarInfo
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: songs.GuitarInfo, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GuitarInfo to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a SongSearchResult. */
     interface ISongSearchResult {
 
@@ -795,6 +891,9 @@ export namespace songs {
         /** Song info */
         info?: (songs.ISongInfo|null);
 
+        /** Song guitarInfo */
+        guitarInfo?: (songs.IGuitarInfo|null);
+
         /** Song sections */
         sections?: (songs.ISongSection[]|null);
     }
@@ -819,6 +918,9 @@ export namespace songs {
 
         /** Song info. */
         public info?: (songs.ISongInfo|null);
+
+        /** Song guitarInfo. */
+        public guitarInfo?: (songs.IGuitarInfo|null);
 
         /** Song sections. */
         public sections: songs.ISongSection[];

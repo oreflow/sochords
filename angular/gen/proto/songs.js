@@ -459,6 +459,216 @@ $root.songs = (function() {
         return SongInfo;
     })();
 
+    songs.GuitarInfo = (function() {
+
+        /**
+         * Properties of a GuitarInfo.
+         * @memberof songs
+         * @interface IGuitarInfo
+         * @property {number|null} [capo] GuitarInfo capo
+         * @property {string|null} [tuning] GuitarInfo tuning
+         */
+
+        /**
+         * Constructs a new GuitarInfo.
+         * @memberof songs
+         * @classdesc Represents a GuitarInfo.
+         * @implements IGuitarInfo
+         * @constructor
+         * @param {songs.IGuitarInfo=} [properties] Properties to set
+         */
+        function GuitarInfo(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * GuitarInfo capo.
+         * @member {number} capo
+         * @memberof songs.GuitarInfo
+         * @instance
+         */
+        GuitarInfo.prototype.capo = 0;
+
+        /**
+         * GuitarInfo tuning.
+         * @member {string} tuning
+         * @memberof songs.GuitarInfo
+         * @instance
+         */
+        GuitarInfo.prototype.tuning = "";
+
+        /**
+         * Creates a new GuitarInfo instance using the specified properties.
+         * @function create
+         * @memberof songs.GuitarInfo
+         * @static
+         * @param {songs.IGuitarInfo=} [properties] Properties to set
+         * @returns {songs.GuitarInfo} GuitarInfo instance
+         */
+        GuitarInfo.create = function create(properties) {
+            return new GuitarInfo(properties);
+        };
+
+        /**
+         * Encodes the specified GuitarInfo message. Does not implicitly {@link songs.GuitarInfo.verify|verify} messages.
+         * @function encode
+         * @memberof songs.GuitarInfo
+         * @static
+         * @param {songs.IGuitarInfo} message GuitarInfo message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GuitarInfo.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.capo != null && message.hasOwnProperty("capo"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.capo);
+            if (message.tuning != null && message.hasOwnProperty("tuning"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.tuning);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified GuitarInfo message, length delimited. Does not implicitly {@link songs.GuitarInfo.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof songs.GuitarInfo
+         * @static
+         * @param {songs.IGuitarInfo} message GuitarInfo message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GuitarInfo.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a GuitarInfo message from the specified reader or buffer.
+         * @function decode
+         * @memberof songs.GuitarInfo
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {songs.GuitarInfo} GuitarInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GuitarInfo.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.songs.GuitarInfo();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.capo = reader.int32();
+                    break;
+                case 2:
+                    message.tuning = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a GuitarInfo message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof songs.GuitarInfo
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {songs.GuitarInfo} GuitarInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GuitarInfo.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a GuitarInfo message.
+         * @function verify
+         * @memberof songs.GuitarInfo
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        GuitarInfo.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.capo != null && message.hasOwnProperty("capo"))
+                if (!$util.isInteger(message.capo))
+                    return "capo: integer expected";
+            if (message.tuning != null && message.hasOwnProperty("tuning"))
+                if (!$util.isString(message.tuning))
+                    return "tuning: string expected";
+            return null;
+        };
+
+        /**
+         * Creates a GuitarInfo message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof songs.GuitarInfo
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {songs.GuitarInfo} GuitarInfo
+         */
+        GuitarInfo.fromObject = function fromObject(object) {
+            if (object instanceof $root.songs.GuitarInfo)
+                return object;
+            var message = new $root.songs.GuitarInfo();
+            if (object.capo != null)
+                message.capo = object.capo | 0;
+            if (object.tuning != null)
+                message.tuning = String(object.tuning);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a GuitarInfo message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof songs.GuitarInfo
+         * @static
+         * @param {songs.GuitarInfo} message GuitarInfo
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        GuitarInfo.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.capo = 0;
+                object.tuning = "";
+            }
+            if (message.capo != null && message.hasOwnProperty("capo"))
+                object.capo = message.capo;
+            if (message.tuning != null && message.hasOwnProperty("tuning"))
+                object.tuning = message.tuning;
+            return object;
+        };
+
+        /**
+         * Converts this GuitarInfo to JSON.
+         * @function toJSON
+         * @memberof songs.GuitarInfo
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        GuitarInfo.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return GuitarInfo;
+    })();
+
     songs.SongSearchResult = (function() {
 
         /**
@@ -1811,6 +2021,7 @@ $root.songs = (function() {
          * @property {string|null} [ownerUid] Song ownerUid
          * @property {songs.Song.State|null} [state] Song state
          * @property {songs.ISongInfo|null} [info] Song info
+         * @property {songs.IGuitarInfo|null} [guitarInfo] Song guitarInfo
          * @property {Array.<songs.ISongSection>|null} [sections] Song sections
          */
 
@@ -1863,6 +2074,14 @@ $root.songs = (function() {
         Song.prototype.info = null;
 
         /**
+         * Song guitarInfo.
+         * @member {songs.IGuitarInfo|null|undefined} guitarInfo
+         * @memberof songs.Song
+         * @instance
+         */
+        Song.prototype.guitarInfo = null;
+
+        /**
          * Song sections.
          * @member {Array.<songs.ISongSection>} sections
          * @memberof songs.Song
@@ -1905,6 +2124,8 @@ $root.songs = (function() {
             if (message.sections != null && message.sections.length)
                 for (var i = 0; i < message.sections.length; ++i)
                     $root.songs.SongSection.encode(message.sections[i], writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
+            if (message.guitarInfo != null && message.hasOwnProperty("guitarInfo"))
+                $root.songs.GuitarInfo.encode(message.guitarInfo, writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
             return writer;
         };
 
@@ -1950,6 +2171,9 @@ $root.songs = (function() {
                     break;
                 case 4:
                     message.info = $root.songs.SongInfo.decode(reader, reader.uint32());
+                    break;
+                case 6:
+                    message.guitarInfo = $root.songs.GuitarInfo.decode(reader, reader.uint32());
                     break;
                 case 5:
                     if (!(message.sections && message.sections.length))
@@ -2011,6 +2235,11 @@ $root.songs = (function() {
                 if (error)
                     return "info." + error;
             }
+            if (message.guitarInfo != null && message.hasOwnProperty("guitarInfo")) {
+                var error = $root.songs.GuitarInfo.verify(message.guitarInfo);
+                if (error)
+                    return "guitarInfo." + error;
+            }
             if (message.sections != null && message.hasOwnProperty("sections")) {
                 if (!Array.isArray(message.sections))
                     return "sections: array expected";
@@ -2058,6 +2287,11 @@ $root.songs = (function() {
                     throw TypeError(".songs.Song.info: object expected");
                 message.info = $root.songs.SongInfo.fromObject(object.info);
             }
+            if (object.guitarInfo != null) {
+                if (typeof object.guitarInfo !== "object")
+                    throw TypeError(".songs.Song.guitarInfo: object expected");
+                message.guitarInfo = $root.songs.GuitarInfo.fromObject(object.guitarInfo);
+            }
             if (object.sections) {
                 if (!Array.isArray(object.sections))
                     throw TypeError(".songs.Song.sections: array expected");
@@ -2091,6 +2325,7 @@ $root.songs = (function() {
                 object.ownerUid = "";
                 object.state = options.enums === String ? "STATE_UNKNOWN" : 0;
                 object.info = null;
+                object.guitarInfo = null;
             }
             if (message.id != null && message.hasOwnProperty("id"))
                 object.id = message.id;
@@ -2105,6 +2340,8 @@ $root.songs = (function() {
                 for (var j = 0; j < message.sections.length; ++j)
                     object.sections[j] = $root.songs.SongSection.toObject(message.sections[j], options);
             }
+            if (message.guitarInfo != null && message.hasOwnProperty("guitarInfo"))
+                object.guitarInfo = $root.songs.GuitarInfo.toObject(message.guitarInfo, options);
             return object;
         };
 

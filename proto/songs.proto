@@ -16,6 +16,11 @@ message SongInfo {
   int32 latest_update_millis = 3;
 }
 
+message GuitarInfo {
+  int32 capo = 1;
+  string tuning = 2;
+}
+
 message SongSearchResult {
   string id = 1;
   SongInfo song_info = 2;
@@ -63,5 +68,6 @@ message Song {
   }
   State state = 3;
   SongInfo info = 4;
+  GuitarInfo guitar_info = 6;
   repeated SongSection sections = 5;
 }
