@@ -20,11 +20,10 @@
            [tabSection]="section.tabSection"></tab-section>
         </div>
         <div *ngIf="section.sectionType === sectionTypeEnum.CHORD_SECTION" >
-          <div *ngSwitchCase="sectionTypeEnum.CHORD_SECTION">
-            <chord-section [editing]="false"
+          <chord-section [editing]="false"
            [chordSection]="section.chordSection"></chord-section>
-          </div>
         </div>
       </div>
     </div>
   </div>
+</div>
