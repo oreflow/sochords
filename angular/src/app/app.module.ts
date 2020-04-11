@@ -10,6 +10,7 @@ import { FormsModule }   from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TextFieldModule } from '@angular/cdk/text-field';
 
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
@@ -91,6 +92,7 @@ import 'firebase/storage';
     MatToolbarModule,
     MatTooltipModule,
     ReactiveFormsModule,
+    TextFieldModule,
   ],
   providers: [],
   bootstrap: [

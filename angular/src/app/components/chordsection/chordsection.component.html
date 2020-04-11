@@ -9,7 +9,7 @@
                     matTooltip="Remove Chord">close</mat-icon>
         </button>
         <input class="chord-name-input"
-               draggable="true"
+               [attr.draggable]="editing"
                [(ngModel)]="chord.name" 
                [matAutocomplete]="auto"
                scAutoWidth minSize="3"
@@ -18,7 +18,7 @@
           <mat-option *ngFor="let option of chordNames" 
                            [value]="option">{{option}}</mat-option>
         </mat-autocomplete>
-        <mat-icon draggable="true"
+        <mat-icon [attr.draggable]="editing"
                   class="chord-drag-icon"
                   (dragstart)="newChordDragStart($event, chord)">drag_indicator</mat-icon>
       </div>
@@ -66,7 +66,7 @@
                ><div class="inline-chord-placer"
                      *ngFor="let cil of chordsByOffset.get(cal.id)?.get(charIndex)"
                      ><div class="inline-chord"
-                           draggable="true" 
+                           [attr.draggable]="editing"
                            (dblclick)="removeInlineChord(cal, cil.id)"
                            (dragstart)="existingChordDragStart($event, cal.id, cil.id)"
                            >{{cil?.chord?.name}}</div></div>{{c}}</div>
@@ -97,6 +97,27 @@
     </div>
   </div>
 
+
+  <div *ngIf="isAddingBlock">
+    <mat-form-field class="lyrics-block-text" appearance="fill">
+      <mat-label>Lyrics to add</mat-label>
+      <textarea matInput 
+                [(ngModel)]="blockAddContent"
+                placeholder="Add multiple lines of lyrics"
+                cdkTextareaAutosize></textarea>
+    </mat-form-field>
+    <button mat-icon-button>
+      <mat-icon color="accent" 
+                matTooltip="Add block of lyrics"
+                (click)="addBlockOfLyrics()">check</mat-icon>
+    </button>
+    <button mat-icon-button>
+      <mat-icon color="warn" 
+                matTooltip="Cancel adding block"
+                (click)="isAddingBlock = false; blockAddContent = ''">close</mat-icon>
+    </button>
+  </div>
+
   <div *ngIf="editing" class="add-chord-section">
     <button mat-button 
             class="add-block-button" 
@@ -105,13 +126,15 @@
             matTooltip="Add line of lyrics and connect with chords">
       <mat-icon>add</mat-icon> ADD LYRICS
     </button>
-    <!--
     <button mat-button 
             class="add-block-button" 
             color="accent" 
-            matTooltip="Add multiple lyrics lines together">
+            matTooltip="Add multiple lyrics lines together"
+            (click)="isAddingBlock = true"
+            [disabled]="isAddingBlock">
       <mat-icon>add</mat-icon> ADD BLOCK OF LYRICS
     </button>
+    <!--
     <button mat-button 
             class="add-block-button" 
             color="accent" 
