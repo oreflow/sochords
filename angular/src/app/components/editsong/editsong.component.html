@@ -9,21 +9,22 @@
                 color="accent" 
                 (click)="updateSong()"
                 [routerLink]="['/song', song.id]"
-                matTooltip="Done Editing" ><mat-icon>check</mat-icon></button>
+                matTooltip="Done Editing"><mat-icon>check</mat-icon></button>
       </div>
+
       <div class="basic-info-form">
         <div class="song-title-wrapper">
-          <h2>Title</h2>
           <mat-form-field class="song-title-field">
+            <mat-label>Title</mat-label>
             <input matInput 
                    [(ngModel)]="song?.info.title" 
                    (change)="updateSong()"/>
           </mat-form-field>
         </div>
         <div class="artists-wrapper">
-          <h2>Artists</h2>
           <div class="artist-row" *ngFor="let artist of song?.info.artists; let i = index;">
             <mat-form-field class="artist-name-field">
+              <mat-label>Artist {{i+1}}</mat-label>
               <input matInput 
                      [(ngModel)]="artist.name" 
                      (change)="updateSong()"/>
@@ -31,9 +32,15 @@
             <button mat-icon-button 
                     color="accent" 
                     *ngIf="i > 0" 
-                    (click)="removeArtist(artist)"><mat-icon>close</mat-icon></button>
+                    (click)="removeArtist(artist)"
+                    matTooltip="Remove Artist"><mat-icon>close</mat-icon></button>
           </div>
-          <button mat-stroked-button color="accent" (click)="addArtist()">ADD ARTIST</button>
+          <button mat-button
+                  color="accent" 
+                  (click)="addArtist()" 
+                  matTooltip="Add another artist">
+            <mat-icon>add</mat-icon>ADD ARTIST
+          </button>
         </div>
       </div>
       <div>
@@ -43,36 +50,40 @@
     <div class="section-info">
       <h1>Instructions</h1>
       <div class="song-sections">
-        <div class="section" *ngFor="let section of song?.sections" [ngSwitch]="section.sectionType">
+        <div class="section" *ngFor="let section of song?.sections">
           <div class="section-info">
             <mat-form-field class="section-name-field">
-              <mat-label>Section name</mat-label>
+              <mat-label>Section title</mat-label>
               <input matInput 
                      class="section-name-field"
                      [(ngModel)]="section.info.name" 
                      (change)="updateSectionInfo(section.id, section.info)"/>
             </mat-form-field>
-            <button mat-icon-button class="remove-section-button" (click)="removeSection(section)" color="warn">
+            <button mat-icon-button 
+                    color="warn" 
+                    class="remove-section-button" 
+                    (click)="removeSection(section)" 
+                    matTooltip="Remove this section">
               <mat-icon>close</mat-icon>
             </button>
           </div>
-          <div *ngSwitchCase="sectionTypeEnum.TAB_SECTION" >
+          <div *ngIf="section.sectionType === sectionTypeEnum.TAB_SECTION" >
             <tab-section [editing]="true"
                          [tabSection]="section.tabSection"
                          (updated)="updateTabSection(section.id, $event)"></tab-section>
           </div>
-          <div *ngSwitchCase="sectionTypeEnum.CHORD_SECTION">
+          <div *ngIf="section.sectionType === sectionTypeEnum.CHORD_SECTION" >
             <chord-section [editing]="true"
                            [chordSection]="section.chordSection"
                            (updated)="updateChordSection(section.id, $event)"></chord-section>
           </div>
-          <div *ngSwitchDefault>Unidentified type</div>
+          <mat-divider></mat-divider>
         </div>
-        <button 
-           class="add-song-section-button" 
-           mat-stroked-button
-           color="accent"
-           [matMenuTriggerFor]="sectionTypeMenu">
+        <button mat-button
+                class="add-song-section-button" 
+                color="accent"
+                [matMenuTriggerFor]="sectionTypeMenu"
+                matTooltop="Add new section">
           <mat-icon>add</mat-icon>ADD SECTION
         </button>
         <mat-menu #sectionTypeMenu="matMenu">

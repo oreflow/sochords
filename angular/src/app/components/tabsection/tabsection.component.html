@@ -1,34 +1,48 @@
 <div class="tab-section-root"
      [ngClass]="{'editing': editing}">
-  <ng-container *ngFor="let block of tabSection.instruction.tabBlocks">
+  <ng-container 
+     *ngFor="let block of tabSection.instruction.tabBlocks">
     <div class="pick-block" 
          [ngClass]="{'first-block': block === tabSection.instruction.tabBlocks[0]}">
       <mat-divider class="block-divider" vertical="true" color="primary"></mat-divider>
       <table class="pick-block-table">
         <tr *ngIf="editing">
           <td class="help-cell remove-pick-cell">
-            <button mat-button class="remove-block-button" color="warn" (click)="removeBlock(block)">
+            <button mat-button 
+                    class="remove-block-button" 
+                    color="warn" 
+                    (click)="removeBlock(block)"
+                    matTooltip="Remove this tab sectioh">
               <mat-icon class="remove-block-button">close</mat-icon>
             </button>
           </td>
           <td class="remove-pick-cell"
               *ngFor="let pick of block.picks">
-            <button mat-button class="remove-pick-button" color="warn" (click)="removePick(block, pick)">
+            <button mat-button 
+                    class="remove-pick-button" 
+                    color="warn" 
+                    (click)="removePick(block, pick)"
+                    matTooltip="Remove column">
               <mat-icon class="remove-pick-button">remove</mat-icon>
             </button>
           </td>
           <td rowspan="9" *ngIf="editing">
             <div class="add-pick-cell">
-            <button mat-stroked-button class="add-pick-button" (click)="addPick(block)" color="accent">
-              <mat-icon>add</mat-icon>
-              Add Column
+            <button mat-button 
+                    class="add-pick-button" 
+                    (click)="addPick(block)" 
+                    color="accent"
+                    matTooltip="Add new column">
+              <mat-icon>add</mat-icon>ADD COLUMN
             </button>
             </div>
           </td>
         </tr>
         <tr *ngIf="editing">
           <td class="help-cell chord-edit-cell">Chord: </td>
-          <td class="chord-edit-cell" *ngFor="let pick of block.picks" [ngClass]="{'has-chord': pick.chord?.length > 0}">
+          <td class="chord-edit-cell" 
+              *ngFor="let pick of block.picks" 
+              [ngClass]="{'has-chord': pick.chord?.length > 0}">
             <input class="chord-input" 
                    [(ngModel)]="pick.chord" 
                    (change)="onUpdate()" 
@@ -39,7 +53,9 @@
         </tr>
         <tr *ngIf="!editing">
           <td class="help-cell chord-display-cell"></td>
-          <td class="chord-display-cell" *ngFor="let aggChord of getMergedChords(block)" [scColSpan]="aggChord.size">
+          <td class="chord-display-cell" 
+              *ngFor="let aggChord of getMergedChords(block)"
+              [scColSpan]="aggChord.size">
             {{aggChord.chord}}
           </td>
         </tr>
@@ -92,6 +108,12 @@
     <div class="line-break" *ngIf="block.breakLine"></div>
   </ng-container>
   <div *ngIf="editing">
-    <button mat-stroked-button class="add-block-button" color="accent" (click)="addTabBlock()">ADD TABS</button>
+    <button mat-button 
+            class="add-block-button" 
+            color="accent" 
+            (click)="addTabBlock()"
+            matTooltip="Add new tabs block">
+      <mat-icon>add</mat-icon>ADD TABS
+    </button>
   </div>
 </div>
