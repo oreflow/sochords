@@ -19,6 +19,8 @@ export class ChordSectionComponent implements OnInit {
   editingLyricLine: Map<string, boolean> = new Map();
   chordsByOffset: Map<string, Map<number, instructions.IChordInLyric[]>> = new Map();
   chordNames: string[]; 
+  isAddingBlock: boolean = false;
+  blockAddContent: string = '';
 
   @Input() editing: boolean;
   @Input() chordSection: songs.ChordSection;
@@ -47,14 +49,14 @@ export class ChordSectionComponent implements OnInit {
     this.chordNames = Array.from(new Set(chordNames));
   }
 
-  addChordsAndLyrics() {
-    const id = uuidv4();
-    this.chordSection.instruction.chordsAndLyrics.push(
-      instructions.ChordsAndLyrics.create({
-        id,
+  addChordsAndLyrics(lyric?: string) {
+    const cil = instructions.ChordsAndLyrics.create({
+        id: uuidv4(),
+        lyricLine: lyric,
         chordsInLyric: [],
-      }));
-    this.editingLyricLine.set(id, true);
+      });
+    this.chordSection.instruction.chordsAndLyrics.push(cil);
+    this.editingLyricLine.set(cil.id, !lyric);
     this.onUpdate();
   }
 
@@ -150,6 +152,16 @@ export class ChordSectionComponent implements OnInit {
         this.chordsByOffset.get(cal.id).get(cil.offset).push(cil);
       });
     });
+  }
+
+
+  addBlockOfLyrics() {
+    this.blockAddContent.split('\n').forEach((line) => {
+      if (!line) return; 
+      this.addChordsAndLyrics(line);
+    });
+    this.blockAddContent = '';
+    this.isAddingBlock = false;
   }
 
   onUpdate() {
