@@ -386,96 +386,6 @@ export namespace songs {
         public toJSON(): { [k: string]: any };
     }
 
-    /** Properties of a Vocal. */
-    interface IVocal {
-
-        /** Vocal lines */
-        lines?: (string[]|null);
-    }
-
-    /** Represents a Vocal. */
-    class Vocal implements IVocal {
-
-        /**
-         * Constructs a new Vocal.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: songs.IVocal);
-
-        /** Vocal lines. */
-        public lines: string[];
-
-        /**
-         * Creates a new Vocal instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns Vocal instance
-         */
-        public static create(properties?: songs.IVocal): songs.Vocal;
-
-        /**
-         * Encodes the specified Vocal message. Does not implicitly {@link songs.Vocal.verify|verify} messages.
-         * @param message Vocal message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: songs.IVocal, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Encodes the specified Vocal message, length delimited. Does not implicitly {@link songs.Vocal.verify|verify} messages.
-         * @param message Vocal message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: songs.IVocal, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Decodes a Vocal message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns Vocal
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): songs.Vocal;
-
-        /**
-         * Decodes a Vocal message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns Vocal
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): songs.Vocal;
-
-        /**
-         * Verifies a Vocal message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a Vocal message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns Vocal
-         */
-        public static fromObject(object: { [k: string]: any }): songs.Vocal;
-
-        /**
-         * Creates a plain object from a Vocal message. Also converts values to other types if specified.
-         * @param message Vocal
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: songs.Vocal, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this Vocal to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
     /** Properties of a SongSectionInfo. */
     interface ISongSectionInfo {
 
@@ -566,14 +476,110 @@ export namespace songs {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a BlockLyrics. */
+    interface IBlockLyrics {
+
+        /** BlockLyrics enabled */
+        enabled?: (boolean|null);
+
+        /** BlockLyrics lyrics */
+        lyrics?: (string|null);
+    }
+
+    /** Represents a BlockLyrics. */
+    class BlockLyrics implements IBlockLyrics {
+
+        /**
+         * Constructs a new BlockLyrics.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: songs.IBlockLyrics);
+
+        /** BlockLyrics enabled. */
+        public enabled: boolean;
+
+        /** BlockLyrics lyrics. */
+        public lyrics: string;
+
+        /**
+         * Creates a new BlockLyrics instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns BlockLyrics instance
+         */
+        public static create(properties?: songs.IBlockLyrics): songs.BlockLyrics;
+
+        /**
+         * Encodes the specified BlockLyrics message. Does not implicitly {@link songs.BlockLyrics.verify|verify} messages.
+         * @param message BlockLyrics message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: songs.IBlockLyrics, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified BlockLyrics message, length delimited. Does not implicitly {@link songs.BlockLyrics.verify|verify} messages.
+         * @param message BlockLyrics message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: songs.IBlockLyrics, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a BlockLyrics message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns BlockLyrics
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): songs.BlockLyrics;
+
+        /**
+         * Decodes a BlockLyrics message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns BlockLyrics
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): songs.BlockLyrics;
+
+        /**
+         * Verifies a BlockLyrics message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a BlockLyrics message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns BlockLyrics
+         */
+        public static fromObject(object: { [k: string]: any }): songs.BlockLyrics;
+
+        /**
+         * Creates a plain object from a BlockLyrics message. Also converts values to other types if specified.
+         * @param message BlockLyrics
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: songs.BlockLyrics, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this BlockLyrics to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a TabSection. */
     interface ITabSection {
 
         /** TabSection instruction */
         instruction?: (instructions.ITabInstruction|null);
 
-        /** TabSection vocal */
-        vocal?: (songs.IVocal|null);
+        /** TabSection blockLyrics */
+        blockLyrics?: (songs.IBlockLyrics|null);
     }
 
     /** Represents a TabSection. */
@@ -588,8 +594,8 @@ export namespace songs {
         /** TabSection instruction. */
         public instruction?: (instructions.ITabInstruction|null);
 
-        /** TabSection vocal. */
-        public vocal?: (songs.IVocal|null);
+        /** TabSection blockLyrics. */
+        public blockLyrics?: (songs.IBlockLyrics|null);
 
         /**
          * Creates a new TabSection instance using the specified properties.

@@ -884,209 +884,6 @@ $root.songs = (function() {
         return SongSearchResult;
     })();
 
-    songs.Vocal = (function() {
-
-        /**
-         * Properties of a Vocal.
-         * @memberof songs
-         * @interface IVocal
-         * @property {Array.<string>|null} [lines] Vocal lines
-         */
-
-        /**
-         * Constructs a new Vocal.
-         * @memberof songs
-         * @classdesc Represents a Vocal.
-         * @implements IVocal
-         * @constructor
-         * @param {songs.IVocal=} [properties] Properties to set
-         */
-        function Vocal(properties) {
-            this.lines = [];
-            if (properties)
-                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
-                        this[keys[i]] = properties[keys[i]];
-        }
-
-        /**
-         * Vocal lines.
-         * @member {Array.<string>} lines
-         * @memberof songs.Vocal
-         * @instance
-         */
-        Vocal.prototype.lines = $util.emptyArray;
-
-        /**
-         * Creates a new Vocal instance using the specified properties.
-         * @function create
-         * @memberof songs.Vocal
-         * @static
-         * @param {songs.IVocal=} [properties] Properties to set
-         * @returns {songs.Vocal} Vocal instance
-         */
-        Vocal.create = function create(properties) {
-            return new Vocal(properties);
-        };
-
-        /**
-         * Encodes the specified Vocal message. Does not implicitly {@link songs.Vocal.verify|verify} messages.
-         * @function encode
-         * @memberof songs.Vocal
-         * @static
-         * @param {songs.IVocal} message Vocal message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        Vocal.encode = function encode(message, writer) {
-            if (!writer)
-                writer = $Writer.create();
-            if (message.lines != null && message.lines.length)
-                for (var i = 0; i < message.lines.length; ++i)
-                    writer.uint32(/* id 1, wireType 2 =*/10).string(message.lines[i]);
-            return writer;
-        };
-
-        /**
-         * Encodes the specified Vocal message, length delimited. Does not implicitly {@link songs.Vocal.verify|verify} messages.
-         * @function encodeDelimited
-         * @memberof songs.Vocal
-         * @static
-         * @param {songs.IVocal} message Vocal message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        Vocal.encodeDelimited = function encodeDelimited(message, writer) {
-            return this.encode(message, writer).ldelim();
-        };
-
-        /**
-         * Decodes a Vocal message from the specified reader or buffer.
-         * @function decode
-         * @memberof songs.Vocal
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @param {number} [length] Message length if known beforehand
-         * @returns {songs.Vocal} Vocal
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        Vocal.decode = function decode(reader, length) {
-            if (!(reader instanceof $Reader))
-                reader = $Reader.create(reader);
-            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.songs.Vocal();
-            while (reader.pos < end) {
-                var tag = reader.uint32();
-                switch (tag >>> 3) {
-                case 1:
-                    if (!(message.lines && message.lines.length))
-                        message.lines = [];
-                    message.lines.push(reader.string());
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-                }
-            }
-            return message;
-        };
-
-        /**
-         * Decodes a Vocal message from the specified reader or buffer, length delimited.
-         * @function decodeDelimited
-         * @memberof songs.Vocal
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {songs.Vocal} Vocal
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        Vocal.decodeDelimited = function decodeDelimited(reader) {
-            if (!(reader instanceof $Reader))
-                reader = new $Reader(reader);
-            return this.decode(reader, reader.uint32());
-        };
-
-        /**
-         * Verifies a Vocal message.
-         * @function verify
-         * @memberof songs.Vocal
-         * @static
-         * @param {Object.<string,*>} message Plain object to verify
-         * @returns {string|null} `null` if valid, otherwise the reason why it is not
-         */
-        Vocal.verify = function verify(message) {
-            if (typeof message !== "object" || message === null)
-                return "object expected";
-            if (message.lines != null && message.hasOwnProperty("lines")) {
-                if (!Array.isArray(message.lines))
-                    return "lines: array expected";
-                for (var i = 0; i < message.lines.length; ++i)
-                    if (!$util.isString(message.lines[i]))
-                        return "lines: string[] expected";
-            }
-            return null;
-        };
-
-        /**
-         * Creates a Vocal message from a plain object. Also converts values to their respective internal types.
-         * @function fromObject
-         * @memberof songs.Vocal
-         * @static
-         * @param {Object.<string,*>} object Plain object
-         * @returns {songs.Vocal} Vocal
-         */
-        Vocal.fromObject = function fromObject(object) {
-            if (object instanceof $root.songs.Vocal)
-                return object;
-            var message = new $root.songs.Vocal();
-            if (object.lines) {
-                if (!Array.isArray(object.lines))
-                    throw TypeError(".songs.Vocal.lines: array expected");
-                message.lines = [];
-                for (var i = 0; i < object.lines.length; ++i)
-                    message.lines[i] = String(object.lines[i]);
-            }
-            return message;
-        };
-
-        /**
-         * Creates a plain object from a Vocal message. Also converts values to other types if specified.
-         * @function toObject
-         * @memberof songs.Vocal
-         * @static
-         * @param {songs.Vocal} message Vocal
-         * @param {$protobuf.IConversionOptions} [options] Conversion options
-         * @returns {Object.<string,*>} Plain object
-         */
-        Vocal.toObject = function toObject(message, options) {
-            if (!options)
-                options = {};
-            var object = {};
-            if (options.arrays || options.defaults)
-                object.lines = [];
-            if (message.lines && message.lines.length) {
-                object.lines = [];
-                for (var j = 0; j < message.lines.length; ++j)
-                    object.lines[j] = message.lines[j];
-            }
-            return object;
-        };
-
-        /**
-         * Converts this Vocal to JSON.
-         * @function toJSON
-         * @memberof songs.Vocal
-         * @instance
-         * @returns {Object.<string,*>} JSON object
-         */
-        Vocal.prototype.toJSON = function toJSON() {
-            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-        };
-
-        return Vocal;
-    })();
-
     songs.SongSectionInfo = (function() {
 
         /**
@@ -1274,6 +1071,216 @@ $root.songs = (function() {
         return SongSectionInfo;
     })();
 
+    songs.BlockLyrics = (function() {
+
+        /**
+         * Properties of a BlockLyrics.
+         * @memberof songs
+         * @interface IBlockLyrics
+         * @property {boolean|null} [enabled] BlockLyrics enabled
+         * @property {string|null} [lyrics] BlockLyrics lyrics
+         */
+
+        /**
+         * Constructs a new BlockLyrics.
+         * @memberof songs
+         * @classdesc Represents a BlockLyrics.
+         * @implements IBlockLyrics
+         * @constructor
+         * @param {songs.IBlockLyrics=} [properties] Properties to set
+         */
+        function BlockLyrics(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * BlockLyrics enabled.
+         * @member {boolean} enabled
+         * @memberof songs.BlockLyrics
+         * @instance
+         */
+        BlockLyrics.prototype.enabled = false;
+
+        /**
+         * BlockLyrics lyrics.
+         * @member {string} lyrics
+         * @memberof songs.BlockLyrics
+         * @instance
+         */
+        BlockLyrics.prototype.lyrics = "";
+
+        /**
+         * Creates a new BlockLyrics instance using the specified properties.
+         * @function create
+         * @memberof songs.BlockLyrics
+         * @static
+         * @param {songs.IBlockLyrics=} [properties] Properties to set
+         * @returns {songs.BlockLyrics} BlockLyrics instance
+         */
+        BlockLyrics.create = function create(properties) {
+            return new BlockLyrics(properties);
+        };
+
+        /**
+         * Encodes the specified BlockLyrics message. Does not implicitly {@link songs.BlockLyrics.verify|verify} messages.
+         * @function encode
+         * @memberof songs.BlockLyrics
+         * @static
+         * @param {songs.IBlockLyrics} message BlockLyrics message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        BlockLyrics.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.enabled != null && message.hasOwnProperty("enabled"))
+                writer.uint32(/* id 1, wireType 0 =*/8).bool(message.enabled);
+            if (message.lyrics != null && message.hasOwnProperty("lyrics"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.lyrics);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified BlockLyrics message, length delimited. Does not implicitly {@link songs.BlockLyrics.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof songs.BlockLyrics
+         * @static
+         * @param {songs.IBlockLyrics} message BlockLyrics message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        BlockLyrics.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a BlockLyrics message from the specified reader or buffer.
+         * @function decode
+         * @memberof songs.BlockLyrics
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {songs.BlockLyrics} BlockLyrics
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        BlockLyrics.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.songs.BlockLyrics();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.enabled = reader.bool();
+                    break;
+                case 2:
+                    message.lyrics = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a BlockLyrics message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof songs.BlockLyrics
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {songs.BlockLyrics} BlockLyrics
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        BlockLyrics.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a BlockLyrics message.
+         * @function verify
+         * @memberof songs.BlockLyrics
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        BlockLyrics.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.enabled != null && message.hasOwnProperty("enabled"))
+                if (typeof message.enabled !== "boolean")
+                    return "enabled: boolean expected";
+            if (message.lyrics != null && message.hasOwnProperty("lyrics"))
+                if (!$util.isString(message.lyrics))
+                    return "lyrics: string expected";
+            return null;
+        };
+
+        /**
+         * Creates a BlockLyrics message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof songs.BlockLyrics
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {songs.BlockLyrics} BlockLyrics
+         */
+        BlockLyrics.fromObject = function fromObject(object) {
+            if (object instanceof $root.songs.BlockLyrics)
+                return object;
+            var message = new $root.songs.BlockLyrics();
+            if (object.enabled != null)
+                message.enabled = Boolean(object.enabled);
+            if (object.lyrics != null)
+                message.lyrics = String(object.lyrics);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a BlockLyrics message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof songs.BlockLyrics
+         * @static
+         * @param {songs.BlockLyrics} message BlockLyrics
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        BlockLyrics.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.enabled = false;
+                object.lyrics = "";
+            }
+            if (message.enabled != null && message.hasOwnProperty("enabled"))
+                object.enabled = message.enabled;
+            if (message.lyrics != null && message.hasOwnProperty("lyrics"))
+                object.lyrics = message.lyrics;
+            return object;
+        };
+
+        /**
+         * Converts this BlockLyrics to JSON.
+         * @function toJSON
+         * @memberof songs.BlockLyrics
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        BlockLyrics.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return BlockLyrics;
+    })();
+
     songs.TabSection = (function() {
 
         /**
@@ -1281,7 +1288,7 @@ $root.songs = (function() {
          * @memberof songs
          * @interface ITabSection
          * @property {instructions.ITabInstruction|null} [instruction] TabSection instruction
-         * @property {songs.IVocal|null} [vocal] TabSection vocal
+         * @property {songs.IBlockLyrics|null} [blockLyrics] TabSection blockLyrics
          */
 
         /**
@@ -1308,12 +1315,12 @@ $root.songs = (function() {
         TabSection.prototype.instruction = null;
 
         /**
-         * TabSection vocal.
-         * @member {songs.IVocal|null|undefined} vocal
+         * TabSection blockLyrics.
+         * @member {songs.IBlockLyrics|null|undefined} blockLyrics
          * @memberof songs.TabSection
          * @instance
          */
-        TabSection.prototype.vocal = null;
+        TabSection.prototype.blockLyrics = null;
 
         /**
          * Creates a new TabSection instance using the specified properties.
@@ -1341,8 +1348,8 @@ $root.songs = (function() {
                 writer = $Writer.create();
             if (message.instruction != null && message.hasOwnProperty("instruction"))
                 $root.instructions.TabInstruction.encode(message.instruction, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
-            if (message.vocal != null && message.hasOwnProperty("vocal"))
-                $root.songs.Vocal.encode(message.vocal, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+            if (message.blockLyrics != null && message.hasOwnProperty("blockLyrics"))
+                $root.songs.BlockLyrics.encode(message.blockLyrics, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
             return writer;
         };
 
@@ -1381,7 +1388,7 @@ $root.songs = (function() {
                     message.instruction = $root.instructions.TabInstruction.decode(reader, reader.uint32());
                     break;
                 case 2:
-                    message.vocal = $root.songs.Vocal.decode(reader, reader.uint32());
+                    message.blockLyrics = $root.songs.BlockLyrics.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -1423,10 +1430,10 @@ $root.songs = (function() {
                 if (error)
                     return "instruction." + error;
             }
-            if (message.vocal != null && message.hasOwnProperty("vocal")) {
-                var error = $root.songs.Vocal.verify(message.vocal);
+            if (message.blockLyrics != null && message.hasOwnProperty("blockLyrics")) {
+                var error = $root.songs.BlockLyrics.verify(message.blockLyrics);
                 if (error)
-                    return "vocal." + error;
+                    return "blockLyrics." + error;
             }
             return null;
         };
@@ -1448,10 +1455,10 @@ $root.songs = (function() {
                     throw TypeError(".songs.TabSection.instruction: object expected");
                 message.instruction = $root.instructions.TabInstruction.fromObject(object.instruction);
             }
-            if (object.vocal != null) {
-                if (typeof object.vocal !== "object")
-                    throw TypeError(".songs.TabSection.vocal: object expected");
-                message.vocal = $root.songs.Vocal.fromObject(object.vocal);
+            if (object.blockLyrics != null) {
+                if (typeof object.blockLyrics !== "object")
+                    throw TypeError(".songs.TabSection.blockLyrics: object expected");
+                message.blockLyrics = $root.songs.BlockLyrics.fromObject(object.blockLyrics);
             }
             return message;
         };
@@ -1471,12 +1478,12 @@ $root.songs = (function() {
             var object = {};
             if (options.defaults) {
                 object.instruction = null;
-                object.vocal = null;
+                object.blockLyrics = null;
             }
             if (message.instruction != null && message.hasOwnProperty("instruction"))
                 object.instruction = $root.instructions.TabInstruction.toObject(message.instruction, options);
-            if (message.vocal != null && message.hasOwnProperty("vocal"))
-                object.vocal = $root.songs.Vocal.toObject(message.vocal, options);
+            if (message.blockLyrics != null && message.hasOwnProperty("blockLyrics"))
+                object.blockLyrics = $root.songs.BlockLyrics.toObject(message.blockLyrics, options);
             return object;
         };
 

@@ -18,7 +18,8 @@ export class TabSectionComponent implements OnInit {
   @Output() updated = new EventEmitter<songs.TabSection>();
 
   ngOnInit() {
-    if (Object.keys(this.tabSection).length === 0) {
+    if (!this.tabSection.blockLyrics) this.tabSection.blockLyrics = {};
+    if (!this.tabSection.instruction) {
       this.tabSection.instruction = instructions.TabInstruction.create({
         tabBlocks: []
       });
@@ -79,6 +80,17 @@ export class TabSectionComponent implements OnInit {
       this.tabSection.instruction.tabBlocks.push(newBlock);
     }
     this.onUpdate();
+  }
+
+  setBlockLyricsEnabled(enabled: boolean) {
+    this.tabSection.blockLyrics.enabled = enabled;
+    console.log(this.tabSection);
+    this.onUpdate();
+  }
+  lyricsTextUpdate(event) {
+    console.log(event);
+    event.target.resizeToFitContent(true);
+
   }
 
   onUpdate() {
