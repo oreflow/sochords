@@ -3921,6 +3921,458 @@ $root.instructions = (function() {
         return ChordsAndLyrics;
     })();
 
+    instructions.Strum = (function() {
+
+        /**
+         * Properties of a Strum.
+         * @memberof instructions
+         * @interface IStrum
+         * @property {instructions.Strum.StrumDirection|null} [direction] Strum direction
+         * @property {boolean|null} [isHighlighted] Strum isHighlighted
+         */
+
+        /**
+         * Constructs a new Strum.
+         * @memberof instructions
+         * @classdesc Represents a Strum.
+         * @implements IStrum
+         * @constructor
+         * @param {instructions.IStrum=} [properties] Properties to set
+         */
+        function Strum(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * Strum direction.
+         * @member {instructions.Strum.StrumDirection} direction
+         * @memberof instructions.Strum
+         * @instance
+         */
+        Strum.prototype.direction = 0;
+
+        /**
+         * Strum isHighlighted.
+         * @member {boolean} isHighlighted
+         * @memberof instructions.Strum
+         * @instance
+         */
+        Strum.prototype.isHighlighted = false;
+
+        /**
+         * Creates a new Strum instance using the specified properties.
+         * @function create
+         * @memberof instructions.Strum
+         * @static
+         * @param {instructions.IStrum=} [properties] Properties to set
+         * @returns {instructions.Strum} Strum instance
+         */
+        Strum.create = function create(properties) {
+            return new Strum(properties);
+        };
+
+        /**
+         * Encodes the specified Strum message. Does not implicitly {@link instructions.Strum.verify|verify} messages.
+         * @function encode
+         * @memberof instructions.Strum
+         * @static
+         * @param {instructions.IStrum} message Strum message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        Strum.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.direction != null && message.hasOwnProperty("direction"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.direction);
+            if (message.isHighlighted != null && message.hasOwnProperty("isHighlighted"))
+                writer.uint32(/* id 2, wireType 0 =*/16).bool(message.isHighlighted);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified Strum message, length delimited. Does not implicitly {@link instructions.Strum.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof instructions.Strum
+         * @static
+         * @param {instructions.IStrum} message Strum message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        Strum.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a Strum message from the specified reader or buffer.
+         * @function decode
+         * @memberof instructions.Strum
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {instructions.Strum} Strum
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        Strum.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.instructions.Strum();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.direction = reader.int32();
+                    break;
+                case 2:
+                    message.isHighlighted = reader.bool();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a Strum message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof instructions.Strum
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {instructions.Strum} Strum
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        Strum.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a Strum message.
+         * @function verify
+         * @memberof instructions.Strum
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        Strum.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.direction != null && message.hasOwnProperty("direction"))
+                switch (message.direction) {
+                default:
+                    return "direction: enum value expected";
+                case 0:
+                case 1:
+                case 2:
+                    break;
+                }
+            if (message.isHighlighted != null && message.hasOwnProperty("isHighlighted"))
+                if (typeof message.isHighlighted !== "boolean")
+                    return "isHighlighted: boolean expected";
+            return null;
+        };
+
+        /**
+         * Creates a Strum message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof instructions.Strum
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {instructions.Strum} Strum
+         */
+        Strum.fromObject = function fromObject(object) {
+            if (object instanceof $root.instructions.Strum)
+                return object;
+            var message = new $root.instructions.Strum();
+            switch (object.direction) {
+            case "NO_STRUM":
+            case 0:
+                message.direction = 0;
+                break;
+            case "UP":
+            case 1:
+                message.direction = 1;
+                break;
+            case "DOWN":
+            case 2:
+                message.direction = 2;
+                break;
+            }
+            if (object.isHighlighted != null)
+                message.isHighlighted = Boolean(object.isHighlighted);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a Strum message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof instructions.Strum
+         * @static
+         * @param {instructions.Strum} message Strum
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        Strum.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.direction = options.enums === String ? "NO_STRUM" : 0;
+                object.isHighlighted = false;
+            }
+            if (message.direction != null && message.hasOwnProperty("direction"))
+                object.direction = options.enums === String ? $root.instructions.Strum.StrumDirection[message.direction] : message.direction;
+            if (message.isHighlighted != null && message.hasOwnProperty("isHighlighted"))
+                object.isHighlighted = message.isHighlighted;
+            return object;
+        };
+
+        /**
+         * Converts this Strum to JSON.
+         * @function toJSON
+         * @memberof instructions.Strum
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        Strum.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        /**
+         * StrumDirection enum.
+         * @name instructions.Strum.StrumDirection
+         * @enum {string}
+         * @property {number} NO_STRUM=0 NO_STRUM value
+         * @property {number} UP=1 UP value
+         * @property {number} DOWN=2 DOWN value
+         */
+        Strum.StrumDirection = (function() {
+            var valuesById = {}, values = Object.create(valuesById);
+            values[valuesById[0] = "NO_STRUM"] = 0;
+            values[valuesById[1] = "UP"] = 1;
+            values[valuesById[2] = "DOWN"] = 2;
+            return values;
+        })();
+
+        return Strum;
+    })();
+
+    instructions.StrummingPattern = (function() {
+
+        /**
+         * Properties of a StrummingPattern.
+         * @memberof instructions
+         * @interface IStrummingPattern
+         * @property {Array.<instructions.IStrum>|null} [strums] StrummingPattern strums
+         */
+
+        /**
+         * Constructs a new StrummingPattern.
+         * @memberof instructions
+         * @classdesc Represents a StrummingPattern.
+         * @implements IStrummingPattern
+         * @constructor
+         * @param {instructions.IStrummingPattern=} [properties] Properties to set
+         */
+        function StrummingPattern(properties) {
+            this.strums = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * StrummingPattern strums.
+         * @member {Array.<instructions.IStrum>} strums
+         * @memberof instructions.StrummingPattern
+         * @instance
+         */
+        StrummingPattern.prototype.strums = $util.emptyArray;
+
+        /**
+         * Creates a new StrummingPattern instance using the specified properties.
+         * @function create
+         * @memberof instructions.StrummingPattern
+         * @static
+         * @param {instructions.IStrummingPattern=} [properties] Properties to set
+         * @returns {instructions.StrummingPattern} StrummingPattern instance
+         */
+        StrummingPattern.create = function create(properties) {
+            return new StrummingPattern(properties);
+        };
+
+        /**
+         * Encodes the specified StrummingPattern message. Does not implicitly {@link instructions.StrummingPattern.verify|verify} messages.
+         * @function encode
+         * @memberof instructions.StrummingPattern
+         * @static
+         * @param {instructions.IStrummingPattern} message StrummingPattern message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        StrummingPattern.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.strums != null && message.strums.length)
+                for (var i = 0; i < message.strums.length; ++i)
+                    $root.instructions.Strum.encode(message.strums[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified StrummingPattern message, length delimited. Does not implicitly {@link instructions.StrummingPattern.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof instructions.StrummingPattern
+         * @static
+         * @param {instructions.IStrummingPattern} message StrummingPattern message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        StrummingPattern.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a StrummingPattern message from the specified reader or buffer.
+         * @function decode
+         * @memberof instructions.StrummingPattern
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {instructions.StrummingPattern} StrummingPattern
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        StrummingPattern.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.instructions.StrummingPattern();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.strums && message.strums.length))
+                        message.strums = [];
+                    message.strums.push($root.instructions.Strum.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a StrummingPattern message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof instructions.StrummingPattern
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {instructions.StrummingPattern} StrummingPattern
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        StrummingPattern.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a StrummingPattern message.
+         * @function verify
+         * @memberof instructions.StrummingPattern
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        StrummingPattern.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.strums != null && message.hasOwnProperty("strums")) {
+                if (!Array.isArray(message.strums))
+                    return "strums: array expected";
+                for (var i = 0; i < message.strums.length; ++i) {
+                    var error = $root.instructions.Strum.verify(message.strums[i]);
+                    if (error)
+                        return "strums." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a StrummingPattern message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof instructions.StrummingPattern
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {instructions.StrummingPattern} StrummingPattern
+         */
+        StrummingPattern.fromObject = function fromObject(object) {
+            if (object instanceof $root.instructions.StrummingPattern)
+                return object;
+            var message = new $root.instructions.StrummingPattern();
+            if (object.strums) {
+                if (!Array.isArray(object.strums))
+                    throw TypeError(".instructions.StrummingPattern.strums: array expected");
+                message.strums = [];
+                for (var i = 0; i < object.strums.length; ++i) {
+                    if (typeof object.strums[i] !== "object")
+                        throw TypeError(".instructions.StrummingPattern.strums: object expected");
+                    message.strums[i] = $root.instructions.Strum.fromObject(object.strums[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a StrummingPattern message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof instructions.StrummingPattern
+         * @static
+         * @param {instructions.StrummingPattern} message StrummingPattern
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        StrummingPattern.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.strums = [];
+            if (message.strums && message.strums.length) {
+                object.strums = [];
+                for (var j = 0; j < message.strums.length; ++j)
+                    object.strums[j] = $root.instructions.Strum.toObject(message.strums[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this StrummingPattern to JSON.
+         * @function toJSON
+         * @memberof instructions.StrummingPattern
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        StrummingPattern.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return StrummingPattern;
+    })();
+
     instructions.ChordInstruction = (function() {
 
         /**
@@ -3929,6 +4381,7 @@ $root.instructions = (function() {
          * @interface IChordInstruction
          * @property {Array.<instructions.IChordsAndLyrics>|null} [chordsAndLyrics] ChordInstruction chordsAndLyrics
          * @property {Array.<instructions.IChord>|null} [chords] ChordInstruction chords
+         * @property {instructions.IStrummingPattern|null} [strummingPattern] ChordInstruction strummingPattern
          */
 
         /**
@@ -3965,6 +4418,14 @@ $root.instructions = (function() {
         ChordInstruction.prototype.chords = $util.emptyArray;
 
         /**
+         * ChordInstruction strummingPattern.
+         * @member {instructions.IStrummingPattern|null|undefined} strummingPattern
+         * @memberof instructions.ChordInstruction
+         * @instance
+         */
+        ChordInstruction.prototype.strummingPattern = null;
+
+        /**
          * Creates a new ChordInstruction instance using the specified properties.
          * @function create
          * @memberof instructions.ChordInstruction
@@ -3994,6 +4455,8 @@ $root.instructions = (function() {
             if (message.chords != null && message.chords.length)
                 for (var i = 0; i < message.chords.length; ++i)
                     $root.instructions.Chord.encode(message.chords[i], writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+            if (message.strummingPattern != null && message.hasOwnProperty("strummingPattern"))
+                $root.instructions.StrummingPattern.encode(message.strummingPattern, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
             return writer;
         };
 
@@ -4037,6 +4500,9 @@ $root.instructions = (function() {
                     if (!(message.chords && message.chords.length))
                         message.chords = [];
                     message.chords.push($root.instructions.Chord.decode(reader, reader.uint32()));
+                    break;
+                case 3:
+                    message.strummingPattern = $root.instructions.StrummingPattern.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -4091,6 +4557,11 @@ $root.instructions = (function() {
                         return "chords." + error;
                 }
             }
+            if (message.strummingPattern != null && message.hasOwnProperty("strummingPattern")) {
+                var error = $root.instructions.StrummingPattern.verify(message.strummingPattern);
+                if (error)
+                    return "strummingPattern." + error;
+            }
             return null;
         };
 
@@ -4126,6 +4597,11 @@ $root.instructions = (function() {
                     message.chords[i] = $root.instructions.Chord.fromObject(object.chords[i]);
                 }
             }
+            if (object.strummingPattern != null) {
+                if (typeof object.strummingPattern !== "object")
+                    throw TypeError(".instructions.ChordInstruction.strummingPattern: object expected");
+                message.strummingPattern = $root.instructions.StrummingPattern.fromObject(object.strummingPattern);
+            }
             return message;
         };
 
@@ -4146,6 +4622,8 @@ $root.instructions = (function() {
                 object.chordsAndLyrics = [];
                 object.chords = [];
             }
+            if (options.defaults)
+                object.strummingPattern = null;
             if (message.chordsAndLyrics && message.chordsAndLyrics.length) {
                 object.chordsAndLyrics = [];
                 for (var j = 0; j < message.chordsAndLyrics.length; ++j)
@@ -4156,6 +4634,8 @@ $root.instructions = (function() {
                 for (var j = 0; j < message.chords.length; ++j)
                     object.chords[j] = $root.instructions.Chord.toObject(message.chords[j], options);
             }
+            if (message.strummingPattern != null && message.hasOwnProperty("strummingPattern"))
+                object.strummingPattern = $root.instructions.StrummingPattern.toObject(message.strummingPattern, options);
             return object;
         };
 

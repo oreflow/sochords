@@ -154,7 +154,6 @@ export class ChordSectionComponent implements OnInit {
     });
   }
 
-
   addBlockOfLyrics() {
     this.blockAddContent.split('\n').forEach((line) => {
       if (!line) return; 
@@ -162,6 +161,17 @@ export class ChordSectionComponent implements OnInit {
     });
     this.blockAddContent = '';
     this.isAddingBlock = false;
+  }
+
+  addStrummingPattern() {
+    this.chordSection.instruction.strummingPattern = 
+      instructions.StrummingPattern.create({});
+    this.onUpdate();
+  }
+
+  removeStrummingPattern() {
+    this.chordSection.instruction.strummingPattern = undefined;
+    this.onUpdate();
   }
 
   onUpdate() {

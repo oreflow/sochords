@@ -43,8 +43,23 @@ message ChordsAndLyrics {
   bool break_line = 4;
 }
 
+message Strum {
+  enum StrumDirection {
+    NO_STRUM = 0;
+    UP = 1;
+    DOWN = 2;
+  }
+  StrumDirection direction = 1;
+  bool is_highlighted = 2;
+}
+
+message StrummingPattern {
+  repeated Strum strums = 1;
+}
+
 message ChordInstruction {
   repeated ChordsAndLyrics chords_and_lyrics = 1;
   repeated Chord chords  = 2;
+  StrummingPattern strumming_pattern = 3;
 }
 

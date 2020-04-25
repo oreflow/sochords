@@ -39,6 +39,7 @@ import { ErrorComponent } from 'app/components/error/error.component';
 import { HomeComponent } from 'app/components/home/home.component';
 import { NewSongComponent } from 'app/components/newsong/newsong.component';
 import { TabSectionComponent } from 'app/components/tabsection/tabsection.component';
+import { StrummingPatternComponent } from 'app/components/strummingpattern/strummingpattern.component';
 import { SongComponent } from 'app/components/song/song.component';
 
 import { AutoWidthDirective } from 'app/directives/autowidth.directive';
@@ -61,6 +62,7 @@ import 'firebase/storage';
     HomeComponent,
     NewSongComponent,
     TabSectionComponent,
+    StrummingPatternComponent,
     SongComponent,
     // Directives.
     AutoWidthDirective,

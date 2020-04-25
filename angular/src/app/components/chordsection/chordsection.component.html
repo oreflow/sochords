@@ -1,5 +1,29 @@
 <div class="chord-section-root" [ngClass]="{'editing': editing}">
 
+  <div class="strumming-pattern-wrapper">
+    <div class="strumming-pattern"
+         *ngIf="chordSection.instruction.strummingPattern">
+      <strumming-pattern 
+       [strummingPattern]="chordSection.instruction.strummingPattern" 
+       [editing]="editing"
+       (updated)="onUpdate()"></strumming-pattern>
+      <button class="remove-strumming-pattern-button" mat-icon-button (click)="removeStrummingPattern()">
+        <mat-icon class="chord-close-icon" 
+                  color="warn" 
+                  *ngIf="editing"
+                  matTooltip="Remove strumming pattern">close</mat-icon>
+      </button>
+    </div>
+    <div *ngIf="editing && !chordSection.instruction.strummingPattern">
+      <button mat-button 
+              class="add-strumming-pattern-button"
+              color="accent" 
+              (click)="addStrummingPattern()">
+        <mat-icon>add</mat-icon> ADD STRUMMING PATTERN
+      </button>
+    </div>
+  </div>
+
   <div *ngIf="editing">
     <div class="chord-row">
       <div class="chord-input-wrapper" *ngFor="let chord of chordSection.instruction.chords">
