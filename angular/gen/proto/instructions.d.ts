@@ -632,6 +632,202 @@ export namespace instructions {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a Strum. */
+    interface IStrum {
+
+        /** Strum direction */
+        direction?: (instructions.Strum.StrumDirection|null);
+
+        /** Strum isHighlighted */
+        isHighlighted?: (boolean|null);
+    }
+
+    /** Represents a Strum. */
+    class Strum implements IStrum {
+
+        /**
+         * Constructs a new Strum.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: instructions.IStrum);
+
+        /** Strum direction. */
+        public direction: instructions.Strum.StrumDirection;
+
+        /** Strum isHighlighted. */
+        public isHighlighted: boolean;
+
+        /**
+         * Creates a new Strum instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns Strum instance
+         */
+        public static create(properties?: instructions.IStrum): instructions.Strum;
+
+        /**
+         * Encodes the specified Strum message. Does not implicitly {@link instructions.Strum.verify|verify} messages.
+         * @param message Strum message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: instructions.IStrum, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified Strum message, length delimited. Does not implicitly {@link instructions.Strum.verify|verify} messages.
+         * @param message Strum message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: instructions.IStrum, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a Strum message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns Strum
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): instructions.Strum;
+
+        /**
+         * Decodes a Strum message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns Strum
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): instructions.Strum;
+
+        /**
+         * Verifies a Strum message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a Strum message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns Strum
+         */
+        public static fromObject(object: { [k: string]: any }): instructions.Strum;
+
+        /**
+         * Creates a plain object from a Strum message. Also converts values to other types if specified.
+         * @param message Strum
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: instructions.Strum, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this Strum to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    namespace Strum {
+
+        /** StrumDirection enum. */
+        enum StrumDirection {
+            NO_STRUM = 0,
+            UP = 1,
+            DOWN = 2
+        }
+    }
+
+    /** Properties of a StrummingPattern. */
+    interface IStrummingPattern {
+
+        /** StrummingPattern strums */
+        strums?: (instructions.IStrum[]|null);
+    }
+
+    /** Represents a StrummingPattern. */
+    class StrummingPattern implements IStrummingPattern {
+
+        /**
+         * Constructs a new StrummingPattern.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: instructions.IStrummingPattern);
+
+        /** StrummingPattern strums. */
+        public strums: instructions.IStrum[];
+
+        /**
+         * Creates a new StrummingPattern instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns StrummingPattern instance
+         */
+        public static create(properties?: instructions.IStrummingPattern): instructions.StrummingPattern;
+
+        /**
+         * Encodes the specified StrummingPattern message. Does not implicitly {@link instructions.StrummingPattern.verify|verify} messages.
+         * @param message StrummingPattern message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: instructions.IStrummingPattern, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified StrummingPattern message, length delimited. Does not implicitly {@link instructions.StrummingPattern.verify|verify} messages.
+         * @param message StrummingPattern message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: instructions.IStrummingPattern, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a StrummingPattern message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns StrummingPattern
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): instructions.StrummingPattern;
+
+        /**
+         * Decodes a StrummingPattern message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns StrummingPattern
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): instructions.StrummingPattern;
+
+        /**
+         * Verifies a StrummingPattern message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a StrummingPattern message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns StrummingPattern
+         */
+        public static fromObject(object: { [k: string]: any }): instructions.StrummingPattern;
+
+        /**
+         * Creates a plain object from a StrummingPattern message. Also converts values to other types if specified.
+         * @param message StrummingPattern
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: instructions.StrummingPattern, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this StrummingPattern to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a ChordInstruction. */
     interface IChordInstruction {
 
@@ -640,6 +836,9 @@ export namespace instructions {
 
         /** ChordInstruction chords */
         chords?: (instructions.IChord[]|null);
+
+        /** ChordInstruction strummingPattern */
+        strummingPattern?: (instructions.IStrummingPattern|null);
     }
 
     /** Represents a ChordInstruction. */
@@ -656,6 +855,9 @@ export namespace instructions {
 
         /** ChordInstruction chords. */
         public chords: instructions.IChord[];
+
+        /** ChordInstruction strummingPattern. */
+        public strummingPattern?: (instructions.IStrummingPattern|null);
 
         /**
          * Creates a new ChordInstruction instance using the specified properties.

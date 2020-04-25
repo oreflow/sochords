@@ -1,0 +1,50 @@
+<div class="strumming-pattern-root" [ngClass]="{'editing': editing}">
+  <div class="strum-list-item" 
+       *ngFor="let strum of strummingPattern.strums">
+    <button mat-icon-button 
+            color="warn" 
+            matTooltip="Remove strum" 
+            *ngIf="editing"
+            (click)="removeStrum(strum)">
+        <mat-icon>remove</mat-icon> 
+    </button>
+
+    <mat-menu #appMenu="matMenu">
+      <button mat-menu-item 
+              (click)="setStrumDirection(strum, strumDirection.NO_STRUM, false)">
+        <mat-icon>remove</mat-icon>None</button>
+      <button mat-menu-item 
+              (click)="setStrumDirection(strum, strumDirection.DOWN, false)">
+        <mat-icon color="primary">arrow_downward</mat-icon>Down</button>
+      <button mat-menu-item 
+              (click)="setStrumDirection(strum, strumDirection.UP, false)">
+        <mat-icon color="primary">arrow_upward</mat-icon>Up</button>
+      <button mat-menu-item 
+              (click)="setStrumDirection(strum, strumDirection.DOWN, true)">
+        <mat-icon color="accent">arrow_downward</mat-icon>Down (accent)</button>
+      <button mat-menu-item 
+              (click)="setStrumDirection(strum, strumDirection.UP, true)">
+        <mat-icon color="accent">arrow_upward</mat-icon>Up (accent)</button>
+    </mat-menu>
+
+    <button mat-icon-button 
+            [matMenuTriggerFor]="appMenu" 
+            class="strum-icon"
+            [disabled]="!editing">
+        <mat-icon *ngIf="strum.direction === strumDirection.NO_STRUM">remove</mat-icon>
+        <mat-icon [ngClass]="{'highlight': strum.isHighlighted}"
+                  color="primary" 
+                  *ngIf="strum.direction === strumDirection.DOWN">arrow_downward</mat-icon>
+        <mat-icon [ngClass]="{'highlight': strum.isHighlighted}" 
+                  color="primary" 
+                  *ngIf="strum.direction === strumDirection.UP">arrow_upward</mat-icon>
+    </button>
+  </div>
+  <button mat-button
+          class="add-strum-button"
+          *ngIf="editing" 
+          color="accent" 
+          (click)="addStrum()">
+    <mat-icon>add</mat-icon> ADD STRUM
+  </button>
+</div>

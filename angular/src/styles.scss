@@ -12,6 +12,7 @@
 @import 'app/components/home/home.component.scss';
 @import 'app/components/newsong/newsong.component.scss';
 @import 'app/components/song/song.component.scss';
+@import 'app/components/strummingpattern/strummingpattern.component.scss';
 @import 'app/components/tabsection/tabsection.component.scss';
 
 // Be sure that you only ever include this mixin once!
@@ -34,6 +35,7 @@ $theme: mat-light-theme($primary, $accent, $warn);
 @include home-component-theme($theme);
 @include new-song-component-theme($theme);
 @include song-component-theme($theme);
+@include strumming-pattern-component-theme($theme);
 @include tab-section-component-theme($theme);
 
 // Global styles below.
