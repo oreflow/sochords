@@ -6,6 +6,7 @@
 
   $lyric-font-size: 20px;
   $chord-in-lyric-font-size: 24px;
+  $font-color: black;
 
   .chord-section-root {
     display: flex;
@@ -13,6 +14,7 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+    color: $font-color;
 
     .strumming-pattern {
       display: flex;
@@ -82,6 +84,7 @@
 
     .inline-chord-placer {
       height: 0;
+
       position: relative;
       width: 0;
       .inline-chord {
@@ -105,7 +108,11 @@
       font-size: $lyric-font-size;
       user-select: none;
       &.padding-character {
-        width: 10px;
+        color:transparent;
+
+        & > * {
+          color: $font-color;
+        }
       }
 
       &[dragging] {

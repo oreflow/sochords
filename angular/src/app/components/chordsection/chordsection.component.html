@@ -93,7 +93,7 @@
                            [attr.draggable]="editing"
                            (dblclick)="removeInlineChord(cal, cil.id)"
                            (dragstart)="existingChordDragStart($event, cal.id, cil.id)"
-                           >{{cil?.chord?.name}}</div></div>{{c}}</div>
+                           >{{cil?.chord?.name}}</div></div>{{c || '_'}}</div>
         </div>
         <div class="chords-and-lyrics-actions" *ngIf="editing">
           <mat-checkbox color="accent" 
