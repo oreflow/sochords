@@ -1,0 +1,21 @@
+@import '~@angular/material/theming';
+
+@mixin chord-sidenav-component-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+
+  .chord-sidenav-root {
+    display: flex;
+    justify-content: space-between;
+    .chord-list-item {
+      min-width: 200px;
+      user-select: none;
+      &:hover {
+        cursor: grab;
+      }
+      .menu-button {
+        color: gray;
+      }
+    }
+  }
+}

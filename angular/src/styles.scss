@@ -7,6 +7,7 @@
 @import 'app/components/chordexplorer/chordexplorer.component.scss';
 @import 'app/components/chordprint/chordprint.component.scss';
 @import 'app/components/chordsection/chordsection.component.scss';
+@import 'app/components/chordsidenav/chordsidenav.component.scss';
 @import 'app/components/editsong/editsong.component.scss';
 @import 'app/components/error/error.component.scss';
 @import 'app/components/home/home.component.scss';
@@ -30,6 +31,7 @@ $theme: mat-light-theme($primary, $accent, $warn);
 @include chord-explorer-component-theme($theme);
 @include chord-print-component-theme($theme);
 @include chord-section-component-theme($theme);
+@include chord-sidenav-component-theme($theme);
 @include edit-song-component-theme($theme);
 @include sc-error-component-theme($theme);
 @include home-component-theme($theme);

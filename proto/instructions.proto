@@ -3,6 +3,8 @@ syntax = "proto3";
 package instructions;
 option go_package = "sochordspb";
 
+import "chords.proto";
+
 message StringCombination {
   string e4 = 1;
   string b = 2;
@@ -32,8 +34,9 @@ message Chord {
 
 message ChordInLyric {
   string id = 1;
-  Chord chord = 2;
+  Chord chord = 2 [deprecated = true];
   int32 offset = 3;
+  SongChord songChord = 4;
 }
 
 message ChordsAndLyrics {

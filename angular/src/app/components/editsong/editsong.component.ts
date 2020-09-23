@@ -26,6 +26,7 @@ export class EditSongComponent implements OnInit, OnDestroy {
   error? : ErrorType;
   sectionTypeEnum = songs.SongSection.SectionType;
   _songSubscription: Subscription;
+  hasChordSection = false;
   song?: songs.Song ;
 
   constructor(
@@ -50,6 +51,7 @@ export class EditSongComponent implements OnInit, OnDestroy {
             } else {
               this.receivedUpdatedSong(song);
             }
+            this._updateHasChordSection();
           },
           (error) => {
             this.state = _EditSongState.ERROR;
@@ -129,8 +131,14 @@ export class EditSongComponent implements OnInit, OnDestroy {
     this.updateSong();
   }
 
+  _updateHasChordSection() {
+    this.hasChordSection = this.song.sections.some(
+      (ss) => ss.sectionType === songs.SongSection.SectionType.CHORD_SECTION);
+  }
+
   updateSong() {
     this.song.info.latestUpdateMillis = new Date().getTime();
     this.songService.updateSong(this.song);
+    this._updateHasChordSection();
   }
 }

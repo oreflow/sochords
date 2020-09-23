@@ -24,39 +24,6 @@
     </div>
   </div>
 
-  <div *ngIf="editing">
-    <div class="chord-row">
-      <div class="chord-input-wrapper" *ngFor="let chord of chordSection.instruction.chords">
-        <button mat-icon-button (click)="removeChord(chord)">
-          <mat-icon class="chord-close-icon" 
-                    color="warn" 
-                    matTooltip="Remove Chord">close</mat-icon>
-        </button>
-        <input class="chord-name-input"
-               [attr.draggable]="editing"
-               [(ngModel)]="chord.name" 
-               [matAutocomplete]="auto"
-               scAutoWidth minSize="3"
-                           (dragstart)="newChordDragStart($event, chord)">
-        <mat-autocomplete #auto="matAutocomplete">
-          <mat-option *ngFor="let option of chordNames" 
-                           [value]="option">{{option}}</mat-option>
-        </mat-autocomplete>
-        <mat-icon [attr.draggable]="editing"
-                  class="chord-drag-icon"
-                  (dragstart)="newChordDragStart($event, chord)">drag_indicator</mat-icon>
-      </div>
-      <div>
-        <button mat-button 
-                class="add-chord-button"
-                color="accent" 
-                (click)="addChord()">
-          <mat-icon>add</mat-icon> ADD CHORD
-        </button>
-      </div>
-    </div>
-  </div>
-
   <div class="chords-and-lyrics-wrapper">
     <div class="chords-and-lyrics-row" 
          *ngFor="let cal of chordSection.instruction.chordsAndLyrics"

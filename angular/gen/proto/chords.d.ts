@@ -325,4 +325,106 @@ export namespace chords {
          */
         public toJSON(): { [k: string]: any };
     }
+
+    /** Properties of a SongChord. */
+    interface ISongChord {
+
+        /** SongChord id */
+        id?: (string|null);
+
+        /** SongChord name */
+        name?: (string|null);
+
+        /** SongChord guitarChord */
+        guitarChord?: (chords.IGuitarChord|null);
+    }
+
+    /** Represents a SongChord. */
+    class SongChord implements ISongChord {
+
+        /**
+         * Constructs a new SongChord.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: chords.ISongChord);
+
+        /** SongChord id. */
+        public id: string;
+
+        /** SongChord name. */
+        public name: string;
+
+        /** SongChord guitarChord. */
+        public guitarChord?: (chords.IGuitarChord|null);
+
+        /**
+         * Creates a new SongChord instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns SongChord instance
+         */
+        public static create(properties?: chords.ISongChord): chords.SongChord;
+
+        /**
+         * Encodes the specified SongChord message. Does not implicitly {@link chords.SongChord.verify|verify} messages.
+         * @param message SongChord message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: chords.ISongChord, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified SongChord message, length delimited. Does not implicitly {@link chords.SongChord.verify|verify} messages.
+         * @param message SongChord message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: chords.ISongChord, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a SongChord message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns SongChord
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): chords.SongChord;
+
+        /**
+         * Decodes a SongChord message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns SongChord
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): chords.SongChord;
+
+        /**
+         * Verifies a SongChord message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a SongChord message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns SongChord
+         */
+        public static fromObject(object: { [k: string]: any }): chords.SongChord;
+
+        /**
+         * Creates a plain object from a SongChord message. Also converts values to other types if specified.
+         * @param message SongChord
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: chords.SongChord, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this SongChord to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
 }

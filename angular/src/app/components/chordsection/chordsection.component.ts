@@ -5,6 +5,7 @@ import { startWith, map } from 'rxjs/operators';
 import { v4 as uuidv4 } from 'uuid';
 
 import ChordService from 'app/service/chord.service';
+import { chords } from 'gen/proto/chords';
 import { instructions } from 'gen/proto/instructions';
 import { songs } from 'gen/proto/songs';
 
@@ -73,10 +74,6 @@ export class ChordSectionComponent implements OnInit {
     this.onUpdate();
   }
 
-  newChordDragStart($event, chord: instructions.Chord) {
-    $event.dataTransfer.setData('chord', JSON.stringify(chord));
-  }
-
   existingChordDragStart($event, calId: string, cilId: string) {
     $event.dataTransfer.setData('calId', calId);
     $event.dataTransfer.setData('cilId', cilId);
@@ -112,9 +109,10 @@ export class ChordSectionComponent implements OnInit {
       cal.chordsInLyric.push({ offset, chord: dragCil.chord, id: uuidv4() });
     } else {
       // The chord was to create new.
-      const chord: instructions.Chord = JSON.parse($event.dataTransfer.getData('chord'));
+      const songChord: chords.SongChord = JSON.parse($event.dataTransfer.getData('chord'));
+      console.log(songChord);
       if (!cal.chordsInLyric) cal.chordsInLyric = [];
-      cal.chordsInLyric.push({ offset, chord, id: uuidv4() });
+      cal.chordsInLyric.push({ offset, songChord, id: uuidv4() });
     }
     this._updateChordsByOffset();
     this.onUpdate();
@@ -127,8 +125,8 @@ export class ChordSectionComponent implements OnInit {
   }
 
   removeChord(chord: instructions.Chord) {
-    const chords = this.chordSection.instruction.chords;
-    chords.splice(chords.indexOf(chord), 1);
+    const cs = this.chordSection.instruction.chords;
+    cs.splice(cs.indexOf(chord), 1);
     this.onUpdate();
   }
 

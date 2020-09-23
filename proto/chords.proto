@@ -23,3 +23,13 @@ message GuitarChord {
 message GuitarChords {
   repeated GuitarChord chords = 1;
 }
+
+message SongChord {
+  // Id is unique for this chord in this song.
+  string id = 1;
+  // Name of the chord.
+  string name = 2;
+  // Optional, set if chord is connected to GuitarChord.
+  GuitarChord guitar_chord = 3;
+}
+

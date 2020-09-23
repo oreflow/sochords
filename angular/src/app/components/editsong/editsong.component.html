@@ -2,111 +2,118 @@
   <div class="loading" *ngIf="state === states.LOADING"><mat-spinner color="accent"></mat-spinner></div>
   <div class="error" *ngIf="state === states.ERROR"><sc-error [errorType]="error"></sc-error></div>
   <div *ngIf="state === states.RUNNING">
-    <div class="basic-info">
-      <div class="header-row">
-        <h1>Basic Info</h1>
-        <button mat-icon-button 
-                color="accent" 
-                (click)="updateSong()"
-                [routerLink]="['/song', song.id]"
-                matTooltip="Done Editing"><mat-icon>check</mat-icon></button>
-      </div>
-
-      <div class="basic-info-form">
-        <div class="song-title-wrapper">
-          <mat-form-field class="song-title-field">
-            <mat-label>Title</mat-label>
-            <input matInput 
-                   [(ngModel)]="song?.info.title" 
-                   (change)="updateSong()"/>
-          </mat-form-field>
-        </div>
-        <div class="artists-wrapper">
-          <div class="artist-row" *ngFor="let artist of song?.info.artists; let i = index;">
-            <mat-form-field class="artist-name-field">
-              <mat-label>Artist {{i+1}}</mat-label>
-              <input matInput 
-                     [(ngModel)]="artist.name" 
-                     (change)="updateSong()"/>
-            </mat-form-field>
+    <mat-sidenav-container>
+      <mat-sidenav mode="side" class="chords-sidenav" [(opened)]="hasChordSection">
+        <chord-sidenav [song]="song"
+                       (updated)="updateSong()"></chord-sidenav>
+      </mat-sidenav>
+      <mat-sidenav-content>
+        <div class="basic-info">
+          <div class="header-row">
+            <h1>Basic Info</h1>
             <button mat-icon-button 
                     color="accent" 
-                    *ngIf="i > 0" 
-                    (click)="removeArtist(artist)"
-                    matTooltip="Remove Artist"><mat-icon>close</mat-icon></button>
+                    (click)="updateSong()"
+                    [routerLink]="['/song', song.id]"
+                    matTooltip="Done Editing"><mat-icon>check</mat-icon></button>
           </div>
-          <button mat-button
-                  color="accent" 
-                  (click)="addArtist()" 
-                  matTooltip="Add another artist">
-            <mat-icon>add</mat-icon>ADD ARTIST
-          </button>
+
+          <div class="basic-info-form">
+            <div class="song-title-wrapper">
+              <mat-form-field class="song-title-field">
+                <mat-label>Title</mat-label>
+                <input matInput 
+                       [(ngModel)]="song?.info.title" 
+                       (change)="updateSong()"/>
+              </mat-form-field>
+            </div>
+            <div class="artists-wrapper">
+              <div class="artist-row" *ngFor="let artist of song?.info.artists; let i = index;">
+                <mat-form-field class="artist-name-field">
+                  <mat-label>Artist {{i+1}}</mat-label>
+                  <input matInput 
+                         [(ngModel)]="artist.name" 
+                         (change)="updateSong()"/>
+                </mat-form-field>
+                <button mat-icon-button 
+                        color="accent" 
+                        *ngIf="i > 0" 
+                        (click)="removeArtist(artist)"
+                        matTooltip="Remove Artist"><mat-icon>close</mat-icon></button>
+              </div>
+              <button mat-button
+                      color="accent" 
+                      (click)="addArtist()" 
+                      matTooltip="Add another artist">
+                <mat-icon>add</mat-icon>ADD ARTIST
+              </button>
+            </div>
+            <div class="guitar-info-wrapper">
+              <mat-form-field>
+                <mat-label>Capo</mat-label>
+                <input matInput 
+                       type="number"
+                       [(ngModel)]="song?.guitarInfo.capo" 
+                       (change)="updateSong()"/>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Tuning</mat-label>
+                <input matInput 
+                       [(ngModel)]="song?.guitarInfo.tuning" 
+                       (change)="updateSong()"/>
+              </mat-form-field>
+            </div>
+          </div>
+          <div>
+          </div>
         </div>
-        <div class="guitar-info-wrapper">
-            <mat-form-field>
-              <mat-label>Capo</mat-label>
-              <input matInput 
-                     type="number"
-                     [(ngModel)]="song?.guitarInfo.capo" 
-                     (change)="updateSong()"/>
-            </mat-form-field>
-            <mat-form-field>
-              <mat-label>Tuning</mat-label>
-              <input matInput 
-                     [(ngModel)]="song?.guitarInfo.tuning" 
-                     (change)="updateSong()"/>
-            </mat-form-field>
-        </div>
-      </div>
-      <div>
-      </div>
-    </div>
-    <mat-divider></mat-divider>
-    <div class="section-info">
-      <h1>Instructions</h1>
-      <div class="song-sections">
-        <div class="section" *ngFor="let section of song?.sections">
-          <div class="section-info">
-            <mat-form-field class="section-name-field">
-              <mat-label>Section title</mat-label>
-              <input matInput 
-                     class="section-name-field"
-                     [(ngModel)]="section.info.name" 
-                     (change)="updateSectionInfo(section.id, section.info)"/>
-            </mat-form-field>
-            <button mat-icon-button 
-                    color="warn" 
-                    class="remove-section-button" 
-                    (click)="removeSection(section)" 
-                    matTooltip="Remove this section">
-              <mat-icon>close</mat-icon>
+        <mat-divider></mat-divider>
+        <div class="section-info">
+          <h1>Instructions</h1>
+          <div class="song-sections">
+            <div class="section" *ngFor="let section of song?.sections">
+              <div class="section-info">
+                <mat-form-field class="section-name-field">
+                  <mat-label>Section title</mat-label>
+                  <input matInput 
+                         class="section-name-field"
+                         [(ngModel)]="section.info.name" 
+                         (change)="updateSectionInfo(section.id, section.info)"/>
+                </mat-form-field>
+                <button mat-icon-button 
+                        color="warn" 
+                        class="remove-section-button" 
+                        (click)="removeSection(section)" 
+                        matTooltip="Remove this section">
+                  <mat-icon>close</mat-icon>
+                </button>
+              </div>
+              <div *ngIf="section.sectionType === sectionTypeEnum.TAB_SECTION" >
+                <tab-section [editing]="true"
+                        [tabSection]="section.tabSection"
+                        (updated)="updateTabSection(section.id, $event)"></tab-section>
+              </div>
+              <div *ngIf="section.sectionType === sectionTypeEnum.CHORD_SECTION" >
+                <chord-section [editing]="true"
+                        [chordSection]="section.chordSection"
+                        (updated)="updateChordSection(section.id, $event)"></chord-section>
+              </div>
+              <mat-divider></mat-divider>
+            </div>
+            <button mat-button
+                    class="add-song-section-button" 
+                    color="accent"
+                    [matMenuTriggerFor]="sectionTypeMenu"
+                    matTooltop="Add new section">
+              <mat-icon>add</mat-icon>ADD SECTION
             </button>
+            <mat-menu #sectionTypeMenu="matMenu">
+              <button mat-menu-item (click)="addSection(sectionTypeEnum.TAB_SECTION)">Tab Section</button>
+              <button mat-menu-item (click)="addSection(sectionTypeEnum.CHORD_SECTION)">Chords Section</button>
+            </mat-menu>
           </div>
-          <div *ngIf="section.sectionType === sectionTypeEnum.TAB_SECTION" >
-            <tab-section [editing]="true"
-                         [tabSection]="section.tabSection"
-                         (updated)="updateTabSection(section.id, $event)"></tab-section>
-          </div>
-          <div *ngIf="section.sectionType === sectionTypeEnum.CHORD_SECTION" >
-            <chord-section [editing]="true"
-                           [chordSection]="section.chordSection"
-                           (updated)="updateChordSection(section.id, $event)"></chord-section>
-          </div>
-          <mat-divider></mat-divider>
         </div>
-        <button mat-button
-                class="add-song-section-button" 
-                color="accent"
-                [matMenuTriggerFor]="sectionTypeMenu"
-                matTooltop="Add new section">
-          <mat-icon>add</mat-icon>ADD SECTION
-        </button>
-        <mat-menu #sectionTypeMenu="matMenu">
-          <button mat-menu-item (click)="addSection(sectionTypeEnum.TAB_SECTION)">Tab Section</button>
-          <button mat-menu-item (click)="addSection(sectionTypeEnum.CHORD_SECTION)">Chords Section</button>
-        </mat-menu>
-      </div>
-      <div>
-    </div>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
   </div>
 </div>

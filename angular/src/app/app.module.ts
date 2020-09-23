@@ -1,4 +1,3 @@
-
 import { AngularFireAnalyticsModule } from '@angular/fire/analytics';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -20,9 +19,11 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
@@ -34,6 +35,7 @@ import { AuthComponent } from './components/auth/auth.component';
 import { ChordExplorerComponent } from 'app/components/chordexplorer/chordexplorer.component';
 import { ChordPrintComponent } from 'app/components/chordprint/chordprint.component';
 import { ChordSectionComponent } from 'app/components/chordsection/chordsection.component';
+import { ChordSidenavComponent } from 'app/components/chordsidenav/chordsidenav.component';
 import { EditSongComponent } from 'app/components/editsong/editsong.component';
 import { ErrorComponent } from 'app/components/error/error.component';
 import { HomeComponent } from 'app/components/home/home.component';
@@ -57,6 +59,7 @@ import 'firebase/storage';
     ChordExplorerComponent,
     ChordPrintComponent,
     ChordSectionComponent,
+    ChordSidenavComponent,
     EditSongComponent,
     ErrorComponent,
     HomeComponent,
@@ -88,8 +91,10 @@ import 'firebase/storage';
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
+    MatListModule,
     MatMenuModule,
     MatProgressSpinnerModule,
+    MatSidenavModule,
     MatSnackBarModule,
     MatToolbarModule,
     MatTooltipModule,

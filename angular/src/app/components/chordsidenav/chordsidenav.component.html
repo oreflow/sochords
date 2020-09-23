@@ -1,0 +1,37 @@
+<div class="chord-sidenav-root">
+  <mat-list>
+    <div mat-subheader>Chords</div>
+    <mat-divider></mat-divider>
+
+    <mat-list-item 
+         *ngFor="let chord of song.chords" 
+         class="chord-list-item"
+         draggable="true"
+         (dragstart)="newChordDragStart($event, chord)">
+
+      <mat-icon matListIcon>drag_indicator</mat-icon>
+      <div mat-line>
+        {{chord.name}}
+      </div>
+
+      <button mat-icon-button 
+              [matMenuTriggerFor]="menu" 
+              class="menu-button"><mat-icon>more_vert</mat-icon></button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="removeChord(chord)">Remove</button>
+      </mat-menu>
+    </mat-list-item>
+
+    <mat-list-item>
+      <button mat-button color="accent"><mat-icon>add</mat-icon>ADD CHORD</button>
+    </mat-list-item>
+  </mat-list>
+  <!--
+        <input class="chord-name-input"
+               [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let option of chordNames" 
+                           [value]="option">{{option}}</mat-option>
+        </mat-autocomplete>
+  -->
+</div>

@@ -805,6 +805,243 @@ $root.chords = (function() {
         return GuitarChords;
     })();
 
+    chords.SongChord = (function() {
+
+        /**
+         * Properties of a SongChord.
+         * @memberof chords
+         * @interface ISongChord
+         * @property {string|null} [id] SongChord id
+         * @property {string|null} [name] SongChord name
+         * @property {chords.IGuitarChord|null} [guitarChord] SongChord guitarChord
+         */
+
+        /**
+         * Constructs a new SongChord.
+         * @memberof chords
+         * @classdesc Represents a SongChord.
+         * @implements ISongChord
+         * @constructor
+         * @param {chords.ISongChord=} [properties] Properties to set
+         */
+        function SongChord(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * SongChord id.
+         * @member {string} id
+         * @memberof chords.SongChord
+         * @instance
+         */
+        SongChord.prototype.id = "";
+
+        /**
+         * SongChord name.
+         * @member {string} name
+         * @memberof chords.SongChord
+         * @instance
+         */
+        SongChord.prototype.name = "";
+
+        /**
+         * SongChord guitarChord.
+         * @member {chords.IGuitarChord|null|undefined} guitarChord
+         * @memberof chords.SongChord
+         * @instance
+         */
+        SongChord.prototype.guitarChord = null;
+
+        /**
+         * Creates a new SongChord instance using the specified properties.
+         * @function create
+         * @memberof chords.SongChord
+         * @static
+         * @param {chords.ISongChord=} [properties] Properties to set
+         * @returns {chords.SongChord} SongChord instance
+         */
+        SongChord.create = function create(properties) {
+            return new SongChord(properties);
+        };
+
+        /**
+         * Encodes the specified SongChord message. Does not implicitly {@link chords.SongChord.verify|verify} messages.
+         * @function encode
+         * @memberof chords.SongChord
+         * @static
+         * @param {chords.ISongChord} message SongChord message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        SongChord.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.id != null && message.hasOwnProperty("id"))
+                writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+            if (message.name != null && message.hasOwnProperty("name"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.name);
+            if (message.guitarChord != null && message.hasOwnProperty("guitarChord"))
+                $root.chords.GuitarChord.encode(message.guitarChord, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified SongChord message, length delimited. Does not implicitly {@link chords.SongChord.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof chords.SongChord
+         * @static
+         * @param {chords.ISongChord} message SongChord message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        SongChord.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a SongChord message from the specified reader or buffer.
+         * @function decode
+         * @memberof chords.SongChord
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {chords.SongChord} SongChord
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        SongChord.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.chords.SongChord();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.id = reader.string();
+                    break;
+                case 2:
+                    message.name = reader.string();
+                    break;
+                case 3:
+                    message.guitarChord = $root.chords.GuitarChord.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a SongChord message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof chords.SongChord
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {chords.SongChord} SongChord
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        SongChord.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a SongChord message.
+         * @function verify
+         * @memberof chords.SongChord
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        SongChord.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (!$util.isString(message.id))
+                    return "id: string expected";
+            if (message.name != null && message.hasOwnProperty("name"))
+                if (!$util.isString(message.name))
+                    return "name: string expected";
+            if (message.guitarChord != null && message.hasOwnProperty("guitarChord")) {
+                var error = $root.chords.GuitarChord.verify(message.guitarChord);
+                if (error)
+                    return "guitarChord." + error;
+            }
+            return null;
+        };
+
+        /**
+         * Creates a SongChord message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof chords.SongChord
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {chords.SongChord} SongChord
+         */
+        SongChord.fromObject = function fromObject(object) {
+            if (object instanceof $root.chords.SongChord)
+                return object;
+            var message = new $root.chords.SongChord();
+            if (object.id != null)
+                message.id = String(object.id);
+            if (object.name != null)
+                message.name = String(object.name);
+            if (object.guitarChord != null) {
+                if (typeof object.guitarChord !== "object")
+                    throw TypeError(".chords.SongChord.guitarChord: object expected");
+                message.guitarChord = $root.chords.GuitarChord.fromObject(object.guitarChord);
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a SongChord message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof chords.SongChord
+         * @static
+         * @param {chords.SongChord} message SongChord
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        SongChord.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.id = "";
+                object.name = "";
+                object.guitarChord = null;
+            }
+            if (message.id != null && message.hasOwnProperty("id"))
+                object.id = message.id;
+            if (message.name != null && message.hasOwnProperty("name"))
+                object.name = message.name;
+            if (message.guitarChord != null && message.hasOwnProperty("guitarChord"))
+                object.guitarChord = $root.chords.GuitarChord.toObject(message.guitarChord, options);
+            return object;
+        };
+
+        /**
+         * Converts this SongChord to JSON.
+         * @function toJSON
+         * @memberof chords.SongChord
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        SongChord.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return SongChord;
+    })();
+
     return chords;
 })();
 
