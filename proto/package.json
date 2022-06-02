@@ -7,6 +7,6 @@
   "private": true,
   "dependencies": {},
   "devDependencies": {
-    "protobufjs": "^6.8.9"
+    "protobufjs": "^6.11.3"
   }
 }
